@@ -1,0 +1,2 @@
+description = "Applies consistent, professional styling to artifacts or creates new themes."
+prompt = "Use the theme-factory skill to apply consistent, professional styling to artifacts or create new themes. This skill provides a set of pre-defined themes and a way to create new custom themes. Refer to the SKILL.md file for detailed instructions on how to use the themes and create new ones."

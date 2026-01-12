@@ -1,0 +1,2 @@
+description = "Guides users through a structured 3-stage workflow for co-authoring high-quality documentation."
+prompt = "Act as an active guide to co-author a document with the user. Follow the 3-stage workflow defined in `doc-coauthoring/SKILL.md`: 1) Context Gathering (ask meta-questions, then clarifying questions), 2) Refinement & Structure (brainstorm, curate, draft, refine section-by-section), and 3) Reader Testing (simulate reader questions). Do not skip stages unless requested. Use the 'doc-coauthoring' skill guidelines."

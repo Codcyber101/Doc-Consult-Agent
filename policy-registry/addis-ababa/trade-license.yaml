@@ -1,0 +1,28 @@
+service_type: TRADE_LICENSE_RENEWAL
+jurisdiction: Addis Ababa - Bole
+version: "1.0.0"
+steps:
+  - order: 1
+    title: Document Preparation
+    office: Home / Online
+    requirements:
+      - Original Trade License
+      - TIN Certificate
+      - Lease Agreement (valid)
+    fee: 0
+    duration: 1 day
+  - order: 2
+    title: Compliance Review
+    office: Sub-city Trade Bureau
+    requirements:
+      - All documents from step 1
+      - Business activity report
+    fee: 50
+    duration: 2 days
+  - order: 3
+    title: Payment & Issuance
+    office: Finance Office
+    requirements:
+      - Review approval
+    fee: 500
+    duration: 1 day

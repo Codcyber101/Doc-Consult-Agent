@@ -1,0 +1,2 @@
+description = "Guides the creation of high-quality MCP (Model Context Protocol) servers."
+prompt = "Use the mcp-builder skill to create high-quality MCP servers. This skill provides a comprehensive guide for designing, implementing, and evaluating MCP servers in both Python and Node/TypeScript. Follow the four-phase process: Deep Research and Planning, Implementation, Review and Refine, and Create Evaluations. Refer to the SKILL.md file and the associated reference documents for detailed instructions."

@@ -1,0 +1,2 @@
+description = "Creates animated GIFs for Slack."
+prompt = "Use the slack-gif-creator skill to create animated GIFs optimized for Slack. This skill provides a toolkit for creating GIFs with validators for size constraints and composable animation primitives. Refer to the SKILL.md file for detailed instructions on how to use the validators, animation primitives, and helper utilities."

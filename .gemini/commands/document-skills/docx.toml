@@ -1,0 +1,2 @@
+description = "Performs comprehensive document creation, editing, and analysis for .docx files."
+prompt = "Use the docx skill to work with .docx files. This skill can be used for creating new documents, modifying existing documents, working with tracked changes, adding comments, and extracting text. Refer to the SKILL.md file for detailed workflows and instructions."

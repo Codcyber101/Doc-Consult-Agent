@@ -1,0 +1,2 @@
+description = "Builds complex HTML artifacts with React and other modern web technologies."
+prompt = "Use the artifacts-builder skill to create complex HTML artifacts. This skill uses React, TypeScript, Vite, Parcel, Tailwind CSS, and shadcn/ui. Follow the steps in the SKILL.md file: initialize the project, develop the artifact, and then bundle it into a single HTML file."

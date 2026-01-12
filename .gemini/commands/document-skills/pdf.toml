@@ -1,0 +1,2 @@
+description = "Provides comprehensive PDF manipulation for extracting text, creating new PDFs, merging/splitting, and handling forms."
+prompt = "Use the pdf skill to work with .pdf files. This skill can be used for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. Refer to the SKILL.md file for detailed workflows and instructions."

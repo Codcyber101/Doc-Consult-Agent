@@ -1,0 +1,2 @@
+description = "Creates algorithmic art using p5.js."
+prompt = "Use the algorithmic-art skill to create generative art. The user might provide a theme or concept. Create an algorithmic philosophy and then implement it as a self-contained HTML file using p5.js. Make sure to follow the instructions in the SKILL.md file for algorithmic-art."

@@ -1,0 +1,2 @@
+description = "Provides guidance for creating effective skills."
+prompt = "Use the skill-creator skill to create new skills or update existing ones. This skill provides a step-by-step process for creating skills, including understanding the skill with concrete examples, planning the reusable skill contents, initializing the skill, editing the skill, and packaging the skill. Refer to the SKILL.md file for detailed instructions."

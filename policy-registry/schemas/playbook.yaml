@@ -1,0 +1,34 @@
+title: Playbook Schema
+type: object
+properties:
+  id:
+    type: string
+  service_type:
+    type: string
+  jurisdiction:
+    type: string
+  version:
+    type: string
+  steps:
+    type: array
+    items:
+      type: object
+      properties:
+        order:
+          type: integer
+        title:
+          type: string
+        office:
+          type: string
+        requirements:
+          type: array
+          items:
+            type: string
+        fee:
+          type: number
+        duration:
+          type: string
+required:
+  - service_type
+  - jurisdiction
+  - steps
