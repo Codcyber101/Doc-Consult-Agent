@@ -1,4 +1,5 @@
 services:
+  # Infrastructure
   postgres:
     image: postgres:15-alpine
     environment:
@@ -9,6 +10,12 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d govassist"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 20s
 
   redis:
     image: redis:7-alpine
@@ -39,7 +46,8 @@ services:
       - "7233:7233"
       - "8233:8233"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
 
   weaviate:
     image: semitechnologies/weaviate:1.23.7
@@ -51,6 +59,48 @@ services:
       PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
       DEFAULT_VECTORIZER_MODULE: 'none'
       CLUSTER_HOSTNAME: 'node1'
+
+  # Applications
+  backend:
+    build: ./backend
+    ports:
+      - "3001:3000"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: user
+      DB_PASSWORD: password
+      DB_NAME: govassist
+      TEMPORAL_HOST: temporal:7233
+      MINIO_ENDPOINT: minio
+      MINIO_PORT: 9000
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      minio:
+        condition: service_started
+      temporal:
+        condition: service_started
+
+  ui:
+    build: ./ui
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - backend
+
+  agents:
+    build: ./agents
+    environment:
+      TEMPORAL_HOST: temporal:7233
+    depends_on:
+      - temporal
 
 volumes:
   postgres_data:

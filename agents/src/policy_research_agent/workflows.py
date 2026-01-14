@@ -2,8 +2,7 @@ from datetime import timedelta
 from temporalio import workflow
 from temporalio.common import RetryPolicy
 
-with workflow.unsafe.imports_passed():
-    from .graph import create_graph
+from .graph import create_graph
 
 @workflow.defn
 class ResearchWorkflow:
