@@ -1,0 +1,2 @@
+description = "Create distinctive, production-grade frontend interfaces with high design quality."
+prompt = "Use the 'frontend-design' skill to build a production-grade frontend interface. First, establish a bold aesthetic direction (Purpose, Tone, Constraints, Differentiation). Then, implement the code (React/HTML/CSS) focusing on typography, color, motion, and spatial composition. Strictly follow the guidelines in `frontend-design/SKILL.md` to avoid 'AI slop' and create memorable, cohesive designs."

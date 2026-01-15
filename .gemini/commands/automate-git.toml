@@ -1,0 +1,2 @@
+description = "Automates the process of staging files and creating a Conventional Commit based on changes."
+prompt = "Use the 'git-commit-automator' skill to create a git commit. Run the `create_commit.py` script as described in `git-commit-automator/SKILL.md`. This will stage all files, generate a conventional commit message, and commit the changes. Ensure you are in the correct repository before running."

@@ -1,0 +1,106 @@
+openapi: 3.1.0
+info:
+  title: GovAssist Ethiopia API
+  version: 1.0.0
+  description: API for document analysis, compliance checking, and government service submission.
+servers:
+  - url: https://api.govassist.et/v1
+    description: Production Server
+  - url: http://localhost:3000/v1
+    description: Local Development
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Document:
+      $ref: '../schemas/document.schema.json'
+    ComplianceReport:
+      $ref: '../schemas/compliance.schema.json'
+
+paths:
+  /documents/upload:
+    post:
+      summary: Upload a document for analysis
+      operationId: uploadDocument
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                job_id:
+                  type: string
+                  format: uuid
+      responses:
+        '201':
+          description: Document uploaded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  document_id:
+                    type: string
+                    format: uuid
+
+  /documents/{documentId}/analyze:
+    post:
+      summary: Start analysis workflow for a document
+      operationId: analyzeDocument
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: documentId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '202':
+          description: Analysis started
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  analysis_id:
+                    type: string
+                    format: uuid
+
+  /analysis/{analysisId}:
+    get:
+      summary: Get analysis results
+      operationId: getAnalysis
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: analysisId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Analysis results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [PROCESSING, COMPLETED, FAILED]
+                  results:
+                    $ref: '#/components/schemas/ComplianceReport'

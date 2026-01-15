@@ -1,0 +1,2 @@
+description = "Assists in writing various types of internal communications."
+prompt = "Use the internal-comms skill to write internal communications like status reports, leadership updates, 3P updates, company newsletters, and FAQs. Identify the communication type and load the appropriate guideline file from the examples/ directory. Follow the instructions in that file for formatting, tone, and content."

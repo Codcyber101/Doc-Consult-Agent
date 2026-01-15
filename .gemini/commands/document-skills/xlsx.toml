@@ -1,0 +1,2 @@
+description = "Performs comprehensive spreadsheet creation, editing, and analysis for .xlsx files."
+prompt = "Use the xlsx skill to work with .xlsx files. This skill can be used for creating new spreadsheets with formulas and formatting, reading or analyzing data, modifying existing spreadsheets while preserving formulas, data analysis and visualization, and recalculating formulas. Refer to the SKILL.md file for detailed workflows and instructions."

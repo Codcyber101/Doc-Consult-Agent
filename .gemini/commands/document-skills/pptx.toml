@@ -1,0 +1,2 @@
+description = "Performs presentation creation, editing, and analysis for .pptx files."
+prompt = "Use the pptx skill to work with .pptx files. This skill can be used for creating new presentations, modifying existing presentations, working with layouts, and adding comments or speaker notes. Refer to the SKILL.md file for detailed workflows and instructions."

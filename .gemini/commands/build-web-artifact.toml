@@ -1,0 +1,2 @@
+description = "Builds complex, multi-component React/Tailwind/shadcn web artifacts bundled into a single HTML file."
+prompt = "Use the 'web-artifacts-builder' skill to create a complex web artifact. Follow the steps in `web-artifacts-builder/SKILL.md`: 1) Initialize with `scripts/init-artifact.sh`, 2) Develop the React application (editing files), 3) Bundle with `scripts/bundle-artifact.sh`. Ensure the final output is a single `bundle.html` file."

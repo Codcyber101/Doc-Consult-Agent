@@ -1,0 +1,2 @@
+description = "Creates visual art in .png and .pdf documents using design philosophy."
+prompt = "Use the canvas-design skill to create visual art. The user might provide a theme or concept. Create a design philosophy and then implement it as a self-contained .png or .pdf file. Make sure to follow the instructions in the SKILL.md file for canvas-design."

@@ -1,0 +1,2 @@
+description = "Provides a toolkit for interacting with and testing local web applications using Playwright."
+prompt = "Use the webapp-testing skill to test local web applications. This skill uses Playwright to verify frontend functionality, debug UI behavior, capture browser screenshots, and view browser logs. Refer to the SKILL.md file for detailed instructions on how to use the provided scripts and best practices."

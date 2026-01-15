@@ -1,0 +1,2 @@
+description = "Applies Anthropic's official brand colors and typography."
+prompt = "Use the brand-guidelines skill to apply Anthropic's brand styles to artifacts. This includes using the correct colors (dark, light, mid gray, light gray, orange, blue, green) and typography (Poppins for headings, Lora for body text). Refer to the SKILL.md file for specific color values and font usage."

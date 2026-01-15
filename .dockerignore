@@ -1,0 +1,14 @@
+node_modules/
+.next/
+dist/
+build/
+venv/
+.venv/
+__pycache__/
+.git/
+.gitignore
+Dockerfile
+docker-compose.yml
+*.log
+.env*
+EOF

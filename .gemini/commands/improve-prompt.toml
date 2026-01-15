@@ -1,0 +1,2 @@
+description = "Refines and optimizes prompts for higher quality agent responses."
+prompt = "Use the prompt-improver skill to analyze the user's input and generate an optimized prompt. Follow the workflow in prompt-improver/SKILL.md: Analyze for missing elements, select a strategy (Feature, Bug, etc.), and rewrite the prompt with clear structure, context, and constraints. Always explain *why* the changes were made."

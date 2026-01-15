@@ -1,0 +1,2 @@
+description = "Extracts metadata and transcripts from YouTube videos and formats them into an Obsidian note."
+prompt = "Use the 'youtube-extractor' skill to process a YouTube video. Run `python scripts/extract_youtube.py <URL>` to get the data, then format it into an Obsidian note using the template `obsidian-templates/templates/youtube-video-notes/advanced.md`, filling in placeholders like {{date}}, {{title}}, {{transcript}}, etc., as described in `youtube-extractor/SKILL.md`."

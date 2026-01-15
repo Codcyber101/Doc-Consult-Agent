@@ -1,0 +1,2 @@
+description = "Generates and validates Obsidian note templates for various productivity, academic, and personal workflows."
+prompt = "Use the 'obsidian-templates' skill to create a new Obsidian template. Ask the user for the template type (e.g., daily-notes, meeting-notes, etc.) if not provided. Run `python scripts/generate_template.py --type <type>` as described in `obsidian-templates/SKILL.md`. You can also validate templates or export them."
