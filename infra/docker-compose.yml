@@ -59,10 +59,15 @@ services:
       PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
       DEFAULT_VECTORIZER_MODULE: 'none'
       CLUSTER_HOSTNAME: 'node1'
+    volumes:
+      - weaviate_data:/var/lib/weaviate
 
   # Applications
   backend:
-    build: ./backend
+    image: govassist-backend:dev
+    build:
+      context: ../backend
+    command: npm run start:dev
     ports:
       - "3001:3000"
     environment:
@@ -85,23 +90,41 @@ services:
         condition: service_started
       temporal:
         condition: service_started
+    volumes:
+      - ../backend:/app
+      - /app/node_modules
 
   ui:
-    build: ./ui
+    image: govassist-ui:dev
+    build:
+      context: ../ui
+    command: npm run dev
     ports:
       - "3000:3000"
     environment:
       NODE_ENV: development
     depends_on:
       - backend
+    volumes:
+      - ../ui:/app
+      - /app/node_modules
 
   agents:
-    build: ./agents
+    image: govassist-agents:dev
+    build:
+      context: ../agents
     environment:
       TEMPORAL_HOST: temporal:7233
+      PYTHONPATH: /app
     depends_on:
       - temporal
+    volumes:
+      - ../agents:/app
 
 volumes:
   postgres_data:
+    name: govassist-postgres-data
   minio_data:
+    name: govassist-minio-data
+  weaviate_data:
+    name: govassist-weaviate-data
