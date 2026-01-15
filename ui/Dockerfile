@@ -6,7 +6,7 @@ WORKDIR /app
 ENV CYPRESS_INSTALL_BINARY=0
 
 COPY package*.json ./
-RUN npm ci --include=dev
+RUN npm install
 
 COPY . .
 RUN ./node_modules/.bin/next --version
