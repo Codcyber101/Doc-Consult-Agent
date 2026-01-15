@@ -1,36 +1,47 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Ethiopic:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Ethiopic:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #F5F2ED;
-  --foreground: #1A1C1E;
+  --background: #F8FAFC; /* Slate 50 */
+  --foreground: #0F172A; /* Slate 900 */
+}
+
+@media (prefers-color-scheme: dark) {
+  /* Currently forcing Light Mode for the initial "Sovereign Utility" look as per plan. 
+     Dark mode can be enabled later if needed, but typically government apps prioritize 
+     clarity in light mode first. */
+  :root {
+     --background: #F8FAFC; 
+     --foreground: #0F172A;
+  }
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-feature-settings: "ss01", "ss02", "cv01", "cv03";
+  font-family: 'Inter', 'Noto Sans Ethiopic', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-  
-  .ethio-pattern {
-    background-color: #F5F2ED;
-    background-image: radial-gradient(#006747 0.5px, transparent 0.5px);
-    background-size: 24px 24px;
-    background-position: 0 0;
-  }
+/* Custom Scrollbar for a cleaner look */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-.glass-morphism {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }

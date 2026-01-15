@@ -38,14 +38,14 @@ export function SyncStatus() {
           className={`
             px-6 py-3 rounded-full shadow-2xl border flex items-center gap-3 backdrop-blur-md pointer-events-auto
             ${isOnline 
-              ? 'bg-sovereign-slate/90 text-white border-white/10' 
-              : 'bg-sovereign-red text-white border-white/20'}
+              ? 'bg-slate-900/90 text-white border-white/10' 
+              : 'bg-red-earth text-white border-white/20'}
           `}
         >
           {isSyncing ? (
-            <RefreshCw className="w-4 h-4 text-sovereign-gold animate-spin" />
+            <RefreshCw className="w-4 h-4 text-gold-400 animate-spin" />
           ) : isOnline ? (
-            <ShieldCheck className="w-4 h-4 text-sovereign-green" />
+            <ShieldCheck className="w-4 h-4 text-emerald-400" />
           ) : (
             <WifiOff className="w-4 h-4 text-white" />
           )}
