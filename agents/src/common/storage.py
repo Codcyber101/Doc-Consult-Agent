@@ -1,28 +1,38 @@
+import weaviate
 import os
-from typing import BinaryIO
-from agents.src.common.config import settings
+from weaviate.classes.config import Property, DataType, Configure
 
-class StorageClient:
-    """
-    Client for sovereign object storage (MinIO).
-    """
-    
-    def __init__(self):
-        # In a real implementation, we would use 'boto3' or 'minio' python SDK
-        self.endpoint = settings.MINIO_URL
-        self.access_key = settings.MINIO_ACCESS_KEY
-        self.secret_key = settings.MINIO_SECRET_KEY
+class WeaviateStorage:
+    def __init__(self, url=None):
+        self.url = url or os.getenv("WEAVIATE_URL", "http://localhost:8080")
+        self.client = weaviate.connect_to_local(
+            host="localhost",
+            port=8080,
+            grpc_port=50051
+        )
 
-    def upload_file(self, file_obj: BinaryIO, bucket: str, object_name: str) -> str:
-        """Uploads a file and returns its internal path/URI."""
-        # Placeholder for SDK call
-        path = f"s3://{bucket}/{object_name}"
-        print(f"[STORAGE] Uploaded to {path}")
-        return path
+    def init_schema(self):
+        """Initializes the RegulationSnippet class in Weaviate."""
+        if self.client.collections.exists("RegulationSnippet"):
+            return
 
-    def get_file(self, bucket: str, object_name: str) -> bytes:
-        """Retrieves file content."""
-        # Placeholder for SDK call
-        return b"file_content"
+        self.client.collections.create(
+            name="RegulationSnippet",
+            properties=[
+                Property(name="document_id", data_type=DataType.TEXT),
+                Property(name="content", data_type=DataType.TEXT),
+                Property(name="metadata", data_type=DataType.TEXT), # JSON stringified
+            ],
+            vectorizer_config=Configure.Vectorizer.none() # We will provide vectors or use native BM25
+        )
 
-storage = StorageClient()
+    def close(self):
+        self.client.close()
+
+if __name__ == "__main__":
+    storage = WeaviateStorage()
+    try:
+        storage.init_schema()
+        print("Weaviate schema initialized successfully.")
+    finally:
+        storage.close()

@@ -1,77 +1,49 @@
-from typing import TypedDict, List, Annotated
-import operator
+from typing import TypedDict, List
 from langgraph.graph import StateGraph, END
-
-from .tools import is_domain_allowed
 
 class AgentState(TypedDict):
     query: str
     urls: List[str]
-    documents: List[str]
-    draft_policy: str
-    sources: List[dict]
-    confidence_score: float
-    allowlist: List[str]
+    raw_text: str
+    draft_yaml: str
+    is_valid: bool
+    iterations: int
 
-def research_node(state: AgentState):
-    # Mocking search results for now
-    search_results = [
-        {"url": "https://trade.gov.et/laws", "snippet": "Legal text about trade..."},
-        {"url": "https://malicious-blog.com/fake-laws", "snippet": "Fake info..."}
-    ]
-    
-    allowlist = state.get("allowlist", [])
-    filtered_sources = []
-    for source in search_results:
-        if is_domain_allowed(source["url"], allowlist):
-            filtered_sources.append(source)
-    
-    if not filtered_sources and search_results:
-        # All found sources were blocked by allowlist
-        raise ValueError(f"Security Error: All search results were blocked by the domain allowlist. Query: {state['query']}")
-            
-    return {"sources": filtered_sources, "urls": [s["url"] for s in filtered_sources]}
+def search_node(state: AgentState):
+    """Searches for relevant URLs."""
+    # Mocking search results
+    query = state["query"]
+    return {"urls": [f"https://ethiopian-law.com/{query.replace(' ', '-')}"], "iterations": state.get("iterations", 0) + 1}
 
-def draft_node(state: AgentState):
-    sources = state.get("sources", [])
-    
-    # Simulate LLM extracting rules and assigning confidence
-    draft_content = {
-        "title": f"Policy Draft for {state['query']}",
-        "rules": [
-            {
-                "id": "R001",
-                "text": "Requirement extracted from search results.",
-                "confidence": 0.92,
-                "citation": sources[0]["url"] if sources else "N/A"
-            }
-        ]
-    }
-    
-    # Prepare source bundle for US2
-    source_bundle = []
-    for s in sources:
-        source_bundle.append({
-            "url": s["url"],
-            "snippet": s["snippet"],
-            "confidence": 0.95 # Simulated source reliability
-        })
+def extract_node(state: AgentState):
+    """Extracts text from URLs."""
+    # Mocking extraction
+    return {"raw_text": f"Raw content about {state['query']} extracted from {state['urls']}"}
 
-    return {
-        "draft_policy": str(draft_content), 
-        "sources": source_bundle,
-        "confidence_score": 0.92
-    }
+def validate_node(state: AgentState):
+    """Validates the extracted content."""
+    # Simple validation heuristic
+    is_valid = len(state["raw_text"]) > 10
+    return {"is_valid": is_valid}
 
-def create_graph():
+def build_research_graph():
     workflow = StateGraph(AgentState)
-    
-    workflow.add_node("research", research_node)
-    workflow.add_node("draft", draft_node)
-    
-    workflow.set_entry_point("research")
-    workflow.add_edge("research", "draft")
-    workflow.add_edge("draft", END)
-    
-    return workflow.compile()
 
+    workflow.add_node("search", search_node)
+    workflow.add_node("extract", extract_node)
+    workflow.add_node("validate", validate_node)
+
+    workflow.set_entry_point("search")
+    workflow.add_edge("search", "extract")
+    workflow.add_edge("extract", "validate")
+
+    workflow.add_conditional_edges(
+        "validate",
+        lambda x: "generate" if x["is_valid"] else "search",
+        {
+            "generate": END, # We'll handle generation in workflows.py or a next node
+            "search": "search"
+        }
+    )
+
+    return workflow.compile()

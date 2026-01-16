@@ -1,27 +1,32 @@
-from typing import List, Dict, Any
-from agents.src.common.config import settings
+from typing import List, Dict
+import weaviate
+import os
 
-class RegulationExpert:
-    """
-    Retrieves relevant government regulations and policy snippets
-    using RAG (Retrieval-Augmented Generation).
-    """
-    
-    def __init__(self):
-        self.weaviate_url = settings.WEAVIATE_URL
+class HybridRetriever:
+    def __init__(self, collection_name: str = "RegulationSnippet"):
+        self.collection_name = collection_name
+        self.client = weaviate.connect_to_local()
 
-    async def get_relevant_regulations(self, document_type: str, query: str) -> List[Dict[str, Any]]:
-        """
-        Retrieves relevant clauses from the policy registry.
-        """
-        # Mock retrieval results
-        return [
-            {
-                "id": "REG-IMM-001",
-                "title": "Passport Validity Requirement",
-                "content": "A passport must be valid for at least 6 months for renewal applications.",
-                "source": "Immigration Proclamation 2023"
-            }
-        ]
+    def retrieve(self, query: str, limit: int = 5) -> List[Dict]:
+        """Performs hybrid search (Vector + BM25)."""
+        collection = self.client.collections.get(self.collection_name)
+        
+        # Hybrid search using Weaviate v4 API
+        response = collection.query.hybrid(
+            query=query,
+            limit=limit,
+            alpha=0.5 # Balance between Vector (1.0) and BM25 (0.0)
+        )
+        
+        results = []
+        for obj in response.objects:
+            results.append({
+                "id": str(obj.uuid),
+                "content": obj.properties.get("content"),
+                "document_id": obj.properties.get("document_id"),
+                "metadata": obj.properties.get("metadata")
+            })
+        return results
 
-regulation_expert = RegulationExpert()
+    def close(self):
+        self.client.close()

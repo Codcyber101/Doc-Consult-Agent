@@ -1,29 +1,43 @@
-from typing import List
-from langchain_community.tools.tavily_search import TavilySearchResults
-from langchain_community.document_loaders import AsyncHtmlLoader, PyPDFLoader
-from langchain_community.document_transformers import Html2TextTransformer
+import requests
+from bs4 import BeautifulSoup
+from typing import List, Dict
+import re
 
-def get_search_tool():
-    return TavilySearchResults(max_results=5)
+class PolicyCrawlTool:
+    def __init__(self, allowlist: List[str] = None):
+        self.allowlist = allowlist or [
+            "nbe.gov.et",
+            "ethiopian-law.com",
+            "chilot.me",
+            "addisababa.gov.et"
+        ]
 
-async def scrape_urls(urls: List[str]):
-    loader = AsyncHtmlLoader(urls)
-    docs = loader.load()
-    html2text = Html2TextTransformer()
-    return html2text.transform_documents(docs)
+    def is_allowed(self, url: str) -> bool:
+        """Checks if the URL is in the allowlist."""
+        return any(domain in url for domain in self.allowlist)
 
-def load_pdf(file_path: str):
-    loader = PyPDFLoader(file_path)
-    return loader.load()
+    def crawl_text(self, url: str) -> str:
+        """Fetches and extracts text from a URL if allowed."""
+        if not self.is_allowed(url):
+            raise ValueError(f"URL {url} is not in the allowlist.")
 
-def is_domain_allowed(url: str, allowlist: List[str]) -> bool:
-    from urllib.parse import urlparse
-    domain = urlparse(url).netloc
-    for allowed in allowlist:
-        if allowed.startswith("*."):
-            suffix = allowed[2:]
-            if domain == suffix or domain.endswith("." + suffix):
-                return True
-        elif domain == allowed:
-            return True
-    return False
+        try:
+            response = requests.get(url, timeout=10)
+            response.raise_for_status()
+            
+            if "application/pdf" in response.headers.get("Content-Type", ""):
+                return "[PDF content extraction not implemented in this stub]"
+            
+            soup = BeautifulSoup(response.text, "html.parser")
+            # Remove script and style elements
+            for script in soup(["script", "style"]):
+                script.decompose()
+            
+            return soup.get_text(separator=' ', strip=True)
+        except Exception as e:
+            return f"Error crawling {url}: {str(e)}"
+
+    def search_topics(self, topic: str) -> List[str]:
+        """Mock search for relevant URLs on a topic."""
+        # In production, this would use a search engine API restricted to the allowlist
+        return [f"https://ethiopian-law.com/search?q={topic.replace(' ', '+')}"]
