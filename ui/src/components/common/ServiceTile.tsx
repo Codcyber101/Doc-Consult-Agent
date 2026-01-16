@@ -2,6 +2,7 @@ import React from 'react';
 import { Badge } from './Badge';
 import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
 
 interface ServiceTileProps {
   title: string;
@@ -11,41 +12,60 @@ interface ServiceTileProps {
   disabled?: boolean;
   onClick?: () => void;
   className?: string;
+  index?: number;
 }
 
-export const ServiceTile = ({ title, description, icon, isPopular, disabled, onClick, className }: ServiceTileProps) => {
+export const ServiceTile = ({ title, description, icon, isPopular, disabled, onClick, className, index = 0 }: ServiceTileProps) => {
   return (
-    <div 
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: index * 0.1 }}
+      whileHover={!disabled ? { y: -5, transition: { duration: 0.2 } } : {}}
       onClick={!disabled ? onClick : undefined}
       role={onClick ? "button" : undefined}
       className={cn(
-        "group relative text-left p-6 rounded-2xl border transition-all duration-300 w-full select-none",
+        "group relative text-left p-8 rounded-[2rem] border transition-all duration-300 w-full select-none overflow-hidden",
         disabled 
           ? "bg-slate-50 border-slate-200 opacity-70 cursor-not-allowed" 
-          : "bg-white border-slate-200 hover:border-emerald-500/30 hover:shadow-lg-soft hover:-translate-y-1 cursor-pointer",
+          : "bg-white border-slate-200 hover:border-emerald-500/20 hover:shadow-sovereign cursor-pointer",
         className
       )}
     >
-      <div className="flex items-start justify-between mb-4">
+      {/* Subtle Background Pattern or Gradient */}
+      <div className="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 bg-emerald-50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-3xl -z-10"></div>
+      
+      <div className="flex items-start justify-between mb-6">
         <div className={cn(
-          "p-3 rounded-xl transition-colors duration-300",
-          disabled ? "bg-slate-100" : "bg-slate-50 group-hover:bg-emerald-50"
+          "p-4 rounded-2xl transition-all duration-300 shadow-sm",
+          disabled ? "bg-slate-100 text-slate-400" : "bg-white border border-slate-100 group-hover:bg-emerald-600 group-hover:text-white group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-emerald-200"
         )}>
-          {/* Clone icon to enforce size/color if needed, or trust parent */}
           {icon}
         </div>
         {isPopular && (
-          <Badge variant="warning">Popular</Badge>
+          <Badge variant="warning" className="px-3 py-1 bg-gold-50 text-gold-700 border-gold-200 font-bold uppercase tracking-wider text-[10px]">Popular</Badge>
         )}
       </div>
-      <h3 className={cn("font-bold text-lg mb-1 font-display", disabled ? "text-slate-500" : "text-slate-900")}>{title}</h3>
-      <p className="text-sm text-slate-500 leading-relaxed">{description}</p>
+      
+      <h3 className={cn("font-bold text-xl mb-2 font-display tracking-tight", disabled ? "text-slate-500" : "text-slate-900")}>
+        {title}
+      </h3>
+      <p className="text-sm text-slate-500 leading-relaxed font-medium">
+        {description}
+      </p>
       
       {!disabled && (
-        <div className="absolute bottom-6 right-6 opacity-0 transform translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-          <ArrowRight className="w-5 h-5 text-emerald-600" />
+        <div className="mt-8 flex items-center text-emerald-600 text-sm font-bold gap-2 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+          <span>Get Started</span>
+          <ArrowRight className="w-4 h-4" />
         </div>
       )}
-    </div>
+      
+      {disabled && (
+        <div className="mt-8 flex items-center text-slate-400 text-xs font-medium gap-2">
+          <span>Coming Soon</span>
+        </div>
+      )}
+    </motion.div>
   );
 };
