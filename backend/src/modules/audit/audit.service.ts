@@ -15,4 +15,10 @@ export class AuditService {
     this.logger.log(`[AUDIT EVENT] ${JSON.stringify(event)}`);
     return true;
   }
+
+  async emitSafetyAudit(maskedText: string, action: string) {
+    this.logger.warn(`[SAFETY AUDIT] Action: ${action} | Masked Result: ${maskedText}`);
+    // Emit to Kafka logic here
+    return true;
+  }
 }

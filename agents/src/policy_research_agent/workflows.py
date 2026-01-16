@@ -1,23 +1,37 @@
-from datetime import timedelta
-from temporalio import workflow
-from temporalio.common import RetryPolicy
+import yaml
+from typing import Dict, List
 
+class PolicyDraftGenerator:
+    def __init__(self):
+        # Higher index means higher priority
+        self.hierarchy = ["Guideline", "Directive", "Regulation", "Proclamation"]
 from .graph import create_graph
 
-@workflow.defn
-class ResearchWorkflow:
-    @workflow.run
-    async def run(self, job_id: str, query: str) -> dict:
-        graph = create_graph()
-        # Initial state
-        inputs = {"query": query, "urls": [], "documents": [], "draft_policy": "", "sources": [], "confidence_score": 0.0}
+    def prioritize_rules(self, rules: List[Dict]) -> List[Dict]:
+        """Sorts rules based on legal hierarchy."""
+        def get_rank(rule):
+            source_type = rule.get("type", "Guideline")
+            return self.hierarchy.index(source_type) if source_type in self.hierarchy else 0
         
-        # Execute LangGraph
-        result = await graph.ainvoke(inputs)
-        
-        return {
-            "job_id": job_id,
-            "draft_policy": result["draft_policy"],
-            "sources": result["sources"],
-            "confidence_score": result["confidence_score"]
+        return sorted(rules, key=get_rank, reverse=True)
+
+    def generate_yaml(self, title: str, jurisdiction: str, rules: List[Dict]) -> str:
+        """Generates a valid Policy YAML."""
+        sorted_rules = self.prioritize_rules(rules)
+        data = {
+            "title": title,
+            "jurisdiction": jurisdiction,
+            "effective_date": "2026-01-16",
+            "rules": sorted_rules,
+            "status": "DRAFT"
         }
+        return yaml.dump(data, allow_unicode=True)
+
+    def validate_schema(self, yaml_content: str) -> bool:
+        """Validates the YAML against the Policy Registry schema."""
+        try:
+            data = yaml.safe_load(yaml_content)
+            required = ["title", "jurisdiction", "rules"]
+            return all(k in data for k in required)
+        except Exception:
+            return False
