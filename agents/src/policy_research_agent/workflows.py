@@ -5,6 +5,7 @@ class PolicyDraftGenerator:
     def __init__(self):
         # Higher index means higher priority
         self.hierarchy = ["Guideline", "Directive", "Regulation", "Proclamation"]
+from .graph import create_graph
 
     def prioritize_rules(self, rules: List[Dict]) -> List[Dict]:
         """Sorts rules based on legal hierarchy."""

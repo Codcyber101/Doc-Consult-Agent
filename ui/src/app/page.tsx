@@ -1,135 +1,134 @@
-'use client';
-
 import React from 'react';
-import Link from 'next/link';
+import { Card } from '@/components/common/Card';
+import { Button } from '@/components/common/Button';
+import { Badge } from '@/components/common/Badge';
+import { ServiceTile } from '@/components/common/ServiceTile';
+import { ActivityItem } from '@/components/common/ActivityItem';
+import { Navbar } from '@/components/common/Navbar';
 import { 
   Briefcase, 
   FileText, 
-  Globe, 
+  Search, 
   ShieldCheck, 
-  Search,
-  ArrowRight
+  History 
 } from 'lucide-react';
+import Link from 'next/link';
 
-const SERVICES = [
-  {
-    id: 'trade-license',
-    title: 'Trade License',
-    description: 'Renew or apply for new business trade licenses across all sub-cities.',
-    icon: <Briefcase className="w-8 h-8 text-blue-600" />,
-    href: '/flows/trade-license',
-    color: 'bg-blue-50'
-  },
-  {
-    id: 'passport',
-    title: 'Passport Services',
-    description: 'Apply for new passports, renewals, or track existing applications.',
-    icon: <Globe className="w-8 h-8 text-green-600" />,
-    href: '/flows/passport',
-    color: 'bg-green-50'
-  },
-  {
-    id: 'tin',
-    title: 'TIN Registration',
-    description: 'Register for Taxpayer Identification Number for individuals or businesses.',
-    icon: <FileText className="w-8 h-8 text-amber-600" />,
-    href: '/flows/tin',
-    color: 'bg-amber-50'
-  }
-];
-
-export default function HomePage() {
+export default function Home() {
   return (
-    <div className="min-h-screen bg-white">
+    <main className="min-h-screen bg-slate-50 pb-20 selection:bg-emerald-100 selection:text-emerald-900">
+      
+      {/* Navigation Bar */}
+      <Navbar user={{ name: "Yared Abebe" }} />
+
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-b from-blue-50 to-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-              <span className="block text-blue-600">GovAssist Ethiopia</span>
-              <span className="block">Digital Government, Simplified.</span>
+      <div className="relative overflow-hidden bg-white border-b border-slate-200 animate-in fade-in slide-in-from-top-4 duration-700">
+        {/* Background Pattern - Subtle Sovereign Texture */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#006B3F 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
+        
+        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+          <div className="text-center max-w-2xl mx-auto">
+            <Badge variant="success" className="mb-6 shadow-sm">Official Pilot Phase</Badge>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-slate-900 font-display mb-6">
+              Government services, <br className="hidden sm:block" />
+              <span className="text-emerald-600 inline-block relative">
+                simplified.
+                <svg className="absolute w-full h-3 -bottom-1 left-0 text-gold-400 opacity-40 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
+                  <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
+                </svg>
+              </span>
             </h1>
-            <p className="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-              Sovereign, secure, and accessible procedural guidance for all government services. 
-              Powered by automated document intelligence.
+            <p className="text-lg sm:text-xl text-slate-600 mb-10 leading-relaxed max-w-xl mx-auto">
+              Prepare, validate, and submit your official documents with confidence. 
+              Step-by-step guidance for trade licenses, passports, and more.
             </p>
             
-            {/* Search Bar */}
-            <div className="mt-10 max-w-xl mx-auto">
-              <div className="relative group">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Search className="h-5 w-5 text-gray-400 group-focus-within:text-blue-500" />
-                </div>
-                <input
-                  type="text"
-                  className="block w-full pl-10 pr-3 py-4 border border-gray-300 rounded-2xl leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-all shadow-sm"
-                  placeholder="What service do you need today? (e.g. 'Trade License')"
+            {/* Quick Search */}
+            <div className="relative max-w-md mx-auto shadow-xl-soft rounded-2xl group focus-within:ring-4 focus-within:ring-emerald-500/10 transition-all duration-300 transform hover:-translate-y-1">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <Search className="h-5 w-5 text-slate-400 group-focus-within:text-emerald-600 transition-colors" />
+              </div>
+              <input 
+                type="text" 
+                className="block w-full pl-11 pr-4 py-4 border-none rounded-2xl bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-0 text-base shadow-sm" 
+                placeholder="What do you need help with today?" 
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-12">
+          
+          {/* Left Column: Start New Service */}
+          <div className="lg:col-span-2 space-y-6 animate-in slide-in-from-left-4 duration-700 delay-150">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold text-slate-900 font-display">Start a New Service</h2>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Link href="/flows/trade-license" className="block w-full">
+                <ServiceTile 
+                  title="Renew Trade License" 
+                  description="For sole proprietors and PLCs in Addis Ababa."
+                  icon={<Briefcase className="w-6 h-6 text-emerald-600" />}
+                  isPopular
+                />
+              </Link>
+              
+              <Link href="/flows/passport" className="block w-full">
+                <ServiceTile 
+                  title="New Passport Application" 
+                  description="Document preparation for first-time applicants."
+                  icon={<FileText className="w-6 h-6 text-blue-600" />}
+                />
+              </Link>
+              
+              <ServiceTile 
+                title="VAT Registration" 
+                description="Coming soon to GovAssist."
+                icon={<ShieldCheck className="w-6 h-6 text-slate-400" />}
+                disabled
+              />
+            </div>
+          </div>
+
+          {/* Right Column: My Activities */}
+          <div className="space-y-6 animate-in slide-in-from-right-4 duration-700 delay-300">
+            <h2 className="text-xl font-bold text-slate-900 font-display">Recent Activity</h2>
+            <Card className="overflow-hidden border-slate-200/60 shadow-lg-soft">
+              <div className="divide-y divide-slate-100">
+                <ActivityItem 
+                  title="Trade License Renewal" 
+                  status="Ready to Submit" 
+                  date="Today" 
+                  variant="success"
+                />
+                <ActivityItem 
+                  title="Bole Sub-city Clearance" 
+                  status="In Review" 
+                  date="Yesterday" 
+                  variant="warning"
+                />
+                <ActivityItem 
+                  title="TIN Verification" 
+                  status="Action Required" 
+                  date="Jan 12" 
+                  variant="error"
                 />
               </div>
-            </div>
+              <div className="p-2 bg-slate-50 border-t border-slate-100">
+                <Button variant="ghost" size="sm" className="w-full text-slate-500 hover:text-emerald-700 justify-between group">
+                  View Full History <History className="w-4 h-4 group-hover:rotate-12 transition-transform" />
+                </Button>
+              </div>
+            </Card>
           </div>
-        </div>
-      </section>
 
-      {/* Services Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="flex items-center justify-between mb-12">
-          <h2 className="text-2xl font-bold text-gray-900">Popular Services</h2>
-          <button className="text-blue-600 font-medium hover:text-blue-700 flex items-center">
-            View All Services <ArrowRight className="ml-2 w-4 h-4" />
-          </button>
         </div>
-        
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map((service) => (
-            <Link 
-              key={service.id} 
-              href={service.href}
-              className="group relative bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-            >
-              <div className={`${service.color} w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110`}>
-                {service.icon}
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">{service.title}</h3>
-              <p className="text-gray-500 leading-relaxed mb-6">
-                {service.description}
-              </p>
-              <div className="flex items-center text-blue-600 font-semibold">
-                Start Application <ArrowRight className="ml-2 w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
+      </div>
 
-      {/* Trust Banner */}
-      <section className="bg-gray-50 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex items-start">
-              <ShieldCheck className="w-10 h-10 text-blue-600 mt-1" />
-              <div className="ml-4">
-                <h4 className="font-bold text-gray-900">Sovereign & Secure</h4>
-                <p className="text-sm text-gray-500">Your data never leaves Ethiopia. Processed on local sovereign infrastructure.</p>
-              </div>
-            </div>
-            <div className="flex items-start">
-              <Globe className="w-10 h-10 text-blue-600 mt-1" />
-              <div className="ml-4">
-                <h4 className="font-bold text-gray-900">Offline-First</h4>
-                <p className="text-sm text-gray-500">Continue your application even without internet. Sync automatically later.</p>
-              </div>
-            </div>
-            <div className="flex items-start">
-              <Search className="w-10 h-10 text-blue-600 mt-1" />
-              <div className="ml-4">
-                <h4 className="font-bold text-gray-900">Smart Analysis</h4>
-                <p className="text-sm text-gray-500">Real-time feedback on your documents before you submit to government.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
+    </main>
   );
 }

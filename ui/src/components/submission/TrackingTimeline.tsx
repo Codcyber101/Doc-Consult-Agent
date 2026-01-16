@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { CheckCircle2, Clock, MapPin, ExternalLink, ShieldCheck } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { CheckCircle2, Clock, ShieldCheck, ExternalLink, ArrowUpRight } from 'lucide-react';
 
 interface Event {
   id: string;
@@ -16,97 +17,136 @@ const MOCK_EVENTS: Event[] = [
   { 
     id: '1', 
     title: 'Application Submitted', 
-    description: 'Submitted via GAE Portal Connector', 
-    timestamp: '2026-01-12 14:00', 
+    description: 'Archive successfully transmitted via National Sovereign Gateway.', 
+    timestamp: 'Jan 14, 14:00', 
     status: 'COMPLETED',
     source: 'INTERNAL'
   },
   { 
     id: '2', 
-    title: 'Document Analysis Passed', 
-    description: 'All 3 documents verified with 95%+ confidence', 
-    timestamp: '2026-01-12 14:05', 
+    title: 'Sovereign Validation', 
+    description: 'Document intelligence pass: 98% confidence score achieved.', 
+    timestamp: 'Jan 14, 14:05', 
     status: 'COMPLETED',
     source: 'INTERNAL'
   },
   { 
     id: '3', 
-    title: 'Received by MESOB', 
-    description: 'Handed over to Ministry of Trade system', 
-    timestamp: '2026-01-12 14:10', 
+    title: 'MESOB Handover', 
+    description: 'Data successfully ingested by Ministry of Trade systems.', 
+    timestamp: 'Jan 14, 14:10', 
     status: 'COMPLETED',
     source: 'GOVERNMENT'
   },
   { 
     id: '4', 
-    title: 'Officer Review', 
-    description: 'Assigning to licensing officer in Bole Sub-city', 
-    timestamp: 'Pending...', 
+    title: 'Official Bureau Review', 
+    description: 'Assigned to senior licensing officer in Bole Sub-city.', 
+    timestamp: 'In Progress', 
     status: 'CURRENT',
     source: 'GOVERNMENT'
   },
   { 
     id: '5', 
-    title: 'Final Approval', 
-    description: 'Trade license issuance and digital signature', 
+    title: 'Digital License Issuance', 
+    description: 'Generation of digitally signed trade license artifact.', 
     timestamp: 'TBD', 
     status: 'PENDING',
     source: 'GOVERNMENT'
   },
 ];
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+};
+
+const item = {
+  hidden: { x: -10, opacity: 0 },
+  show: { x: 0, opacity: 1 }
+};
+
 export function TrackingTimeline() {
   return (
-    <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm">
-      <div className="flex items-center justify-between mb-10">
-        <h3 className="text-xl font-bold text-gray-900">Application Status</h3>
-        <div className="flex items-center px-3 py-1 bg-green-50 text-green-600 rounded-lg text-xs font-bold border border-green-100">
-          <ShieldCheck className="w-3 h-3 mr-1" />
-          VERIFIED BY GAE
+    <motion.div 
+      variants={container}
+      initial="hidden"
+      animate="show"
+      className="bg-white p-10 rounded-[2.5rem] border border-gray-100 shadow-sovereign relative overflow-hidden"
+    >
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-12 gap-4">
+        <div>
+          <h3 className="text-2xl font-black tracking-tight text-gray-900 uppercase">Process Registry</h3>
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mt-1">Audit Trail & Status</p>
+        </div>
+        <div className="inline-flex items-center px-4 py-2 bg-sovereign-green/10 text-sovereign-green rounded-full text-[10px] font-black border border-sovereign-green/20 uppercase tracking-widest">
+          <ShieldCheck className="w-3.5 h-3.5 mr-2" />
+          Sovereign Certified
         </div>
       </div>
 
-      <div className="space-y-8">
+      <div className="relative space-y-12">
         {MOCK_EVENTS.map((event, index) => (
-          <div key={event.id} className="relative flex items-start group">
+          <motion.div key={event.id} variants={item} className="relative flex items-start group">
             {/* Connector Line */}
             {index !== MOCK_EVENTS.length - 1 && (
-              <div className="absolute left-4 top-10 bottom-[-32px] w-0.5 bg-gray-100 group-hover:bg-blue-100 transition-colors" />
+              <div className="absolute left-[15px] top-10 bottom-[-48px] w-0.5 bg-gray-50 group-hover:bg-sovereign-gold/20 transition-colors duration-500" />
             )}
             
             {/* Status Icon */}
             <div className={`
-              z-10 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all
-              ${event.status === 'COMPLETED' ? 'bg-green-100 text-green-600' : 
-                event.status === 'CURRENT' ? 'bg-blue-600 text-white animate-pulse' : 
-                'bg-gray-100 text-gray-400'}
+              z-10 w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-500 shadow-sm
+              ${event.status === 'COMPLETED' ? 'bg-sovereign-green text-white rotate-0' : 
+                event.status === 'CURRENT' ? 'bg-sovereign-gold text-white animate-bounce shadow-lg shadow-sovereign-gold/20' : 
+                'bg-gray-50 text-gray-300 border border-gray-100'}
             `}>
-              {event.status === 'COMPLETED' ? <CheckCircle2 className="w-5 h-5" /> : 
-               event.status === 'CURRENT' ? <Clock className="w-5 h-5" /> : 
-               <div className="w-2 h-2 bg-gray-300 rounded-full" />}
+              {event.status === 'COMPLETED' ? <CheckCircle2 className="w-4 h-4" /> : 
+               event.status === 'CURRENT' ? <Clock className="w-4 h-4" /> : 
+               <div className="w-1.5 h-1.5 bg-gray-200 rounded-full" />}
             </div>
 
             {/* Content */}
-            <div className="ml-6 flex-1">
-              <div className="flex items-center justify-between">
-                <h4 className={`font-bold ${event.status === 'PENDING' ? 'text-gray-400' : 'text-gray-900'}`}>
+            <div className="ml-8 flex-1">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <h4 className={`text-base font-black uppercase tracking-tight ${
+                  event.status === 'PENDING' ? 'text-gray-300' : 
+                  event.status === 'CURRENT' ? 'text-sovereign-gold' : 'text-sovereign-slate'
+                }`}>
                   {event.title}
                 </h4>
-                <span className="text-xs font-medium text-gray-400">{event.timestamp}</span>
+                <span className={`text-[10px] font-black uppercase tracking-widest ${
+                  event.status === 'CURRENT' ? 'text-sovereign-gold' : 'text-gray-400'
+                }`}>
+                  {event.timestamp}
+                </span>
               </div>
-              <p className={`text-sm mt-1 leading-relaxed ${event.status === 'PENDING' ? 'text-gray-300' : 'text-gray-500'}`}>
+              <p className={`text-sm mt-2 leading-relaxed font-medium ${
+                event.status === 'PENDING' ? 'text-gray-200' : 'text-gray-500'
+              }`}>
                 {event.description}
               </p>
               
-              {event.source === 'GOVERNMENT' && (
-                <div className="mt-3 inline-flex items-center text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded uppercase tracking-wider border border-blue-100">
-                  Government Portal <ExternalLink className="w-2 h-2 ml-1" />
-                </div>
+              {event.source === 'GOVERNMENT' && event.status !== 'PENDING' && (
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="mt-4 inline-flex items-center gap-2 text-[9px] font-black text-white bg-sovereign-slate px-3 py-1.5 rounded-lg uppercase tracking-[0.15em]"
+                >
+                  Gov Portal Connector <ArrowUpRight className="w-3 h-3 text-sovereign-gold" />
+                </motion.div>
               )}
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
-    </div>
+
+      {/* Background decoration */}
+      <div className="absolute top-0 right-0 p-8 opacity-[0.03] pointer-events-none">
+        <ShieldCheck size={200} />
+      </div>
+    </motion.div>
   );
 }
