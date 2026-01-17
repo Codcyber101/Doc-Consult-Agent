@@ -23,7 +23,12 @@ mkdir -p "$(dirname "$EXCLUDE")"
 touch "$EXCLUDE"
 
 # check for a dangerous rule that excludes .gemini/ entirely
-if grep -E -q '^[[:space:]]*\.gemini(/\*|/|$)' "$EXCLUDE"; then
+# Only consider it dangerous if the exclude line is exactly one of:
+#  - .gemini
+#  - .gemini/
+#  - .gemini/*
+# Do not treat specific subpath patterns (e.g. .gemini/cache/ or .gemini/*.lock) as dangerous.
+if grep -E -q '^[[:space:]]*\.gemini[[:space:]]*$|^[[:space:]]*\.gemini/\*[[:space:]]*$|^[[:space:]]*\.gemini/[[:space:]]*$' "$EXCLUDE"; then
   echo "ERROR: $EXCLUDE already contains a rule that excludes '.gemini/' entirely."
   echo "This would hide .gemini/skills from Git. Please edit $EXCLUDE to remove that rule"
   echo "or adjust it to only exclude runtime subpaths (e.g. .gemini/cache/)."
