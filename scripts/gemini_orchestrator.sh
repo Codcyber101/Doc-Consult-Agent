@@ -192,6 +192,13 @@ start_session() {
 
   echo "[orchestrator] Started session. Attach with: tmux attach -t $SESSION_NAME"
 }
+  # Ensure tmux session exists before adding merge-coordinator
+if ! tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+  echo "[orchestrator] tmux session missing, creating: $SESSION_NAME"
+  tmux new-session -d -s "$SESSION_NAME" -n "orchestrator" \
+    "bash -lc 'cd \"$REPO\" && exec $SHELL'"
+fi
+
    # create merge-coordinator window (non-destructive, interactive summary runner)
   if tmux list-windows -t "$SESSION_NAME" 2>/dev/null | grep -q " merge-coordinator"; then
     echo " - merge-coordinator window exists, skipping"
