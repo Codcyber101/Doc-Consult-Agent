@@ -1,7 +1,11 @@
 import pytesseract
 from PIL import Image
+import base64
+import io
 from typing import Dict, Any
 from agents.src.common.state import AgentState
+from agents.src.common.llm import get_llm
+from langchain_core.messages import HumanMessage
 
 class VisionRouter:
     """
@@ -9,27 +13,54 @@ class VisionRouter:
     Decides between local Tesseract and advanced Vision models.
     """
     
-    def process_document(self, file_path: str) -> Dict[str, Any]:
+    async def process_document(self, file_path: str) -> Dict[str, Any]:
         """Performs OCR and returns extracted text and metadata."""
         try:
-            # Load image
+            # 1. Local OCR Attempt
             img = Image.open(file_path)
-            
-            # Perform OCR (Configured for English and Amharic if trained data exists)
-            # In a real setup, we'd ensure 'amh' is in the lang string
             text = pytesseract.image_to_string(img, lang='eng+amh')
             
-            # Calculate confidence (simplified mock)
-            confidence = 0.85 if len(text) > 50 else 0.4
+            # Simplified confidence heuristic
+            confidence = 0.85 if len(text) > 100 else 0.4
+            
+            # 2. Fallback to Vision LLM if confidence is low
+            if confidence < 0.6:
+                print(f"[VISION] Low confidence ({confidence}), falling back to Vision LLM...")
+                vision_result = await self.process_with_vision_llm(file_path)
+                return {
+                    **vision_result,
+                    "local_text": text,
+                    "needs_escalation": vision_result["confidence"] < 0.7
+                }
             
             return {
                 "raw_text": text,
                 "confidence": confidence,
                 "method": "local_tesseract",
-                "needs_escalation": confidence < 0.6
+                "needs_escalation": False
             }
         except Exception as e:
             print(f"[VISION ERROR] {e}")
             return {"error": str(e), "confidence": 0, "needs_escalation": True}
+
+    async def process_with_vision_llm(self, file_path: str) -> Dict[str, Any]:
+        """
+        Uses a Vision-capable LLM to extract text from a document image.
+        Note: Currently Groq has limited vision support. This is a placeholder 
+        for an OpenAI/Anthropic or local Llama-Vision integration.
+        """
+        # In a real setup, we would encode the image to base64
+        # and send it to a model like gpt-4o or llama-3.2-90b-vision-preview (if available on Groq)
+        
+        # Mocking the Vision LLM response for now
+        # If the user has a vision-enabled model on Groq, we'd call it here.
+        print(f"[VISION] Extracting from {file_path} using Vision LLM...")
+        
+        return {
+            "raw_text": "[EXTRACTED BY VISION LLM] Sample text from document including stamps and signatures.",
+            "confidence": 0.92,
+            "method": "vision_llm",
+            "metadata": {"has_stamp": True, "has_signature": True}
+        }
 
 vision_router = VisionRouter()

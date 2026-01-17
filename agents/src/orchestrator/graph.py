@@ -3,19 +3,19 @@ from langgraph.graph import StateGraph, END
 from agents.src.common.state import AgentState
 from agents.src.vision_router.router import vision_router
 from agents.src.safety_agent.masking import safety_agent
-from agents.src.regulation_expert.retrieval import regulation_expert
+from agents.src.regulation_expert.retrieval import get_regulation_expert
 from agents.src.compliance_agent.evaluator import compliance_agent
 from agents.src.human_review_agent.queue import human_review_agent
 from agents.src.audit_agent.activity import audit_logger
 
 async def vision_router_node(state: AgentState) -> Dict[str, Any]:
     print("--- NODE: VISION ROUTER ---")
-    result = vision_router.process_document(state["file_path"])
+    result = await vision_router.process_document(state["file_path"])
     await audit_logger.log_event("ocr_extraction", "vision_router", result)
     return {
         "extracted_data": result, 
-        "confidence": {"ocr": result["confidence"]},
-        "status": "MANUAL_REVIEW" if result["needs_escalation"] else "PROCESSING"
+        "confidence": {"ocr": result.get("confidence", 0)},
+        "status": "MANUAL_REVIEW" if result.get("needs_escalation") else "PROCESSING"
     }
 
 def safety_agent_node(state: AgentState) -> Dict[str, Any]:
@@ -25,8 +25,9 @@ def safety_agent_node(state: AgentState) -> Dict[str, Any]:
 
 async def compliance_evaluator_node(state: AgentState) -> Dict[str, Any]:
     print("--- NODE: COMPLIANCE EVALUATOR ---")
-    regs = await regulation_expert.get_relevant_regulations("Passport", "renewal")
-    result = compliance_agent.evaluate(state["extracted_data"], regs)
+    expert = get_regulation_expert()
+    regs = await expert.get_relevant_regulations("Passport", "renewal")
+    result = await compliance_agent.evaluate(state["extracted_data"], regs)
     await audit_logger.log_event("compliance_check", "compliance_agent", result)
     return {"status": result["status"], "findings": result["findings"]}
 

@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 from typing import List, Dict
 import re
+import io
+from pypdf import PdfReader
 
 class PolicyCrawlTool:
     def __init__(self, allowlist: List[str] = None):
@@ -22,14 +24,15 @@ class PolicyCrawlTool:
             raise ValueError(f"URL {url} is not in the allowlist.")
 
         try:
-            response = requests.get(url, timeout=10)
+            response = requests.get(url, timeout=15)
             response.raise_for_status()
             
-            if "application/pdf" in response.headers.get("Content-Type", ""):
-                return "[PDF content extraction not implemented in this stub]"
+            content_type = response.headers.get("Content-Type", "").lower()
+            
+            if "application/pdf" in content_type:
+                return self._extract_pdf(response.content)
             
             soup = BeautifulSoup(response.text, "html.parser")
-            # Remove script and style elements
             for script in soup(["script", "style"]):
                 script.decompose()
             
@@ -37,7 +40,24 @@ class PolicyCrawlTool:
         except Exception as e:
             return f"Error crawling {url}: {str(e)}"
 
+    def _extract_pdf(self, content: bytes) -> str:
+        """Extracts text from PDF content."""
+        try:
+            reader = PdfReader(io.BytesIO(content))
+            text = ""
+            for page in reader.pages:
+                text += page.extract_text() + "\n"
+            return text
+        except Exception as e:
+            return f"Error extracting PDF: {str(e)}"
+
     def search_topics(self, topic: str) -> List[str]:
-        """Mock search for relevant URLs on a topic."""
-        # In production, this would use a search engine API restricted to the allowlist
-        return [f"https://ethiopian-law.com/search?q={topic.replace(' ', '+')}"]
+        """
+        Search for relevant URLs on a topic within the allowlist.
+        In production, this calls SearxNG or Google Custom Search.
+        """
+        # Improved mock: restricted to allowlist domains
+        return [
+            f"https://ethiopian-law.com/search?q={topic.replace(' ', '+')}",
+            f"https://chilot.me/?s={topic.replace(' ', '+')}"
+        ]
