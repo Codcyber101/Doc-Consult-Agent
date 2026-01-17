@@ -30,3 +30,18 @@ class HybridRetriever:
 
     def close(self):
         self.client.close()
+
+    async def get_relevant_regulations(self, service: str, action: str) -> List[Dict]:
+        """Convenience method for orchestrator to fetch relevant regulations."""
+        query = f"Regulations for {service} {action}"
+        # For now, just call retrieve. In production, this might have more logic.
+        return self.retrieve(query)
+
+# Use a function to get the expert instance to avoid connection at import time
+_regulation_expert = None
+
+def get_regulation_expert():
+    global _regulation_expert
+    if _regulation_expert is None:
+        _regulation_expert = HybridRetriever()
+    return _regulation_expert

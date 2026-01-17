@@ -6,7 +6,8 @@ load_dotenv()
 
 class Settings(BaseSettings):
     # API Keys
-    OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
+    GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
+    GROQ_MODEL_NAME: str = os.getenv("GROQ_MODEL_NAME", "llama-3.1-70b-versatile")
     
     # Database / Vector Store
     WEAVIATE_URL: str = os.getenv("WEAVIATE_URL", "http://localhost:8080")

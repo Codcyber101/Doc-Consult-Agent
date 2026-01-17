@@ -1,0 +1,80 @@
+Screen {
+    align: center middle;
+    background: $surface;
+}
+
+#dashboard-container {
+    width: 80%;
+    height: auto;
+    border: heavy $primary;
+    padding: 2;
+    align: center middle;
+}
+
+#dashboard-title {
+    text-align: center;
+    text-style: bold;
+    color: $accent;
+    margin-bottom: 2;
+}
+
+SystemHealthPanel {
+    align: center middle;
+    height: auto;
+    width: 100%;
+}
+
+ServiceStatus {
+    border: solid gray;
+    height: auto;
+    padding: 1;
+    margin: 1;
+    width: 30;
+}
+
+ServiceStatus.online {
+    border: solid green;
+    color: green;
+}
+
+ServiceStatus.offline {
+    border: solid red;
+    color: red;
+}
+
+.screen-title {
+    text-align: center;
+    text-style: bold;
+    background: $primary;
+    color: $text;
+    padding: 1;
+    width: 100%;
+}
+
+WorkflowTable {
+    height: 1fr;
+    border: solid $secondary;
+}
+
+#runner-container {
+    padding: 2;
+}
+
+.form-row {
+    height: 3;
+    margin-bottom: 1;
+}
+
+Label {
+    padding: 1;
+}
+
+TextArea {
+    height: 10;
+    border: solid $secondary;
+    margin-bottom: 1;
+}
+
+#json-output {
+    height: 1fr;
+}

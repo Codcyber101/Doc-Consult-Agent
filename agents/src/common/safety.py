@@ -3,9 +3,11 @@ import re
 class SafetyAgent:
     def __init__(self):
         # Basic patterns for common PII
+        # Process PHONE before TIN because PHONE patterns are more specific (start with 09 or +2519)
+        # but can overlap with general 10-digit TINs.
         self.patterns = {
-            "TIN": r"\b\d{10}\b",
             "PHONE": r"\b(?:\+251|0)9\d{8}\b",
+            "TIN": r"\b\d{10}\b",
             "EMAIL": r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b",
             "PASSPORT": r"\b[A-Z]\d{7}\b",
         }
