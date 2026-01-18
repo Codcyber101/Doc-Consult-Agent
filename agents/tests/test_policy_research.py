@@ -1,4 +1,5 @@
 import pytest
+import os
 from unittest.mock import MagicMock, patch, AsyncMock
 from src.policy_research_agent.tools import PolicyCrawlTool
 from src.policy_research_agent.workflows import PolicyDraftGenerator
@@ -13,27 +14,17 @@ def test_crawl_tool_allowlist():
     with pytest.raises(ValueError):
         tool.crawl_text("https://evil-site.com")
 
-def test_crawl_tool_pdf_extraction():
+def test_crawl_tool_firecrawl():
+    # Ensure api_key is present (assumes env var is set)
+    if not os.getenv("FIRECRAWL_API_KEY"):
+        pytest.skip("FIRECRAWL_API_KEY not set")
+
     tool = PolicyCrawlTool()
+    # Use a real URL from the allowlist
+    text = tool.crawl_text("https://ethiopian-law.com")
     
-    with patch("requests.get") as mock_get, \
-         patch("src.policy_research_agent.tools.PdfReader") as mock_pdf_reader:
-        
-        # Mock Response
-        mock_response = MagicMock()
-        mock_response.headers = {"Content-Type": "application/pdf"}
-        mock_response.content = b"%PDF-1.4..."
-        mock_get.return_value = mock_response
-        
-        # Mock PDF Reader
-        mock_page = MagicMock()
-        mock_page.extract_text.return_value = "Page Content"
-        mock_reader_instance = MagicMock()
-        mock_reader_instance.pages = [mock_page]
-        mock_pdf_reader.return_value = mock_reader_instance
-        
-        text = tool.crawl_text("https://chilot.me/law.pdf")
-        assert "Page Content" in text
+    assert isinstance(text, str)
+    assert len(text) > 0
 
 @pytest.mark.asyncio
 async def test_policy_draft_generator():

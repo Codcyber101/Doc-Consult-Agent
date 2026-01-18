@@ -1,9 +1,6 @@
-import requests
-from bs4 import BeautifulSoup
-from typing import List, Dict
-import re
-import io
-from pypdf import PdfReader
+import os
+from typing import List
+from firecrawl import FirecrawlApp
 
 class PolicyCrawlTool:
     def __init__(self, allowlist: List[str] = None):
@@ -13,43 +10,32 @@ class PolicyCrawlTool:
             "chilot.me",
             "addisababa.gov.et"
         ]
+        self.api_key = os.getenv("FIRECRAWL_API_KEY")
+        if not self.api_key:
+             # Fallback or warning? For now, we assume it's set or we handle the error at runtime.
+             pass
 
     def is_allowed(self, url: str) -> bool:
         """Checks if the URL is in the allowlist."""
         return any(domain in url for domain in self.allowlist)
 
     def crawl_text(self, url: str) -> str:
-        """Fetches and extracts text from a URL if allowed."""
+        """Fetches and extracts text from a URL if allowed, using Firecrawl."""
         if not self.is_allowed(url):
             raise ValueError(f"URL {url} is not in the allowlist.")
 
+        if not self.api_key:
+            raise ValueError("FIRECRAWL_API_KEY environment variable is not set.")
+
         try:
-            response = requests.get(url, timeout=15)
-            response.raise_for_status()
-            
-            content_type = response.headers.get("Content-Type", "").lower()
-            
-            if "application/pdf" in content_type:
-                return self._extract_pdf(response.content)
-            
-            soup = BeautifulSoup(response.text, "html.parser")
-            for script in soup(["script", "style"]):
-                script.decompose()
-            
-            return soup.get_text(separator=' ', strip=True)
+            app = FirecrawlApp(api_key=self.api_key)
+            # Scrape the URL
+            scrape_result = app.scrape_url(url, params={'formats': ['markdown']})
+            if 'markdown' in scrape_result:
+                return scrape_result['markdown']
+            return str(scrape_result)
         except Exception as e:
             return f"Error crawling {url}: {str(e)}"
-
-    def _extract_pdf(self, content: bytes) -> str:
-        """Extracts text from PDF content."""
-        try:
-            reader = PdfReader(io.BytesIO(content))
-            text = ""
-            for page in reader.pages:
-                text += page.extract_text() + "\n"
-            return text
-        except Exception as e:
-            return f"Error extracting PDF: {str(e)}"
 
     def search_topics(self, topic: str) -> List[str]:
         """
