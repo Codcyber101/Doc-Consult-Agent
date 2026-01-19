@@ -3,6 +3,7 @@
 
 import type { Metadata } from "next";
 import "./globals.css";
+import { ToastProvider } from "@/components/common/Toast";
 
 export const metadata: Metadata = {
   title: "GovAssist Ethiopia",
@@ -17,7 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased min-h-screen bg-slate-50">
-        {children}
+        <ToastProvider>
+          {children}
+        </ToastProvider>
       </body>
     </html>
   );
