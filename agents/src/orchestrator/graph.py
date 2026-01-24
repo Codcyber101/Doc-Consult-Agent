@@ -1,4 +1,4 @@
-from typing import Dict, List, Any, Literal
+from typing import Dict, Any, Literal
 from langgraph.graph import StateGraph, END
 from agents.src.common.state import AgentState
 from agents.src.vision_router.router import vision_router

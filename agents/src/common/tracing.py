@@ -1,7 +1,6 @@
 from opentelemetry import trace
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExporter
-from agents.src.common.config import settings
 
 # Initialize tracing
 provider = TracerProvider()

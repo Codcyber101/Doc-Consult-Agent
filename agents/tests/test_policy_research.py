@@ -1,6 +1,6 @@
 import pytest
 import os
-from unittest.mock import MagicMock, patch, AsyncMock
+from unittest.mock import patch, AsyncMock
 from src.policy_research_agent.tools import PolicyCrawlTool
 from src.policy_research_agent.workflows import PolicyDraftGenerator
 from langchain_core.outputs import ChatResult, ChatGeneration

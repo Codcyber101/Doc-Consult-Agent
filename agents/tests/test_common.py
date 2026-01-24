@@ -1,4 +1,3 @@
-import pytest
 from src.common.safety import SafetyAgent
 
 def test_safety_agent_masking():

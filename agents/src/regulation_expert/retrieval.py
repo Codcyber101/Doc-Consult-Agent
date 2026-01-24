@@ -1,6 +1,5 @@
 from typing import List, Dict
 import weaviate
-import os
 
 class HybridRetriever:
     def __init__(self, collection_name: str = "RegulationSnippet"):

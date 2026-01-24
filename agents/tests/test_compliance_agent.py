@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import MagicMock, patch, AsyncMock
+from unittest.mock import patch, AsyncMock
 import json
 from src.compliance_agent.evaluator import ComplianceAgent
 from langchain_core.outputs import ChatResult, ChatGeneration

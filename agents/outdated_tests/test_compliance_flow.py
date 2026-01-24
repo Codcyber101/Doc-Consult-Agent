@@ -1,4 +1,3 @@
-import pytest
 from agents.src.safety_agent.masking import safety_agent
 from agents.src.compliance_agent.evaluator import compliance_agent
 

@@ -1,7 +1,6 @@
 import httpx
 import os
 from typing import Dict, Any
-from agents.src.common.config import settings
 from agents.src.audit_agent.activity import audit_logger
 
 class PortalConnector:

@@ -2,7 +2,6 @@ from typing import Dict, Any
 import httpx
 from agents.src.common.state import AgentState
 from agents.src.audit_agent.activity import audit_logger
-from agents.src.common.config import settings
 
 class HumanReviewAgent:
     """
