@@ -83,7 +83,7 @@ export const ToastProvider = ({
         });
 
         // Auto remove after duration
-        if (newToast.duration > 0) {
+        if (newToast.duration && newToast.duration > 0) {
             setTimeout(() => {
                 removeToast(id);
             }, newToast.duration);

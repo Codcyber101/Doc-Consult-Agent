@@ -100,7 +100,7 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
           hoverable && "cursor-pointer",
           className
         )}
-        {...hoverAnimation}
+        {...(hoverAnimation as any)}
         {...props}
       >
         {children}
@@ -139,8 +139,9 @@ export const CardFooter = ({ className, children, ...props }: CardSectionProps) 
   <div
     className={cn(
       "mt-6 pt-6 border-t border-slate-100",
-      "flex items-center justify-end gap-3"
-    ), className}
+      "flex items-center justify-end gap-3",
+      className
+    )}
     {...props}
   >
     {children}

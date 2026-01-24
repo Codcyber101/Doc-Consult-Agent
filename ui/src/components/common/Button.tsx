@@ -140,7 +140,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         )}
 
         {/* Button text */}
-        <span className="truncate">{children}</span>
+        <span className="truncate">{children as React.ReactNode}</span>
 
         {/* Right icon */}
         {!isLoading && rightIcon && (

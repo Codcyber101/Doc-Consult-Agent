@@ -96,7 +96,7 @@ export const HumanReviewDashboard = ({
                         </div>
                     </div>
                     <div className="mt-4 text-xs font-medium text-slate-500">
-            Requires attention if > 50%
+            Requires attention if &gt; 50%
                     </div>
                 </Card>
 

@@ -2,8 +2,27 @@
 // but since I used standard layout in page.tsx for now, let's keep the root layout clean.
 
 import type { Metadata } from "next";
+import { DM_Sans, Outfit, Noto_Sans_Ethiopic } from "next/font/google";
 import "./globals.css";
 import { ToastProvider } from "@/components/common/Toast";
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm-sans",
+  display: "swap",
+});
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-outfit",
+  display: "swap",
+});
+
+const notoSansEthiopic = Noto_Sans_Ethiopic({
+  subsets: ["ethiopic", "latin"],
+  variable: "--font-noto-sans-ethiopic",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "GovAssist Ethiopia",
@@ -17,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="antialiased min-h-screen bg-slate-50">
+      <body className={`${dmSans.variable} ${outfit.variable} ${notoSansEthiopic.variable} font-sans antialiased min-h-screen bg-background text-foreground grain`}>
         <ToastProvider>
           {children}
         </ToastProvider>

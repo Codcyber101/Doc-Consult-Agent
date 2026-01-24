@@ -4,361 +4,287 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  ChevronRight, 
-  ChevronLeft, 
-  CheckCircle2, 
-  Info,
-  MapPin,
   Building2,
-  AlertCircle,
-  FileText,
-  ArrowRight,
+  MapPin,
+  FileCheck,
   ShieldCheck,
-  Download
+  Download,
+  ArrowRight,
+  Briefcase,
+  AlertCircle
 } from 'lucide-react';
-import { ReadinessScore } from '../../../components/analysis/ReadinessScore';
-import { Upload } from '../../../components/document/Upload';
-import { SyncStatus } from '../../../components/common/SyncStatus';
-import { saveWizardProgress, getWizardProgress } from '../../../lib/offline/db';
-import { ConsentModal } from '../../../components/submission/ConsentModal';
-import { TrackingTimeline } from '../../../components/submission/TrackingTimeline';
+
+import { WizardShell } from '@/components/domain/WizardShell';
+import { DocumentUploadWidget } from '@/components/domain/DocumentUploadWidget';
+import { ReadinessPanel, ReadinessItem } from '@/components/domain/ReadinessPanel';
+import { ProcedureChecklistCard } from '@/components/domain/ProcedureChecklistCard';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/common/Input';
+import { saveWizardProgress, getWizardProgress } from '@/lib/offline/db';
 
 const STEPS = [
-  { id: 'jurisdiction', title: 'Location', amharic: 'አካባቢ', description: 'Business jurisdiction' },
-  { id: 'requirements', title: 'Criteria', amharic: 'መስፈርቶች', description: 'Mandatory prerequisites' },
-  { id: 'documents', title: 'Analysis', amharic: 'ሰነዶች', description: 'Sovereign document verify' },
-  { id: 'review', title: 'Finalize', amharic: 'ማጠቃለያ', description: 'Audit & Submission' }
+  { title: 'Information', description: 'Review requirements and eligibility' },
+  { title: 'Jurisdiction', description: 'Select your business location' },
+  { title: 'Business Details', description: 'Enter business name and category' },
+  { title: 'Documents', description: 'Upload mandatory identifications' },
+  { title: 'Review', description: 'Final compliance audit' }
 ];
 
-const JURISDICTIONS = {
-  regions: ['Addis Ababa', 'Oromia', 'Amhara', 'Dire Dawa'],
-  subCities: ['Bole', 'Arada', 'Kirkos', 'Lideta', 'Yeka']
-};
-
 export default function TradeLicenseWizard() {
-  const [currentStep, setCurrentStep] = useState(0);
-  const [jurisdiction, setJurisdiction] = useState({ region: '', subCity: '' });
-  const [isConsentOpen, setIsConsentOpen] = useState(false);
+  const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    region: '',
+    subCity: '',
+    businessName: '',
+    businessCategory: '',
+    tinNumber: ''
+  });
+
+  const [readinessItems, setReadinessItems] = useState<ReadinessItem[]>([
+    { id: 'id-scan', label: 'Resident ID / Passport', status: 'missing', fixActionLabel: 'Upload' },
+    { id: 'tin-cert', label: 'TIN Certificate', status: 'missing', fixActionLabel: 'Upload' },
+    { id: 'lease-doc', label: 'Lease Agreement', status: 'ready' },
+  ]);
 
   useEffect(() => {
     const loadProgress = async () => {
       const saved = await getWizardProgress('trade-license-draft');
       if (saved) {
-        // @ts-expect-error - PouchDB response properties
-        setCurrentStep(saved.currentStep || 0);
-        // @ts-expect-error - PouchDB response properties
-        setJurisdiction(saved.jurisdiction || { region: '', subCity: '' });
+        // @ts-expect-error - saved has data
+        if (saved.currentStep) setCurrentStep(saved.currentStep);
+        // @ts-expect-error - saved has data
+        if (saved.formData) setFormData(saved.formData);
       }
     };
     loadProgress();
   }, []);
 
-  const nextStep = async () => {
-    if (currentStep === STEPS.length - 1) {
-      setIsConsentOpen(true);
+  const handleNext = async () => {
+    if (currentStep === STEPS.length) {
+      handleSubmit();
       return;
     }
-    const next = Math.min(currentStep + 1, STEPS.length - 1);
+    const next = currentStep + 1;
     setCurrentStep(next);
     await saveWizardProgress('trade-license-draft', { 
       currentStep: next, 
-      jurisdiction 
+      formData 
     });
   };
 
-  const prevStep = () => setCurrentStep(prev => Math.max(prev - 1, 0));
+  const handleBack = () => {
+    setCurrentStep(prev => Math.max(prev - 1, 1));
+  };
+
+  const handleSubmit = async () => {
+    setIsLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    setIsLoading(false);
+    setIsSubmitted(true);
+  };
+
+  if (isSubmitted) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="max-w-2xl w-full"
+        >
+          <div className="bg-emerald-900 rounded-[3rem] p-12 text-white text-center shadow-sovereign relative overflow-hidden">
+             <div className="relative z-10">
+                <motion.div 
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1, rotate: [0, 10, -10, 0] }}
+                  transition={{ delay: 0.2, type: 'spring' }}
+                  className="w-20 h-20 bg-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-glow-emerald"
+                >
+                   <ShieldCheck className="w-10 h-10 text-white" />
+                </motion.div>
+                <h1 className="text-4xl font-display font-bold mb-4">Transmission Successful</h1>
+                <p className="text-emerald-100/80 text-lg mb-10">
+                  Your application for Trade License Renewal has been securely transmitted to the National Gateway.
+                </p>
+                
+                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10 inline-block mb-10">
+                   <p className="text-[10px] uppercase tracking-widest font-black text-emerald-300 mb-1">Confirmation ID</p>
+                   <p className="text-xl font-mono font-bold text-gold-500">ET-MESOB-2026-X99</p>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                   <Button variant="secondary" className="gap-2">
+                      <Download className="w-4 h-4" /> Download Receipt
+                   </Button>
+                   <Link href="/">
+                      <Button variant="outline" className="bg-transparent border-white/20 text-white hover:bg-white/10 w-full sm:w-auto">
+                         Return to Dashboard
+                      </Button>
+                   </Link>
+                </div>
+             </div>
+             {/* Decorative pattern */}
+             <div className="absolute inset-0 opacity-10 pointer-events-none grain" />
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-sovereign-sand selection:bg-sovereign-gold selection:text-white">
-      <SyncStatus />
-      
-      {/* Dynamic Background Pattern */}
-      <div className="fixed inset-0 ethio-pattern opacity-20 -z-10" />
-
-      {/* Modern Header */}
-      <header className="bg-white/80 backdrop-blur-xl border-b border-gray-200 sticky top-0 z-[100]">
-        <div className="max-w-5xl mx-auto px-6 py-6 flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <button 
-              onClick={prevStep} 
-              disabled={currentStep === 0 || isSubmitted}
-              className="w-12 h-12 flex items-center justify-center bg-white border border-gray-200 rounded-2xl hover:border-sovereign-gold hover:text-sovereign-gold transition-all disabled:opacity-30 disabled:hover:border-gray-200 disabled:hover:text-current"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-            <div>
-              <h1 className="text-2xl font-black tracking-tight text-sovereign-slate uppercase">
-                Trade License <span className="text-sovereign-green italic">Renewal</span>
-              </h1>
-              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mt-0.5">
-                National Portal Gateway • ID: ET-TL-2026
+    <WizardShell
+      currentStep={currentStep}
+      totalSteps={STEPS.length}
+      title={STEPS[currentStep - 1].title}
+      description={STEPS[currentStep - 1].description}
+      onBack={currentStep > 1 ? handleBack : undefined}
+      onNext={handleNext}
+      isLoading={isLoading}
+    >
+      {/* Step 1: Intro */}
+      {currentStep === 1 && (
+        <div className="space-y-6">
+           <ProcedureChecklistCard 
+              title="Trade License Renewal"
+              description="Official process for renewing business operations within Ethiopia."
+              estimatedTime="2-3 Days"
+              cost="500 ETB"
+              isOfflineAvailable={true}
+              requiredDocsCount={3}
+              missingDocsCount={2}
+           />
+           <div className="p-4 bg-amber-50 border border-amber-100 rounded-xl flex gap-3">
+              <AlertCircle className="w-5 h-5 text-amber-600 shrink-0" />
+              <p className="text-sm text-amber-800">
+                Ensure you have your <strong>Original ID</strong> and <strong>TIN Certificate</strong> scans ready before proceeding.
               </p>
-            </div>
-          </div>
-          
-          <div className="hidden md:flex items-center gap-3">
-            {STEPS.map((step, i) => (
-              <React.Fragment key={step.id}>
-                <div className={`flex flex-col items-center group relative ${i === currentStep ? 'opacity-100' : 'opacity-30'}`}>
-                  <span className={`text-[10px] font-black uppercase tracking-widest mb-1 ${i === currentStep ? 'text-sovereign-green' : 'text-gray-500'}`}>
-                    {step.title}
-                  </span>
-                  <div className={`w-10 h-1.5 rounded-full transition-all duration-500 ${i <= currentStep ? 'bg-sovereign-green' : 'bg-gray-200'}`} />
-                </div>
-                {i !== STEPS.length - 1 && <div className="w-4 h-0.5 bg-gray-100" />}
-              </React.Fragment>
-            ))}
-          </div>
+           </div>
         </div>
-      </header>
+      )}
 
-      <main className="max-w-4xl mx-auto px-6 py-12">
-        <AnimatePresence mode="wait">
-          {!isSubmitted ? (
-            <motion.div
-              key={currentStep}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.4, ease: "circOut" }}
-              className="space-y-10"
-            >
-              {/* Step 1: Jurisdiction */}
-              {currentStep === 0 && (
-                <div className="space-y-10">
-                  <div className="bg-white p-12 rounded-[3rem] shadow-sovereign border border-gray-100 relative overflow-hidden">
-                    <div className="relative z-10">
-                      <div className="flex items-center gap-4 mb-10">
-                        <div className="w-14 h-14 bg-sovereign-green/10 rounded-2xl flex items-center justify-center text-sovereign-green">
-                          <MapPin className="w-7 h-7" />
-                        </div>
-                        <h2 className="text-3xl font-black tracking-tight text-gray-900 uppercase">Archive Jurisdiction</h2>
-                      </div>
-                      
-                      <div className="grid md:grid-cols-2 gap-10">
-                        <div className="space-y-3">
-                          <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-4">Region / Chartered City</label>
-                          <select 
-                            className="block w-full p-6 bg-sovereign-sand border-2 border-transparent focus:border-sovereign-green rounded-[2rem] font-bold text-lg outline-none transition-all appearance-none"
-                            value={jurisdiction.region}
-                            onChange={(e) => setJurisdiction({...jurisdiction, region: e.target.value, subCity: ''})}
-                          >
-                            <option value="">Select Region</option>
-                            {JURISDICTIONS.regions.map(r => <option key={r} value={r}>{r}</option>)}
-                          </select>
-                        </div>
-                        
-                        <AnimatePresence>
-                          {jurisdiction.region === 'Addis Ababa' && (
-                            <motion.div 
-                              initial={{ opacity: 0, scale: 0.95 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              className="space-y-3"
-                            >
-                              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-4">Administrative Sub-City</label>
-                              <select 
-                                className="block w-full p-6 bg-sovereign-sand border-2 border-transparent focus:border-sovereign-green rounded-[2rem] font-bold text-lg outline-none transition-all appearance-none"
-                                value={jurisdiction.subCity}
-                                onChange={(e) => setJurisdiction({...jurisdiction, subCity: e.target.value})}
-                              >
-                                <option value="">Select Sub-City</option>
-                                {JURISDICTIONS.subCities.map(s => <option key={s} value={s}>{s}</option>)}
-                              </select>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </div>
-                    </div>
-                    
-                    <div className="absolute top-0 right-0 p-12 opacity-[0.02] pointer-events-none">
-                      <MapPin size={240} />
-                    </div>
-                  </div>
-
-                  <div className="bg-sovereign-slate p-8 rounded-[2.5rem] flex items-start gap-6 text-white shadow-2xl">
-                    <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center flex-shrink-0">
-                      <Info className="w-6 h-6 text-sovereign-gold" />
-                    </div>
-                    <div className="space-y-1">
-                      <p className="font-bold text-lg">Jurisdiction Optimization</p>
-                      <p className="text-gray-400 text-sm leading-relaxed">
-                        Selecting the correct administrative zone allows our agents to fetch specific sub-city policy YAMLs for precise compliance mapping.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Step 2: Requirements */}
-              {currentStep === 1 && (
-                <div className="space-y-10">
-                  <div className="bg-white p-12 rounded-[3rem] shadow-sovereign border border-gray-100">
-                    <div className="flex items-center gap-4 mb-12">
-                      <div className="w-14 h-14 bg-sovereign-gold/10 rounded-2xl flex items-center justify-center text-sovereign-gold">
-                        <Building2 className="w-7 h-7" />
-                      </div>
-                      <h2 className="text-3xl font-black tracking-tight text-gray-900 uppercase">Policy Requirements</h2>
-                    </div>
-                    
-                    <div className="grid gap-4">
-                      {[
-                        'Original Trade License Archive',
-                        'TIN Verification Certificate',
-                        'Lease Contract / Title Deed',
-                        'Sub-City Audit Authorization'
-                      ].map((req, i) => (
-                        <motion.div 
-                          key={i}
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: i * 0.1 }}
-                          className="flex items-center justify-between p-6 bg-sovereign-sand rounded-3xl border border-gray-100 group hover:bg-white hover:border-sovereign-green transition-all duration-500"
-                        >
-                          <div className="flex items-center gap-5">
-                            <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-sm group-hover:bg-sovereign-green group-hover:text-white transition-colors">
-                              <CheckCircle2 className="w-5 h-5" />
-                            </div>
-                            <span className="font-black text-sovereign-slate uppercase tracking-tight">{req}</span>
-                          </div>
-                          <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Mandatory</span>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Step 3: Documents */}
-              {currentStep === 2 && (
-                <div className="space-y-10">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm">
-                    <div>
-                      <h2 className="text-2xl font-black tracking-tight text-gray-900 uppercase">Sovereign Analysis</h2>
-                      <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mt-1">Real-time Verification</p>
-                    </div>
-                    <ReadinessScore score={82} />
-                  </div>
-                  
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div className="space-y-4">
-                      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-4">Primary Document</p>
-                      <Upload label="Trade License Scan" onUpload={() => {}} />
-                    </div>
-                    <div className="space-y-4">
-                      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-4">Tax Authorization</p>
-                      <Upload label="TIN Certificate" onUpload={() => {}} />
-                    </div>
-                  </div>
-
-                  <div className="bg-sovereign-gold/5 border-2 border-sovereign-gold/20 p-8 rounded-[2.5rem] flex items-start gap-6 relative overflow-hidden">
-                    <div className="w-12 h-12 rounded-2xl bg-sovereign-gold text-white flex items-center justify-center flex-shrink-0 shadow-lg shadow-sovereign-gold/20">
-                      <AlertCircle className="w-6 h-6" />
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-black text-sovereign-slate uppercase tracking-tight mb-1">OCR Warning: Low Contrast</h4>
-                      <p className="text-sm text-gray-600 leading-relaxed font-medium">
-                        The "Issuance Date" field on the Trade License scan is partially obscured. Please ensure full-frame capture for 100% agent confidence.
-                      </p>
-                      <button className="mt-4 text-[10px] font-black uppercase tracking-[0.2em] text-sovereign-gold border-b-2 border-sovereign-gold hover:text-sovereign-slate hover:border-sovereign-slate transition-all">
-                        Initiate High-Res Capture
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Step 4: Final Review */}
-              {currentStep === 3 && (
-                <div className="space-y-10">
-                  <div className="bg-white p-16 rounded-[4rem] border-2 border-sovereign-green shadow-2xl text-center relative overflow-hidden">
-                    <div className="relative z-10">
-                      <motion.div 
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className="w-24 h-24 bg-sovereign-green rounded-[2.5rem] flex items-center justify-center text-white mx-auto mb-10 shadow-2xl shadow-sovereign-green/30"
-                      >
-                        <ShieldCheck className="w-12 h-12" />
-                      </motion.div>
-                      <h2 className="text-4xl font-black tracking-tighter text-gray-900 uppercase mb-4">Archive Authenticated</h2>
-                      <p className="text-gray-500 max-w-sm mx-auto font-medium text-lg leading-relaxed">
-                        All mandatory policy criteria have been satisfied. Archive is ready for national gateway transmission.
-                      </p>
-                      
-                      <div className="mt-12 p-6 bg-sovereign-sand rounded-3xl inline-flex items-center gap-4 border border-gray-100">
-                        <FileText className="text-sovereign-green w-5 h-5" />
-                        <span className="font-black text-[10px] uppercase tracking-widest text-sovereign-slate">Audit Hash: 0x82f...a12</span>
-                      </div>
-                    </div>
-                    
-                    <div className="absolute inset-0 ethio-pattern opacity-10" />
-                  </div>
-                </div>
-              )}
-
-              {/* Enhanced Navigation */}
-              <div className="pt-12 flex items-center justify-between border-t border-gray-200">
-                <button 
-                  onClick={prevStep}
-                  className={`px-10 py-5 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] transition-all ${currentStep === 0 ? 'invisible' : 'text-gray-400 hover:text-sovereign-slate hover:bg-white'}`}
-                >
-                  Return
-                </button>
-                <button 
-                  onClick={nextStep}
-                  disabled={currentStep === 0 && !jurisdiction.subCity}
-                  className="group px-12 py-5 bg-sovereign-slate text-white rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] shadow-2xl shadow-sovereign-slate/20 hover:bg-black disabled:opacity-30 disabled:grayscale transition-all flex items-center gap-4"
-                >
-                  {currentStep === STEPS.length - 1 ? 'Authorize & Submit' : 'Continue Process'}
-                  <ArrowRight className="w-4 h-4 text-sovereign-gold group-hover:translate-x-2 transition-transform" />
-                </button>
-              </div>
-            </motion.div>
-          ) : (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="space-y-12"
-            >
-              <div className="bg-sovereign-green p-16 rounded-[4rem] text-white flex flex-col md:flex-row items-center justify-between gap-10 shadow-2xl shadow-sovereign-green/30 relative overflow-hidden">
-                <div className="relative z-10">
-                  <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-60 mb-4 block">National Gateway Status</span>
-                  <h2 className="text-5xl font-black tracking-tighter mb-4">Success.</h2>
-                  <p className="text-xl font-medium text-white/80">Transmission ID: <span className="text-white font-black underline decoration-sovereign-gold underline-offset-8">ET-MESOB-2026-X99</span></p>
-                </div>
-                <div className="relative z-10 w-24 h-24 bg-white/10 backdrop-blur-md rounded-[2.5rem] flex items-center justify-center border border-white/20">
-                  <CheckCircle2 className="w-12 h-12 text-white" />
-                </div>
-                <div className="absolute top-0 right-0 p-12 opacity-10 pointer-events-none">
-                  <ShieldCheck size={300} />
-                </div>
+      {/* Step 2: Jurisdiction */}
+      {currentStep === 2 && (
+        <div className="space-y-8">
+           <div className="grid gap-6">
+              <div className="space-y-3">
+                 <label className="text-sm font-bold text-slate-900">Region / Chartered City</label>
+                 <div className="grid grid-cols-2 gap-3">
+                    {['Addis Ababa', 'Oromia', 'Amhara', 'Dire Dawa'].map(r => (
+                       <button 
+                         key={r}
+                         onClick={() => setFormData({...formData, region: r})}
+                         className={`p-4 rounded-xl border-2 text-left transition-all ${formData.region === r ? 'border-emerald-600 bg-emerald-50 text-emerald-900' : 'border-slate-100 bg-slate-50 text-slate-600 hover:border-slate-200'}`}
+                       >
+                          <MapPin className={`w-4 h-4 mb-2 ${formData.region === r ? 'text-emerald-600' : 'text-slate-400'}`} />
+                          <span className="font-bold text-sm">{r}</span>
+                       </button>
+                    ))}
+                 </div>
               </div>
 
-              <TrackingTimeline />
+              <AnimatePresence>
+                 {formData.region === 'Addis Ababa' && (
+                    <motion.div 
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      className="space-y-3"
+                    >
+                       <label className="text-sm font-bold text-slate-900">Administrative Sub-City</label>
+                       <select 
+                         className="w-full h-12 px-4 rounded-xl border border-slate-200 bg-white"
+                         value={formData.subCity}
+                         onChange={(e) => setFormData({...formData, subCity: e.target.value})}
+                       >
+                          <option value="">Select Sub-City</option>
+                          {['Bole', 'Arada', 'Kirkos', 'Lideta'].map(s => <option key={s} value={s}>{s}</option>)}
+                       </select>
+                    </motion.div>
+                 )}
+              </AnimatePresence>
+           </div>
+        </div>
+      )}
 
-              <div className="flex flex-col sm:flex-row gap-6">
-                <button className="flex-1 p-6 bg-white border border-gray-200 rounded-[2rem] flex items-center justify-center gap-4 hover:border-sovereign-gold transition-all group">
-                  <Download className="w-6 h-6 text-sovereign-gold group-hover:translate-y-1 transition-transform" />
-                  <span className="font-black text-[10px] uppercase tracking-[0.2em]">Download Receipt</span>
-                </button>
-                <Link href="/" className="flex-1 p-6 bg-sovereign-slate text-white rounded-[2rem] flex items-center justify-center gap-4 hover:bg-black transition-all shadow-xl">
-                  <span className="font-black text-[10px] uppercase tracking-[0.2em]">Exit Portal</span>
-                  <ArrowRight className="w-6 h-6 text-sovereign-gold" />
-                </Link>
+      {/* Step 3: Business Details */}
+      {currentStep === 3 && (
+        <div className="space-y-6">
+           <Input 
+             label="Business Name" 
+             placeholder="Enter registered name"
+             value={formData.businessName}
+             onChange={(e) => setFormData({...formData, businessName: e.target.value})}
+             leftIcon={<Building2 className="w-4 h-4" />}
+           />
+           <Input 
+             label="Business Category" 
+             placeholder="e.g. Retail, Tech, Manufacturing"
+             value={formData.businessCategory}
+             onChange={(e) => setFormData({...formData, businessCategory: e.target.value})}
+             leftIcon={<Briefcase className="w-4 h-4" />}
+           />
+           <Input 
+             label="TIN Number" 
+             placeholder="10-digit tax identification"
+             value={formData.tinNumber}
+             onChange={(e) => setFormData({...formData, tinNumber: e.target.value})}
+             maxLength={10}
+             showCount
+           />
+        </div>
+      )}
+
+      {/* Step 4: Documents */}
+      {currentStep === 4 && (
+        <div className="space-y-8">
+           <DocumentUploadWidget 
+              label="Resident ID / Passport Scan"
+              description="Ensure all four corners are visible and text is legible."
+              onUpload={async () => {
+                 setReadinessItems(items => items.map(i => i.id === 'id-scan' ? {...i, status: 'ready'} : i));
+              }}
+           />
+           <DocumentUploadWidget 
+              label="TIN Certificate"
+              description="Upload the latest digital or scanned copy."
+              onUpload={async () => {
+                 setReadinessItems(items => items.map(i => i.id === 'tin-cert' ? {...i, status: 'ready'} : i));
+              }}
+           />
+        </div>
+      )}
+
+      {/* Step 5: Review */}
+      {currentStep === 5 && (
+        <div className="space-y-8">
+           <ReadinessPanel 
+              score={readinessItems.every(i => i.status === 'ready') ? 100 : 66} 
+              items={readinessItems}
+              onFixItem={(id) => {
+                 if (id === 'id-scan' || id === 'tin-cert') setCurrentStep(4);
+              }}
+           />
+           
+           <div className="p-6 bg-slate-900 rounded-3xl text-white relative overflow-hidden">
+              <div className="relative z-10">
+                 <div className="flex items-center gap-3 mb-4">
+                    <FileCheck className="w-5 h-5 text-emerald-400" />
+                    <h3 className="font-display font-bold text-lg">Declaration</h3>
+                 </div>
+                 <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                    I hereby declare that all information provided is accurate and all documents are authentic. 
+                    I understand that providing false information is a punishable offense under Ethiopian law.
+                 </p>
+                 <label className="flex items-center gap-3 cursor-pointer group">
+                    <div className="w-6 h-6 rounded-md border-2 border-slate-700 bg-slate-800 flex items-center justify-center group-hover:border-emerald-500 transition-colors">
+                       <div className="w-3 h-3 bg-emerald-500 rounded-sm"></div>
+                    </div>
+                    <span className="text-sm font-medium">I agree to the terms and conditions</span>
+                 </label>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </main>
-
-      <ConsentModal 
-        isOpen={isConsentOpen} 
-        onClose={() => setIsConsentOpen(false)} 
-        onConfirm={() => {
-          setIsConsentOpen(false);
-          setIsSubmitted(true);
-        }} 
-      />
-    </div>
+           </div>
+        </div>
+      )}
+    </WizardShell>
   );
 }

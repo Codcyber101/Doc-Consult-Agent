@@ -1,174 +1,271 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Search, Filter, RefreshCw, Users, ShieldAlert, Clock, ChevronRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  Users, 
+  Search, 
+  Filter, 
+  CheckCircle2, 
+  AlertTriangle, 
+  ShieldCheck, 
+  FileText, 
+  Eye, 
+  ArrowRight,
+  MoreHorizontal,
+  ChevronRight,
+  History,
+  MessageSquare,
+  FileSearch
+} from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/common/Badge';
+import { cn } from '@/lib/utils';
 
-const MOCK_QUEUE = [
+const QUEUE_ITEMS = [
   {
-    id: 'RE-101',
-    documentType: 'Trade License Archive',
-    amharic: 'የንግድ ፈቃድ',
-    reason: 'Cryptographic stamp mismatch on sector 2',
+    id: 'RE-9921',
+    applicant: 'Abebe Bikila',
+    service: 'Trade License Renewal',
+    jurisdiction: 'Addis Ababa • Bole',
     submittedAt: '2 hours ago',
-    user: 'Abebe Kebede',
-    status: 'PENDING'
+    agentConfidence: 94,
+    status: 'Pending',
+    flags: [],
+    thumbnail: '/docs/trade-license.jpg'
   },
   {
-    id: 'RE-102',
-    documentType: 'Sovereign Birth Certificate',
-    amharic: 'የልደት ምስክር ወረቀት',
-    reason: 'Agent confidence below threshold (0.45)',
+    id: 'RE-9922',
+    applicant: 'Makeda Isayas',
+    service: 'Kebele ID Renewal',
+    jurisdiction: 'Addis Ababa • Arada',
+    submittedAt: '4 hours ago',
+    agentConfidence: 62,
+    status: 'Reviewing',
+    flags: ['Low Contrast', 'Name Mismatch'],
+    thumbnail: '/docs/id-card.jpg'
+  },
+  {
+    id: 'RE-9923',
+    applicant: 'Tewodros Kassahun',
+    service: 'Vehicle Registration',
+    jurisdiction: 'Addis Ababa • Yeka',
     submittedAt: '5 hours ago',
-    user: 'Sara Tadesse',
-    status: 'PENDING'
-  },
-  {
-    id: 'RE-103',
-    documentType: 'Investment Proclamation Permit',
-    amharic: 'የኢንቨስትመንት ፈቃድ',
-    reason: 'Complex legal clause detected',
-    submittedAt: '1 day ago',
-    user: 'Ethio SME Corp',
-    status: 'IN_PROGRESS'
+    agentConfidence: 88,
+    status: 'Escalated',
+    flags: ['Manual Verification Req'],
+    thumbnail: '/docs/car-reg.jpg'
   }
-] as const;
-
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 }
-  }
-};
-
-const item = {
-  hidden: { y: 10, opacity: 0 },
-  show: { y: 0, opacity: 1 }
-};
+];
 
 export default function ReviewQueuePage() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedItem, setSelectedItem] = useState(QUEUE_ITEMS[1]);
 
   return (
-    <div className="space-y-12 pb-20">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+    <div className="space-y-10">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <div className="flex items-center gap-2 mb-4">
-            <Users className="w-4 h-4 text-sovereign-gold" />
-            <span className="text-[10px] font-black uppercase tracking-[0.25em] text-gray-400">Human-in-the-Loop</span>
-          </div>
-          <h1 className="text-5xl font-black text-gray-900 tracking-tighter uppercase text-white dark:text-gray-900">Review <span className="text-sovereign-green italic">Orchestra</span></h1>
-          <p className="text-gray-500 mt-4 font-medium text-lg max-w-2xl leading-relaxed">
-            Verify low-confidence autonomous extractions and issue authoritative sovereign signatures.
-          </p>
+          <h1 className="text-3xl font-display font-bold text-slate-900 tracking-tight">
+            Human-in-the-Loop <span className="text-emerald-600 italic">Review Queue</span>
+          </h1>
+          <p className="text-slate-500 font-medium mt-1">Audit submissions flagged by automated agents.</p>
         </div>
-        <button className="flex items-center gap-4 px-8 py-4 bg-white border border-gray-200 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] shadow-sm hover:border-sovereign-gold transition-all group">
-          <RefreshCw size={16} className="text-sovereign-gold group-hover:rotate-180 transition-transform duration-700" />
-          <span>Sync Queue</span>
-        </button>
-      </div>
-
-      {/* Modern Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {[
-          { label: 'Pending Authority', val: '12', color: 'text-sovereign-slate', icon: <Clock /> },
-          { label: 'Active Sessions', val: '04', color: 'text-sovereign-green', icon: <Users /> },
-          { label: 'SLA Risk Factor', val: '02', color: 'text-sovereign-red', icon: <ShieldAlert /> },
-        ].map((stat, i) => (
-          <motion.div 
-            key={i}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: i * 0.1 }}
-            className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sovereign"
-          >
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">{stat.label}</span>
-              <div className={`w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center opacity-40`}>
-                {React.isValidElement(stat.icon) && React.cloneElement(stat.icon as React.ReactElement<any>, { size: 14 })}
-              </div>
-            </div>
-            <p className={`text-5xl font-black tracking-tighter ${stat.color}`}>{stat.val}</p>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Integrated Search & Filter */}
-      <div className="flex flex-col sm:flex-row gap-4">
-        <div className="relative flex-1 group">
-          <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-sovereign-green transition-colors" size={20} />
-          <input 
-            type="text"
-            placeholder="Search by ID, applicant name or archive hash..."
-            className="w-full pl-16 pr-6 py-5 bg-white border-2 border-transparent focus:border-sovereign-green rounded-[2rem] font-bold text-sm outline-none transition-all shadow-sovereign"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+        
+        <div className="flex gap-3">
+           <div className="relative group">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-emerald-600 transition-colors" />
+              <input 
+                type="text" 
+                placeholder="Find submission..." 
+                className="h-11 pl-10 pr-4 bg-white border border-slate-200 rounded-xl text-sm outline-none focus:border-emerald-500 shadow-sm w-64"
+              />
+           </div>
+           <Button variant="outline" className="h-11 px-4 gap-2 border-slate-200">
+              <Filter className="w-4 h-4" /> Filter
+           </Button>
         </div>
-        <button className="flex items-center justify-center gap-4 px-10 py-5 bg-sovereign-slate text-white rounded-[2rem] font-black text-[10px] uppercase tracking-[0.2em] shadow-xl hover:bg-black transition-all">
-          <Filter size={18} className="text-sovereign-gold" />
-          <span>Advanced Filter</span>
-        </button>
       </div>
 
-      {/* Enhanced Queue List */}
-      <motion.div 
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className="space-y-6"
-      >
-        {MOCK_QUEUE.map((item_q) => (
-          <motion.div 
-            key={item_q.id}
-            variants={item}
-            className="group bg-white p-8 rounded-[3rem] border border-gray-100 hover:border-sovereign-green transition-all duration-500 shadow-sm hover:shadow-2xl relative overflow-hidden"
-          >
-            <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
-              <div className="flex items-center gap-8 w-full md:w-auto">
-                <div className={`w-16 h-16 rounded-[1.5rem] flex items-center justify-center shadow-inner transition-all duration-500 ${item_q.status === 'IN_PROGRESS' ? 'bg-sovereign-green text-white rotate-3' : 'bg-sovereign-sand text-sovereign-slate'}`}>
-                  <span className="font-black text-xs">{item_q.id.split('-')[1]}</span>
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-10">
+        {/* List Pane */}
+        <div className="xl:col-span-4 space-y-4">
+           <div className="flex items-center justify-between px-2 mb-4">
+              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Queue: 12 Active</span>
+              <button className="text-[10px] font-black uppercase tracking-widest text-emerald-600 hover:underline">Batch Process</button>
+           </div>
+           
+           <div className="space-y-3">
+              {QUEUE_ITEMS.map((item) => (
+                <div 
+                  key={item.id}
+                  onClick={() => setSelectedItem(item)}
+                  className={cn(
+                    "p-5 rounded-2xl border-2 transition-all cursor-pointer group relative overflow-hidden",
+                    selectedItem.id === item.id 
+                      ? "border-emerald-600 bg-white shadow-lg" 
+                      : "border-white bg-white/50 hover:border-slate-200 shadow-sm"
+                  )}
+                >
+                   <div className="flex items-start justify-between mb-3 relative z-10">
+                      <div className="flex items-center gap-3">
+                         <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-400">
+                            <FileText className="w-5 h-5" />
+                         </div>
+                         <div>
+                            <p className="text-sm font-bold text-slate-900 leading-none">{item.applicant}</p>
+                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tight mt-1">{item.id}</p>
+                         </div>
+                      </div>
+                      <div className={cn(
+                        "text-[10px] font-black uppercase px-2 py-0.5 rounded-md",
+                        item.status === 'Pending' ? "bg-slate-100 text-slate-600" : 
+                        item.status === 'Reviewing' ? "bg-amber-100 text-amber-700" : "bg-red-100 text-red-700"
+                      )}>
+                        {item.status}
+                      </div>
+                   </div>
+                   
+                   <div className="space-y-2 relative z-10">
+                      <p className="text-xs font-medium text-slate-600">{item.service}</p>
+                      <div className="flex items-center justify-between text-[10px] font-bold uppercase">
+                         <span className="text-slate-400">{item.jurisdiction}</span>
+                         <span className={cn(
+                           item.agentConfidence < 70 ? "text-red-500" : "text-emerald-600"
+                         )}>{item.agentConfidence}% Agent Score</span>
+                      </div>
+                   </div>
+                   
+                   {selectedItem.id === item.id && (
+                     <div className="absolute inset-0 grain opacity-[0.03] pointer-events-none" />
+                   )}
                 </div>
-                <div>
-                  <div className="flex items-center gap-3 mb-1">
-                    <h4 className="text-xl font-black text-sovereign-slate uppercase tracking-tight">{item_q.documentType}</h4>
-                    <span className="text-[10px] font-black text-sovereign-gold uppercase italic">{item_q.amharic}</span>
-                  </div>
-                  <p className="text-sm font-bold text-gray-400 uppercase tracking-widest flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-sovereign-gold" />
-                    Archive: {item_q.id} • User: {item_q.user}
-                  </p>
-                </div>
-              </div>
+              ))}
+           </div>
+        </div>
 
-              <div className="flex-1 px-8 border-l border-gray-50 hidden lg:block">
-                <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Escalation Reason</p>
-                <p className="text-sm font-semibold text-sovereign-red leading-relaxed">{item_q.reason}</p>
-              </div>
+        {/* Audit Pane */}
+        <div className="xl:col-span-8">
+           <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedItem.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-white rounded-[3rem] border border-slate-100 shadow-xl overflow-hidden flex flex-col h-[800px]"
+              >
+                 {/* Audit Header */}
+                 <div className="p-8 border-b border-slate-50 bg-slate-50/50 flex items-center justify-between">
+                    <div className="flex items-center gap-6">
+                       <div className="w-16 h-16 rounded-2xl bg-emerald-600 flex items-center justify-center text-white shadow-lg">
+                          <Users className="w-8 h-8" />
+                       </div>
+                       <div>
+                          <h3 className="text-2xl font-display font-bold text-slate-900">{selectedItem.applicant}</h3>
+                          <p className="text-sm font-medium text-slate-500">{selectedItem.service} • Submission {selectedItem.id}</p>
+                       </div>
+                    </div>
+                    <div className="flex gap-2">
+                       <Button variant="outline" size="icon" className="rounded-xl border-slate-200">
+                          <History className="w-4 h-4 text-slate-400" />
+                       </Button>
+                       <Button variant="outline" size="icon" className="rounded-xl border-slate-200">
+                          <MessageSquare className="w-4 h-4 text-slate-400" />
+                       </Button>
+                    </div>
+                 </div>
 
-              <div className="flex items-center gap-6 w-full md:w-auto justify-between md:justify-end">
-                <div className="text-right">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">{item_q.submittedAt}</p>
-                  <span className={`inline-block mt-1 px-3 py-1 rounded-full text-[9px] font-black tracking-widest uppercase border ${
-                    item_q.status === 'IN_PROGRESS' ? 'bg-sovereign-green/10 border-sovereign-green/20 text-sovereign-green' : 'bg-gray-50 border-gray-100 text-gray-400'
-                  }`}>
-                    {item_q.status}
-                  </span>
-                </div>
-                <button className="w-12 h-12 rounded-2xl bg-sovereign-sand flex items-center justify-center group-hover:bg-sovereign-gold group-hover:text-white transition-all shadow-sm">
-                  <ChevronRight size={20} />
-                </button>
-              </div>
-            </div>
-            
-            {/* Subtle motif */}
-            <div className="absolute top-0 right-0 p-8 opacity-[0.02] pointer-events-none group-hover:opacity-[0.05] transition-opacity">
-              <ShieldAlert size={120} />
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
+                 {/* Audit Content */}
+                 <div className="flex-1 flex overflow-hidden">
+                    {/* Document Preview */}
+                    <div className="flex-1 bg-slate-900 p-8 flex flex-col items-center justify-center relative group">
+                       <div className="w-full h-full bg-slate-800 rounded-xl border border-white/10 flex items-center justify-center relative overflow-hidden shadow-2xl">
+                          <FileSearch className="w-20 h-20 text-white/5" />
+                          <p className="absolute bottom-6 text-[10px] font-black text-white/20 uppercase tracking-widest">Digital Archive Mirror</p>
+                          
+                          {/* Mock OCR Overlay */}
+                          <div className="absolute top-20 left-20 p-2 bg-emerald-500/20 border border-emerald-500/50 rounded text-[10px] text-emerald-400 font-mono">
+                             NAME: {selectedItem.applicant.toUpperCase()}
+                          </div>
+                          <div className="absolute top-32 left-20 p-2 bg-red-500/20 border border-red-500/50 rounded text-[10px] text-red-400 font-mono">
+                             JURISDICTION: BOLE_SUB_CITY
+                          </div>
+                       </div>
+                       
+                       <div className="absolute bottom-12 flex gap-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <Button variant="secondary" size="sm" className="rounded-full shadow-xl">
+                             <Eye className="w-4 h-4 mr-2" /> Zoom Original
+                          </Button>
+                          <Button variant="outline" size="sm" className="rounded-full bg-white/10 text-white border-white/20 hover:bg-white/20">
+                             <ShieldCheck className="w-4 h-4 mr-2" /> Verify HSM
+                          </Button>
+                       </div>
+                    </div>
+
+                    {/* Agent Analysis Sidebar */}
+                    <div className="w-80 border-l border-slate-100 p-8 space-y-8 overflow-y-auto">
+                       <div>
+                          <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Agent Assessment</h4>
+                          <div className="space-y-4">
+                             <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                                <div className="flex justify-between items-end mb-2">
+                                   <span className="text-xs font-bold text-slate-900">Confidence</span>
+                                   <span className={cn(
+                                     "text-lg font-black",
+                                     selectedItem.agentConfidence < 70 ? "text-red-600" : "text-emerald-600"
+                                   )}>{selectedItem.agentConfidence}%</span>
+                                </div>
+                                <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                                   <div 
+                                     className={cn(
+                                       "h-full rounded-full transition-all duration-1000",
+                                       selectedItem.agentConfidence < 70 ? "bg-red-500" : "bg-emerald-500"
+                                     )}
+                                     style={{ width: `${selectedItem.agentConfidence}%` }}
+                                   />
+                                </div>
+                             </div>
+                          </div>
+                       </div>
+
+                       <div>
+                          <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Audit Flags</h4>
+                          <div className="space-y-3">
+                             {selectedItem.flags.length > 0 ? (
+                                selectedItem.flags.map(flag => (
+                                  <div key={flag} className="flex gap-3 p-3 bg-red-50 border border-red-100 rounded-xl">
+                                     <AlertTriangle className="w-4 h-4 text-red-500 shrink-0" />
+                                     <span className="text-xs font-medium text-red-700">{flag}</span>
+                                  </div>
+                                ))
+                             ) : (
+                                <div className="flex gap-3 p-3 bg-emerald-50 border border-emerald-100 rounded-xl">
+                                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                                   <span className="text-xs font-medium text-emerald-700">Clear Policy Compliance</span>
+                                </div>
+                             )}
+                          </div>
+                       </div>
+
+                       <div className="pt-8 border-t border-slate-50">
+                          <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Final Decision</h4>
+                          <div className="space-y-3">
+                             <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold h-12 rounded-xl shadow-glow-emerald">
+                                Approve Transmission
+                             </Button>
+                             <Button variant="outline" className="w-full h-12 rounded-xl text-red-600 border-red-100 hover:bg-red-50">
+                                Request Retake
+                             </Button>
+                             <Button variant="ghost" className="w-full h-12 rounded-xl text-slate-400 hover:text-slate-900">
+                                Escalate to Director
+                             </Button>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </motion.div>
+           </AnimatePresence>
+        </div>
+      </div>
     </div>
   );
 }

@@ -11,6 +11,8 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        parchment: "#F9F7F1",
+        ink: "#1A1C18",
         // Sovereign Utility Palette
         emerald: {
           50: '#ecfdf5',

@@ -3,13 +3,16 @@ import { Button } from '@/components/common/Button';
 import { X, Save } from 'lucide-react';
 import Link from 'next/link';
 
-export default function FlowLayout({
+export default async function FlowLayout({
   children,
   params
 }: {
   children: React.ReactNode;
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
+  const resolvedParams = await params;
+  const { id } = resolvedParams;
+
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
       {/* Wizard Header - Focused Mode */}

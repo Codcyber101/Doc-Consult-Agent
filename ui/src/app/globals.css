@@ -4,8 +4,6 @@
    Typography: Outfit (display) + DM Sans (body) + Noto Sans Ethiopic (Amharic)
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Noto+Sans+Ethiopic:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -16,8 +14,8 @@
 
 :root {
   /* Core Colors */
-  --background: #F8FAFC;
-  --foreground: #0F172A;
+  --background: #F9F7F1; /* Warm Parchment */
+  --foreground: #1A1C18; /* Ink Black */
 
   /* Ethiopian Palette */
   --emerald-primary: #006B3F;

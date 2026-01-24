@@ -114,9 +114,10 @@ services:
     image: govassist-agents:dev
     build:
       context: ../agents
+    command: python src/main.py
     environment:
       TEMPORAL_HOST: temporal:7233
-      PYTHONPATH: /app
+      PYTHONPATH: /app/src
     depends_on:
       - temporal
     volumes:

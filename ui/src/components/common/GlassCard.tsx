@@ -100,7 +100,7 @@ export const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
                     hoverable && "cursor-pointer",
                     className
                 )}
-                {...hoverAnimation}
+                {...(hoverAnimation as any)}
                 {...props}
             >
                 {children}
