@@ -38,3 +38,6 @@ Thumbs.db
 
 # Testing
 coverage/
+
+# Design files
+Frontend-UI-design/
