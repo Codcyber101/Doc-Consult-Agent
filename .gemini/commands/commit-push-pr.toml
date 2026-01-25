@@ -1,0 +1,46 @@
+description = "Create and submit a pull request by checking the current status of the working directory, committing, and pushing."
+prompt = """
+Help me create and submit a pull request by following these steps in order:
+
+1. **Status Check**:
+   - Display staged changes.
+   - Display unstaged/uncommitted changes.
+   - Show the current branch name.
+
+2. **Formatting and Linting**:
+   - Detect the project language/framework and run the appropriate tools.
+   - For **Backend (Python)**: Use `ruff check . --fix` and `ruff format .`.
+   - For **Frontend (React/TS)**: Use `pnpm run lint` (or `npm run lint`).
+   - Stage any changes resulting from formatting.
+
+3. **Commit**:
+   - Generate a descriptive commit message following the Conventional Commits format (e.g., `feat:`, `fix:`, `docs:`).
+   - Use subsystem prefixes as specified in `AGENTS.md` (e.g., `[frontend]`, `[backend]`, `[ingest]`).
+   - Include details about what changed and why.
+   - Commit all staged changes.
+
+4. **PR Description**:
+   - Determine the default branch (usually `main`).
+   - Generate a diff against the default branch.
+   - Create a structured PR description based on the diff.
+   - Include:
+     * Summary of changes
+     * Technical implementation details
+     * Testing steps
+     * Related issues/tickets
+
+5. **Submission**:
+   - Push changes to origin.
+   - Create a pull request using the GitHub CLI (`gh pr create`) if available.
+   - If `gh` is not available, suggest using the project's helper script `powershell scripts/create_pr.ps1` or provide a manual link.
+   - Open the PR in the browser if possible.
+
+Provide clear feedback after each step is completed or if any errors occur. Stay focused on the PR creation workflow and do not execute any commands outside this scope.
+
+Example good commit message:
+"feat: [backend] implement user authentication flow
+- Add JWT token generation
+- Create login endpoint
+- Add password hashing
+- Update user model"
+"""
