@@ -1,6 +1,5 @@
 import os
 import subprocess
-import pathlib
 
 
 def run_bash(cmd, cwd=None, env=None):

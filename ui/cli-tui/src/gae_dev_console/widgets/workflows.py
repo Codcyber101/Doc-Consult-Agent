@@ -1,5 +1,4 @@
-from textual.app import ComposeResult
-from textual.widgets import DataTable, Static
+from textual.widgets import DataTable
 from textual import work
 from gae_dev_console.api.temporal import temporal_client
 from gae_dev_console.screens.workflow_detail import WorkflowDetailScreen

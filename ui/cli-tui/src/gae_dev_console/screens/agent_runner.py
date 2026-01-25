@@ -1,7 +1,7 @@
 from textual.app import ComposeResult
 from textual.screen import Screen
 from textual.widgets import Header, Footer, Static, Button, TextArea, Select, Label
-from textual.containers import Container, Vertical, Horizontal
+from textual.containers import Container, Horizontal
 from textual import work
 import json
 

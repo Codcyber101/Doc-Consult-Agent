@@ -1,5 +1,6 @@
 import httpx
 import os
+from datetime import datetime
 from typing import Dict, Any
 from agents.src.audit_agent.activity import audit_logger
 
@@ -64,4 +65,3 @@ class PortalConnector:
         }
 
 portal_connector = PortalConnector()
-from datetime import datetime
