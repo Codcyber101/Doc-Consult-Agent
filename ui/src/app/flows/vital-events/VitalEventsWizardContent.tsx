@@ -66,7 +66,7 @@ export default function VitalEventsWizard() {
       description={STEPS[currentStep - 1].description}
       onBack={currentStep > 1 ? prevStep : undefined}
       onNext={currentStep === STEPS.length ? () => setIsSubmitted(true) : nextStep}
-      isNextDisabled={currentStep === 1 && !eventType}
+      nextDisabled={currentStep === 1 && !eventType}
     >
       {/* Step 1: Event Type */}
       {currentStep === 1 && (

@@ -11,35 +11,12 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        parchment: "#F9F7F1",
-        ink: "#1A1C18",
-        // Sovereign Utility Palette
-        emerald: {
-          50: '#ecfdf5',
-          100: '#d1fae5',
-          200: '#a7f3d0',
-          300: '#6ee7b7',
-          400: '#34d399',
-          500: '#10b981',
-          600: '#006B3F', // Primary Brand (Ethiopian Emerald)
-          700: '#047857',
-          800: '#065f46',
-          900: '#064e3b',
-          950: '#022c22',
+        primary: {
+          DEFAULT: "#1152d4",
+          dark: "#0d3a94",
+          light: "#eef4ff",
         },
-        gold: {
-          50: '#fffbeb',
-          100: '#fef3c7',
-          200: '#fde68a',
-          300: '#fcd34d',
-          400: '#fbbf24',
-          500: '#FDB813', // Secondary Brand (Abyssinian Gold)
-          600: '#d97706',
-          700: '#b45309',
-          800: '#92400e',
-          900: '#78350f',
-          950: '#451a03',
-        },
+        secondary: "#cca43b",
         slate: {
           50: '#f8fafc',
           100: '#f1f5f9',
@@ -53,22 +30,17 @@ const config: Config = {
           900: '#0f172a',
           950: '#020617',
         },
-        red: {
-          earth: '#D94E41', // Error/Destructive
-        },
         sovereign: {
-          green: '#006B3F',
-          gold: '#FDB813',
+          blue: '#1152d4',
           slate: '#0F172A',
           sand: '#F8FAFC',
           red: '#D94E41',
         }
       },
       fontFamily: {
-        // Updated: Outfit for display, DM Sans for body, Noto for Amharic
-        sans: ["DM Sans", "Noto Sans Ethiopic", "system-ui", "sans-serif"],
-        display: ["Outfit", "Noto Sans Ethiopic", "system-ui", "sans-serif"],
-        body: ["DM Sans", "Noto Sans Ethiopic", "system-ui", "sans-serif"],
+        sans: ["Public Sans", "Noto Sans Ethiopic", "system-ui", "sans-serif"],
+        display: ["Public Sans", "Noto Sans Ethiopic", "system-ui", "sans-serif"],
+        body: ["Public Sans", "Noto Sans Ethiopic", "system-ui", "sans-serif"],
         ethiopic: ["Noto Sans Ethiopic", "system-ui", "sans-serif"],
       },
       borderRadius: {

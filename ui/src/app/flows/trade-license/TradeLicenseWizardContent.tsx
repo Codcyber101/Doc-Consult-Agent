@@ -87,45 +87,46 @@ export default function TradeLicenseWizard() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4">
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           className="max-w-2xl w-full"
         >
-          <div className="bg-emerald-900 rounded-[3rem] p-12 text-white text-center shadow-sovereign relative overflow-hidden">
+          <div className="bg-slate-900 dark:bg-black rounded-[3rem] p-12 text-white text-center shadow-2xl shadow-primary/20 relative overflow-hidden">
+             {/* Abstract background for success */}
+             <div className="absolute inset-0 bg-mesh opacity-20 mix-blend-screen" />
+             
              <div className="relative z-10">
                 <motion.div 
                   initial={{ scale: 0 }}
                   animate={{ scale: 1, rotate: [0, 10, -10, 0] }}
                   transition={{ delay: 0.2, type: 'spring' }}
-                  className="w-20 h-20 bg-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-glow-emerald"
+                  className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-lg shadow-primary/40"
                 >
                    <ShieldCheck className="w-10 h-10 text-white" />
                 </motion.div>
-                <h1 className="text-4xl font-display font-bold mb-4">Transmission Successful</h1>
-                <p className="text-emerald-100/80 text-lg mb-10">
+                <h1 className="text-4xl font-display font-bold mb-4 tracking-tight">Transmission Successful</h1>
+                <p className="text-slate-400 text-lg mb-10 max-w-md mx-auto">
                   Your application for Trade License Renewal has been securely transmitted to the National Gateway.
                 </p>
                 
-                <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10 inline-block mb-10">
-                   <p className="text-[10px] uppercase tracking-widest font-black text-emerald-300 mb-1">Confirmation ID</p>
-                   <p className="text-xl font-mono font-bold text-gold-500">ET-MESOB-2026-X99</p>
+                <div className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10 inline-block mb-10">
+                   <p className="text-[10px] uppercase tracking-widest font-black text-primary mb-1">Confirmation ID</p>
+                   <p className="text-xl font-mono font-bold text-blue-400">ET-MESOB-2026-X99</p>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                   <Button variant="secondary" className="gap-2">
+                   <Button variant="outline" className="gap-2 bg-white/10 border-white/20 text-white hover:bg-white/20 h-12 px-6">
                       <Download className="w-4 h-4" /> Download Receipt
                    </Button>
                    <Link href="/">
-                      <Button variant="outline" className="bg-transparent border-white/20 text-white hover:bg-white/10 w-full sm:w-auto">
+                      <Button className="bg-primary hover:bg-primary-dark text-white h-12 px-8 font-bold shadow-lg shadow-primary/20">
                          Return to Dashboard
                       </Button>
                    </Link>
                 </div>
              </div>
-             {/* Decorative pattern */}
-             <div className="absolute inset-0 opacity-10 pointer-events-none grain" />
           </div>
         </motion.div>
       </div>
@@ -168,15 +169,15 @@ export default function TradeLicenseWizard() {
         <div className="space-y-8">
            <div className="grid gap-6">
               <div className="space-y-3">
-                 <label className="text-sm font-bold text-slate-900">Region / Chartered City</label>
+                 <label className="text-sm font-bold text-slate-900 dark:text-white">Region / Chartered City</label>
                  <div className="grid grid-cols-2 gap-3">
                     {['Addis Ababa', 'Oromia', 'Amhara', 'Dire Dawa'].map(r => (
                        <button 
                          key={r}
                          onClick={() => setFormData({...formData, region: r})}
-                         className={`p-4 rounded-xl border-2 text-left transition-all ${formData.region === r ? 'border-emerald-600 bg-emerald-50 text-emerald-900' : 'border-slate-100 bg-slate-50 text-slate-600 hover:border-slate-200'}`}
+                         className={`p-4 rounded-xl border-2 text-left transition-all ${formData.region === r ? 'border-primary bg-primary/5 text-primary' : 'border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 text-slate-600 hover:border-slate-200'}`}
                        >
-                          <MapPin className={`w-4 h-4 mb-2 ${formData.region === r ? 'text-emerald-600' : 'text-slate-400'}`} />
+                          <MapPin className={`w-4 h-4 mb-2 ${formData.region === r ? 'text-primary' : 'text-slate-400'}`} />
                           <span className="font-bold text-sm">{r}</span>
                        </button>
                     ))}
@@ -190,9 +191,9 @@ export default function TradeLicenseWizard() {
                       animate={{ opacity: 1, height: 'auto' }}
                       className="space-y-3"
                     >
-                       <label className="text-sm font-bold text-slate-900">Administrative Sub-City</label>
+                       <label className="text-sm font-bold text-slate-900 dark:text-white">Administrative Sub-City</label>
                        <select 
-                         className="w-full h-12 px-4 rounded-xl border border-slate-200 bg-white"
+                         className="w-full h-12 px-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
                          value={formData.subCity}
                          onChange={(e) => setFormData({...formData, subCity: e.target.value})}
                        >

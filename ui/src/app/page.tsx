@@ -1,7 +1,6 @@
-"use client";
-
 import React from "react";
 import { AppSidebar } from "@/components/layout/AppSidebar";
+import { Header } from "@/components/layout/Header";
 import { ServiceCard } from "@/components/dashboard/ServiceCard";
 import { ReadinessOverview } from "@/components/dashboard/ReadinessOverview";
 import { 
@@ -13,23 +12,21 @@ import {
   Gavel, 
   Search,
   Globe,
-  ChevronRight
+  ChevronRight,
+  Fingerprint
 } from "lucide-react";
 
 export default function DashboardPage() {
   return (
-    <div className="flex min-h-screen bg-background text-foreground font-sans selection:bg-emerald-500/20">
+    <div className="flex min-h-screen bg-background text-foreground font-sans selection:bg-primary/20">
       <AppSidebar />
       
       <main className="flex-1 lg:pl-72 flex flex-col min-w-0">
-        {/* Mobile Header Placeholder (visible only on small screens) */}
-        <div className="lg:hidden h-16 border-b border-slate-200 dark:border-slate-800 flex items-center px-4 sticky top-0 bg-white/80 backdrop-blur-md z-30">
-           <span className="font-bold text-lg">GovAssist</span>
-        </div>
+        <Header />
 
         <div className="flex-1 p-4 md:p-8 lg:p-10 max-w-7xl mx-auto w-full space-y-10">
           
-          {/* Header & Search */}
+          {/* Header & Welcome */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div className="space-y-2">
               <h1 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white font-display">
@@ -40,34 +37,34 @@ export default function DashboardPage() {
               </p>
             </div>
             
-            <div className="flex items-center gap-3">
-               <button className="flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-300 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
-                  <Globe className="w-4 h-4" />
-                  <span className="hidden sm:inline">English / አማርኛ</span>
-                  <span className="sm:hidden">EN</span>
-               </button>
+            <div className="hidden md:flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-full">
+              <Fingerprint className="w-4 h-4 text-primary" />
+              <div className="flex flex-col leading-none">
+                <span className="text-[10px] uppercase text-slate-500 font-bold tracking-wider">Security Level</span>
+                <span className="text-xs font-bold text-primary">Level 2 - Biometric</span>
+              </div>
             </div>
           </div>
 
           {/* Hero Banner (Abstract Gradient) */}
-          <div className="relative rounded-3xl overflow-hidden bg-slate-900 dark:bg-black min-h-[240px] flex items-center p-8 md:p-12 shadow-2xl shadow-emerald-900/20 group">
+          <div className="relative rounded-3xl overflow-hidden bg-slate-900 dark:bg-black min-h-[280px] flex items-center p-8 md:p-12 shadow-2xl shadow-primary/20 group">
              {/* Abstract Background */}
-             <div className="absolute inset-0 bg-mesh-emerald opacity-40 mix-blend-screen" />
-             <div className="absolute right-0 top-0 w-[400px] h-[400px] bg-emerald-500/20 blur-[100px] rounded-full pointer-events-none" />
+             <div className="absolute inset-0 bg-mesh opacity-40 mix-blend-screen" />
+             <div className="absolute right-0 top-0 w-[400px] h-[400px] bg-primary/20 blur-[100px] rounded-full pointer-events-none" />
              
              <div className="relative z-10 max-w-2xl space-y-6">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-emerald-300 text-xs font-bold uppercase tracking-wider">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-blue-300 text-xs font-bold uppercase tracking-wider">
                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
                     </span>
                    New Digital ID Available
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold text-white font-display leading-tight">
-                   Secure your digital identity with the new <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-200">National ID</span>
+                <h2 className="text-3xl md:text-5xl font-bold text-white font-display leading-tight">
+                   Secure your digital identity with the new <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200">National ID</span>
                 </h2>
                 <div className="flex gap-4">
-                   <button className="px-6 py-3 bg-white text-emerald-950 font-bold rounded-xl hover:bg-emerald-50 transition-colors shadow-lg shadow-black/20">
+                   <button className="px-6 py-3 bg-white text-blue-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-black/20 hover:-translate-y-0.5">
                       Apply Now
                    </button>
                    <button className="px-6 py-3 bg-white/10 text-white font-bold rounded-xl hover:bg-white/20 transition-colors backdrop-blur-md">
@@ -87,7 +84,7 @@ export default function DashboardPage() {
                       <Store className="w-5 h-5 text-slate-400" />
                       Common Services
                    </h3>
-                   <a href="/services" className="text-sm font-bold text-emerald-600 hover:text-emerald-700 flex items-center gap-1">
+                   <a href="/services" className="text-sm font-bold text-primary hover:text-primary-dark flex items-center gap-1">
                       View Catalog <ChevronRight className="w-4 h-4" />
                    </a>
                 </div>
@@ -99,8 +96,8 @@ export default function DashboardPage() {
                       icon={<Store className="w-6 h-6" />}
                       estimate="Est. 2 Days"
                       badge="Online"
-                      color="emerald"
-                      href="/apply"
+                      color="blue"
+                      href="/flows/trade-license"
                    />
                    <ServiceCard 
                       title="TIN Registration" 
@@ -126,22 +123,6 @@ export default function DashboardPage() {
                       badge="Online"
                       color="purple"
                    />
-                   <ServiceCard 
-                      title="Vehicle Registration" 
-                      description="Annual inspection and new vehicle plate registration."
-                      icon={<Car className="w-6 h-6" />}
-                      estimate="Est. 1 Day"
-                      badge="In-Person"
-                      color="amber"
-                   />
-                   <ServiceCard 
-                      title="Legal Services" 
-                      description="Notary services and legal document authentication."
-                      icon={<Gavel className="w-6 h-6" />}
-                      estimate="Est. 3 Days"
-                      badge="Online"
-                      color="emerald"
-                   />
                 </div>
              </div>
 
@@ -150,15 +131,15 @@ export default function DashboardPage() {
                 <ReadinessOverview />
                 
                 {/* Support Card */}
-                <div className="bg-gradient-to-br from-indigo-600 to-violet-700 rounded-2xl p-8 text-white shadow-xl shadow-indigo-900/20 relative overflow-hidden group">
+                <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-8 text-white shadow-xl shadow-blue-900/20 relative overflow-hidden group">
                    <div className="absolute top-0 right-0 p-8 opacity-10 transform translate-x-4 -translate-y-4 group-hover:scale-110 transition-transform duration-700">
-                      <svg width="120" height="120" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+                      <Gavel width="120" height="120" />
                    </div>
                    <h3 className="font-display font-bold text-xl mb-2 relative z-10">Need Assistance?</h3>
-                   <p className="text-indigo-100 text-sm mb-6 leading-relaxed relative z-10 max-w-[80%]">
+                   <p className="text-blue-100 text-sm mb-6 leading-relaxed relative z-10 max-w-[80%]">
                       Our support team is available 24/7 to help you navigate through government services.
                    </p>
-                   <button className="bg-white text-indigo-700 text-sm font-bold py-3 px-5 rounded-xl hover:bg-indigo-50 transition-colors shadow-lg shadow-black/10 relative z-10 w-full sm:w-auto">
+                   <button className="bg-white text-blue-700 text-sm font-bold py-3 px-5 rounded-xl hover:bg-blue-50 transition-colors shadow-lg shadow-black/10 relative z-10 w-full sm:w-auto">
                       Contact Support
                    </button>
                 </div>
