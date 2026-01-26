@@ -1,9 +1,7 @@
 from datetime import datetime
 from typing import Any, Dict
 import json
-import os
 from agents.src.common.signing import signer
-from agents.src.common.config import settings
 
 class AuditLogger:
     """

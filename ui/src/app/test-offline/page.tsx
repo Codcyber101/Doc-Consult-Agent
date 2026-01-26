@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { LocalDraftsScreen } from '@/components/common/LocalDraftsScreen';
 import { ConflictResolutionDialog } from '@/components/common/ConflictResolutionDialog';
 import { Button } from '@/components/common/Button';
-import { useBackgroundSync } from '@/components/common/SyncStateIndicator'; // wait, I didn't export useBackgroundSync, I modified SyncStateIndicator to export useSyncState which has toast logic.
 import { useSyncState } from '@/components/common/SyncStateIndicator';
 import { useToastActions } from '@/components/common/Toast';
 

@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import MagicMock, patch, AsyncMock
+from unittest.mock import patch, AsyncMock
 from src.regulation_expert.summarization import RAGSummarizer
 from src.common.safety import SafetyAgent
 from src.common.citation import CitationAuditor

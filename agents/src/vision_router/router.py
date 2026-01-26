@@ -1,11 +1,6 @@
 import pytesseract
 from PIL import Image
-import base64
-import io
 from typing import Dict, Any
-from agents.src.common.state import AgentState
-from agents.src.common.llm import get_llm
-from langchain_core.messages import HumanMessage
 
 class VisionRouter:
     """

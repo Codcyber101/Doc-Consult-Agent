@@ -1,6 +1,5 @@
 from typing import List, Optional, Any
 from temporalio.client import Client
-from temporalio.service import RPCError
 from gae_dev_console.config import config
 
 class TemporalClientWrapper:

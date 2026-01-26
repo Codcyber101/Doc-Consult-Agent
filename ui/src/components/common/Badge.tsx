@@ -31,12 +31,12 @@ export const Badge = ({
 
   const variants = {
     success: cn(
-      "bg-emerald-50 text-emerald-700 border-emerald-200",
-      "dark:bg-emerald-900/30 dark:text-emerald-300 dark:border-emerald-800"
+      "bg-blue-50 text-blue-700 border-blue-200",
+      "dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800"
     ),
     warning: cn(
-      "bg-gold-50 text-gold-700 border-gold-300",
-      "dark:bg-gold-900/30 dark:text-gold-300 dark:border-gold-800"
+      "bg-amber-50 text-amber-700 border-amber-300",
+      "dark:bg-amber-900/30 dark:text-amber-300 dark:border-amber-800"
     ),
     error: cn(
       "bg-red-50 text-red-700 border-red-200",
@@ -47,13 +47,13 @@ export const Badge = ({
       "dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
     ),
     info: cn(
-      "bg-blue-50 text-blue-700 border-blue-200",
-      "dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800"
+      "bg-indigo-50 text-indigo-700 border-indigo-200",
+      "dark:bg-indigo-900/30 dark:text-indigo-300 dark:border-indigo-800"
     ),
     // NEW: Premium variant with gradient shimmer
     premium: cn(
-      "bg-gradient-to-r from-gold-100 via-gold-50 to-gold-100",
-      "text-gold-800 border-gold-300",
+      "bg-gradient-to-r from-blue-100 via-blue-50 to-blue-100",
+      "text-blue-800 border-blue-300",
       "font-bold"
     ),
   };
@@ -66,12 +66,12 @@ export const Badge = ({
 
   // Dot color based on variant
   const dotColors = {
-    success: "bg-emerald-500",
-    warning: "bg-gold-500",
+    success: "bg-blue-500",
+    warning: "bg-amber-500",
     error: "bg-red-500",
     neutral: "bg-slate-400",
-    info: "bg-blue-500",
-    premium: "bg-gold-500",
+    info: "bg-indigo-500",
+    premium: "bg-blue-500",
   };
 
   // Shimmer effect styles
@@ -111,7 +111,7 @@ export const Badge = ({
         className={cn(
           "inline-flex items-center rounded-full border font-semibold",
           "transition-colors duration-200",
-          "focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2",
+          "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
           variants[variant],
           sizes[size],
           shimmerStyles,
@@ -130,7 +130,7 @@ export const Badge = ({
       className={cn(
         "inline-flex items-center rounded-full border font-semibold",
         "transition-colors duration-200",
-        "focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2",
+        "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
         variants[variant],
         sizes[size],
         className

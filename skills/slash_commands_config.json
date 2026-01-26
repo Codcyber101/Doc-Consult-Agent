@@ -1,0 +1,84 @@
+{
+  "slash_commands": [
+    {
+      "command": "/create-art",
+      "description": "Creates algorithmic art using p5.js.",
+      "skill_directory": "algorithmic-art"
+    },
+    {
+      "command": "/build-artifact",
+      "description": "Builds complex HTML artifacts with React and other modern web technologies.",
+      "skill_directory": "artifacts-builder"
+    },
+    {
+      "command": "/apply-brand-styles",
+      "description": "Applies Anthropic's official brand colors and typography.",
+      "skill_directory": "brand-guidelines"
+    },
+    {
+      "command": "/create-design",
+      "description": "Creates visual art in .png and .pdf documents using design philosophy.",
+      "skill_directory": "canvas-design"
+    },
+    {
+      "command": "/docx",
+      "description": "Performs comprehensive document creation, editing, and analysis for .docx files.",
+      "skill_directory": "document-skills/docx"
+    },
+    {
+      "command": "/pdf",
+      "description": "Provides comprehensive PDF manipulation for extracting text, creating new PDFs, merging/splitting, and handling forms.",
+      "skill_directory": "document-skills/pdf"
+    },
+    {
+      "command": "/pptx",
+      "description": "Performs presentation creation, editing, and analysis for .pptx files.",
+      "skill_directory": "document-skills/pptx"
+    },
+    {
+      "command": "/xlsx",
+      "description": "Performs comprehensive spreadsheet creation, editing, and analysis for .xlsx files.",
+      "skill_directory": "document-skills/xlsx"
+    },
+    {
+      "command": "/internal-comms",
+      "description": "Assists in writing various types of internal communications.",
+      "skill_directory": "internal-comms"
+    },
+    {
+      "command": "/build-mcp-server",
+      "description": "Guides the creation of high-quality MCP (Model Context Protocol) servers.",
+      "skill_directory": "mcp-builder"
+    },
+    {
+      "command": "/create-skill",
+      "description": "Provides guidance for creating effective skills.",
+      "skill_directory": "skill-creator"
+    },
+    {
+      "command": "/create-gif",
+      "description": "Creates animated GIFs for Slack.",
+      "skill_directory": "slack-gif-creator"
+    },
+    {
+      "command": "/template-skill",
+      "description": "A placeholder skill template.",
+      "skill_directory": "template-skill"
+    },
+    {
+      "command": "/apply-theme",
+      "description": "Applies consistent, professional styling to artifacts or creates new themes.",
+      "skill_directory": "theme-factory"
+    },
+    {
+      "command": "/test-webapp",
+      "description": "Provides a toolkit for interacting with and testing local web applications using Playwright.",
+      "skill_directory": "webapp-testing"
+    },
+    {
+      "command": "/improve-prompt",
+      "description": "Refines and optimizes prompts for coding agents using established patterns and checklists.",
+      "skill_directory": "prompt-improver"
+    }
+  ]
+}

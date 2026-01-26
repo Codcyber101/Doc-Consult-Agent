@@ -2,9 +2,9 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { motion, useInView, useSpring, useTransform } from 'framer-motion';
+import { motion, useInView, useSpring, useTransform, HTMLMotionProps } from 'framer-motion';
 
-interface AnimatedCounterProps extends React.HTMLAttributes<HTMLSpanElement> {
+interface AnimatedCounterProps extends Omit<HTMLMotionProps<"span">, "children"> {
     /** Target value to count to */
     value: number;
     /** Duration of animation in seconds */
@@ -90,7 +90,7 @@ export const AnimatedCounter = ({
         }).format(value);
 
         return (
-            <span ref={ref} className={cn("tabular-nums", className)} {...props}>
+            <span ref={ref} className={cn("tabular-nums", className)}>
                 {prefix}{formatted}{suffix}
             </span>
         );
@@ -100,7 +100,7 @@ export const AnimatedCounter = ({
         <motion.span
             ref={ref}
             className={cn("tabular-nums", className)}
-            {...props}
+            {...(props as any)}
         >
             {displayValue}
         </motion.span>

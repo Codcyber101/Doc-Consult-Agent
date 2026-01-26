@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import MagicMock, patch, AsyncMock
+from unittest.mock import MagicMock, patch
 from src.human_review_agent.queue import HumanReviewAgent
 
 @pytest.mark.asyncio

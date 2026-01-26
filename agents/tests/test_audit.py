@@ -3,7 +3,7 @@ import os
 from src.common.safety import SafetyAgent
 from src.regulation_expert.summarization import RAGSummarizer
 from src.common.citation import CitationAuditor
-from unittest.mock import MagicMock, AsyncMock, patch
+from unittest.mock import AsyncMock, patch
 from langchain_core.outputs import ChatResult, ChatGeneration
 from langchain_core.messages import AIMessage
 

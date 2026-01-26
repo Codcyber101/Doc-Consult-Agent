@@ -4,7 +4,10 @@ import { Button } from '@/components/common/Button';
 import { Input } from '@/components/common/Input';
 import { ArrowLeft, ArrowRight, UploadCloud } from 'lucide-react';
 
-export default function FlowPage({ params }: { params: { id: string } }) {
+export default async function FlowPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = await params;
+  const { id } = resolvedParams;
+
   // Mock Playbook Step
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">

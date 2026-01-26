@@ -1,8 +1,8 @@
 from typing import Dict, Any
 import httpx
+import os
 from agents.src.common.state import AgentState
 from agents.src.audit_agent.activity import audit_logger
-from agents.src.common.config import settings
 
 class HumanReviewAgent:
     """
@@ -45,4 +45,3 @@ class HumanReviewAgent:
         return queue_item
 
 human_review_agent = HumanReviewAgent()
-import os # Ensure os is imported

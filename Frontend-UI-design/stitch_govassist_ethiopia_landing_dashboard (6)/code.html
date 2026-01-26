@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GovAssist Ethiopia - Offline Queue</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "primary-hover": "#0d42af",
+                        "background-light": "#f8f9fc",
+                        "background-dark": "#101622",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a2230",
+                        "text-main": "#0d121b",
+                        "text-secondary": "#4c669a",
+                        "border-color": "#e7ebf3",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "Noto Sans", "sans-serif"],
+                        "body": ["Public Sans", "Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main font-display antialiased overflow-hidden selection:bg-primary/20 selection:text-primary">
+<div class="flex h-screen w-full">
+<!-- Sidebar -->
+<aside class="hidden lg:flex w-72 flex-col bg-surface-light dark:bg-surface-dark border-r border-border-color h-full shrink-0">
+<div class="p-6 flex flex-col gap-1">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<div>
+<h1 class="text-text-main text-lg font-bold leading-tight">GovAssist</h1>
+<p class="text-text-secondary text-xs font-medium">Ethiopia Portal</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1 px-4 py-2 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-main hover:bg-background-light dark:hover:bg-gray-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-primary">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary transition-colors" href="#">
+<span class="material-symbols-outlined filled">toc</span>
+<div class="flex flex-col">
+<span class="text-sm font-bold">My Queue</span>
+<span class="text-[10px] font-normal opacity-80">የኔ ተራ</span>
+</div>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-main hover:bg-background-light dark:hover:bg-gray-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-primary">inventory_2</span>
+<span class="text-sm font-medium">Services Catalog</span>
+</a>
+<div class="my-2 border-t border-border-color"></div>
+<div class="px-3 py-2">
+<p class="text-xs font-semibold text-text-secondary uppercase tracking-wider mb-2">Storage Health</p>
+<div class="bg-background-light dark:bg-gray-800 rounded-lg p-3 border border-border-color">
+<div class="flex justify-between items-center mb-1">
+<span class="text-xs font-medium text-text-main">Local DB</span>
+<span class="text-xs text-primary font-bold">Healthy</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-1.5 dark:bg-gray-700 mb-1">
+<div class="bg-green-500 h-1.5 rounded-full" style="width: 24%"></div>
+</div>
+<p class="text-[10px] text-text-secondary text-right">12MB / 50MB used</p>
+</div>
+</div>
+</nav>
+<div class="p-4 border-t border-border-color">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-text-main hover:bg-background-light dark:hover:bg-gray-800 transition-colors group" href="#">
+<span class="material-symbols-outlined text-text-secondary group-hover:text-primary">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex flex-col flex-1 min-w-0 h-full">
+<!-- Top Header -->
+<header class="h-16 flex items-center justify-between px-6 bg-surface-light dark:bg-surface-dark border-b border-border-color shrink-0 z-10">
+<div class="flex items-center gap-4 lg:hidden">
+<button class="text-text-main">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="font-bold text-lg">GovAssist</span>
+</div>
+<!-- Search (Desktop) -->
+<div class="hidden lg:flex max-w-md w-full">
+<div class="relative w-full">
+<span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-secondary">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</span>
+<input class="block w-full pl-10 pr-3 py-2 border-none rounded-lg bg-background-light dark:bg-gray-800 text-text-main placeholder-text-secondary focus:ring-1 focus:ring-primary sm:text-sm" placeholder="Search application ID, service name..." type="text"/>
+</div>
+</div>
+<!-- Right Actions -->
+<div class="flex items-center gap-4">
+<button class="relative p-2 rounded-lg text-text-main hover:bg-background-light transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 rounded-full bg-red-500 border-2 border-surface-light"></span>
+</button>
+<div class="h-8 w-px bg-border-color mx-1"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-bold text-text-main leading-none">Abebe B.</p>
+<p class="text-xs text-text-secondary leading-none mt-1">Citizen ID: 94822</p>
+</div>
+<div class="size-9 rounded-full bg-gray-200 bg-cover bg-center border border-border-color" data-alt="Profile picture of Abebe B." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAWJ3AG5dFuu6giC0wzMwI6clpAUIpUUSgGn0t03ZPeixVvFM4SRjCeYdKerKMuve4-8AiWjjxErwt8P8sWZ7EyChj9PbcjP5wrMRkC_mB34uxhi06yIawmObHyNE6qe3o301mCXqs6EZR8rH9bm39Dw2-q_Q7zv4SVsXKMYGL39mNnfKMkea4B4f3hHoRlSpYfMy0zrPqg0RX5SaN4jALys2la2sk-l6kXG1sPB7PRrpzXPdfJ00YZwmPsUbO3j7gUg2D3R8VVxw');"></div>
+</div>
+</div>
+</header>
+<!-- Scrollable Page Content -->
+<main class="flex-1 overflow-y-auto bg-background-light p-4 md:p-8">
+<div class="max-w-5xl mx-auto flex flex-col gap-6">
+<!-- Breadcrumbs -->
+<nav aria-label="Breadcrumb" class="flex">
+<ol class="inline-flex items-center space-x-1 md:space-x-2">
+<li class="inline-flex items-center">
+<a class="text-sm font-medium text-text-secondary hover:text-primary" href="#">Home</a>
+</li>
+<li>
+<div class="flex items-center">
+<span class="material-symbols-outlined text-text-secondary text-lg">chevron_right</span>
+<a class="ml-1 text-sm font-medium text-text-secondary hover:text-primary md:ml-2" href="#">Services</a>
+</div>
+</li>
+<li aria-current="page">
+<div class="flex items-center">
+<span class="material-symbols-outlined text-text-secondary text-lg">chevron_right</span>
+<span class="ml-1 text-sm font-medium text-text-main md:ml-2">My Queue</span>
+</div>
+</li>
+</ol>
+</nav>
+<!-- Header Section -->
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+<div>
+<h2 class="text-3xl font-black tracking-tight text-text-main flex items-center gap-3">
+                                My Queue <span class="text-2xl font-normal text-text-secondary opacity-60">/ የኔ ተራ</span>
+</h2>
+<p class="mt-2 text-text-secondary">Manage pending submissions and sync status.</p>
+</div>
+<div class="flex gap-2">
+<button class="inline-flex items-center justify-center rounded-lg bg-white border border-border-color px-4 py-2 text-sm font-semibold text-text-main shadow-sm hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200">
+<span class="material-symbols-outlined mr-2 text-[18px]">history</span>
+                                History
+                            </button>
+<button class="inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-bold text-white shadow-sm hover:bg-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-all">
+<span class="material-symbols-outlined mr-2 text-[18px] animate-spin-slow" style="animation-duration: 3s;">sync</span>
+                                Force Sync All
+                            </button>
+</div>
+</div>
+<!-- Offline Alert Banner -->
+<div class="rounded-xl border border-orange-200 bg-orange-50 p-4 shadow-sm dark:bg-orange-900/20 dark:border-orange-800">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 p-1">
+<span class="material-symbols-outlined text-orange-600 dark:text-orange-400 filled">wifi_off</span>
+</div>
+<div class="flex-1 md:flex md:justify-between md:items-center">
+<div>
+<h3 class="text-sm font-bold text-orange-900 dark:text-orange-100">You are currently offline</h3>
+<p class="mt-1 text-sm text-orange-700 dark:text-orange-300">
+                                        Your data is saved locally in the browser database and will sync automatically once you reconnect to the internet.
+                                    </p>
+</div>
+<div class="mt-3 md:mt-0 md:ml-4">
+<button class="whitespace-nowrap rounded-md bg-white px-3 py-1.5 text-sm font-semibold text-orange-700 shadow-sm ring-1 ring-inset ring-orange-300 hover:bg-orange-50">
+                                        Retry Connection
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Stats / Filters Row -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="rounded-xl border border-border-color bg-surface-light p-4 shadow-sm flex items-center gap-4">
+<div class="size-10 rounded-full bg-blue-50 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined filled">pending_actions</span>
+</div>
+<div>
+<p class="text-sm text-text-secondary font-medium">Pending Items</p>
+<p class="text-2xl font-bold text-text-main">3</p>
+</div>
+</div>
+<div class="rounded-xl border border-border-color bg-surface-light p-4 shadow-sm flex items-center gap-4">
+<div class="size-10 rounded-full bg-purple-50 flex items-center justify-center text-purple-600">
+<span class="material-symbols-outlined filled">cloud_off</span>
+</div>
+<div>
+<p class="text-sm text-text-secondary font-medium">Unsynced Data</p>
+<p class="text-2xl font-bold text-text-main">4.2 MB</p>
+</div>
+</div>
+<div class="rounded-xl border border-border-color bg-surface-light p-4 shadow-sm flex items-center gap-4">
+<div class="size-10 rounded-full bg-green-50 flex items-center justify-center text-green-600">
+<span class="material-symbols-outlined filled">check_circle</span>
+</div>
+<div>
+<p class="text-sm text-text-secondary font-medium">Last Successful Sync</p>
+<p class="text-lg font-bold text-text-main">Yesterday, 4 PM</p>
+</div>
+</div>
+</div>
+<!-- Queue List -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between px-1">
+<h3 class="text-base font-semibold text-text-main">Pending Submissions</h3>
+<span class="text-sm text-text-secondary">Sorted by: <span class="font-medium text-text-main">Newest First</span></span>
+</div>
+<!-- Card 1: Waiting -->
+<div class="group relative flex flex-col gap-4 rounded-xl border border-border-color bg-surface-light p-5 shadow-sm transition-all hover:shadow-md sm:flex-row sm:items-center sm:justify-between">
+<div class="flex items-start gap-4">
+<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-[#e7ebf3] text-primary">
+<span class="material-symbols-outlined text-[28px]">contact_page</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<h4 class="text-base font-bold text-text-main">Passport Renewal</h4>
+<span class="text-xs text-text-secondary bg-background-light px-1.5 py-0.5 rounded border border-border-color">ፓስፖርት</span>
+</div>
+<p class="text-sm text-text-secondary">ID: #EP-2023-8829 • Saved locally</p>
+<div class="mt-2 flex items-center gap-2 sm:hidden">
+<span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800">
+<span class="mr-1.5 size-1.5 rounded-full bg-gray-500"></span>
+                                            Waiting for connection
+                                        </span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end gap-3 sm:flex-row sm:items-center sm:gap-6">
+<div class="hidden sm:flex flex-col items-end gap-1 min-w-[140px]">
+<span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800">
+<span class="mr-1.5 size-1.5 rounded-full bg-gray-500"></span>
+                                        Waiting for connection
+                                    </span>
+<span class="text-xs text-text-secondary">Saved 2 hours ago</span>
+</div>
+<div class="flex items-center gap-2 border-t pt-3 sm:border-t-0 sm:pt-0 w-full sm:w-auto justify-end border-border-color">
+<button class="p-2 text-text-secondary hover:text-primary hover:bg-background-light rounded-lg transition-colors" title="Edit Draft">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 text-text-secondary hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+<button class="flex items-center gap-1 rounded-lg bg-background-light px-3 py-1.5 text-xs font-bold text-text-main hover:bg-[#dbe0eb] transition-colors border border-transparent hover:border-border-color">
+                                        Force Sync
+                                        <span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2: Syncing -->
+<div class="group relative flex flex-col gap-4 rounded-xl border border-primary/30 bg-primary/5 p-5 shadow-sm transition-all sm:flex-row sm:items-center sm:justify-between">
+<div class="flex items-start gap-4">
+<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white text-blue-600 shadow-sm">
+<span class="material-symbols-outlined text-[28px] filled">child_care</span>
+</div>
+<div class="flex flex-col min-w-[200px]">
+<div class="flex items-center gap-2">
+<h4 class="text-base font-bold text-text-main">Birth Certificate</h4>
+<span class="text-xs text-text-secondary bg-white px-1.5 py-0.5 rounded border border-border-color">የልደት የምስክር ወረቀት</span>
+</div>
+<p class="text-sm text-text-secondary">ID: #VR-2023-1102 • Uploading photos...</p>
+<!-- Progress Bar Mobile -->
+<div class="mt-3 block w-full sm:hidden">
+<div class="flex justify-between text-xs mb-1">
+<span class="font-medium text-primary">Syncing...</span>
+<span class="text-text-secondary">45%</span>
+</div>
+<div class="h-1.5 w-full rounded-full bg-gray-200">
+<div class="h-1.5 rounded-full bg-primary transition-all duration-500" style="width: 45%"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end gap-3 sm:flex-row sm:items-center sm:gap-6 w-full sm:w-auto">
+<!-- Progress Bar Desktop -->
+<div class="hidden sm:block w-[180px]">
+<div class="flex justify-between text-xs mb-1">
+<span class="font-bold text-primary flex items-center gap-1">
+<span class="block size-2 rounded-full bg-primary animate-pulse"></span>
+                                            Syncing
+                                        </span>
+<span class="font-medium text-text-main">45%</span>
+</div>
+<div class="h-2 w-full rounded-full bg-white border border-blue-100 overflow-hidden">
+<div class="h-full rounded-full bg-primary transition-all duration-500 relative overflow-hidden" style="width: 45%">
+<div class="absolute inset-0 bg-white/20 w-full h-full animate-[shimmer_2s_infinite]" style="background-image: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%);"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 border-t pt-3 sm:border-t-0 sm:pt-0 w-full sm:w-auto justify-end border-blue-200">
+<button class="p-2 text-text-secondary/50 cursor-not-allowed rounded-lg" disabled="" title="Edit Disabled while syncing">
+<span class="material-symbols-outlined text-[20px]">edit_off</span>
+</button>
+<button class="flex items-center gap-1 rounded-lg bg-white px-3 py-1.5 text-xs font-bold text-text-main border border-border-color shadow-sm">
+                                        Pause
+                                        <span class="material-symbols-outlined text-[16px]">pause</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3: Error -->
+<div class="group relative flex flex-col gap-4 rounded-xl border border-border-color bg-surface-light p-5 shadow-sm transition-all hover:shadow-md sm:flex-row sm:items-center sm:justify-between opacity-80 hover:opacity-100">
+<div class="flex items-start gap-4">
+<div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-[#e7ebf3] text-gray-600">
+<span class="material-symbols-outlined text-[28px]">store</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<h4 class="text-base font-bold text-text-main">Business License</h4>
+<span class="text-xs text-text-secondary bg-background-light px-1.5 py-0.5 rounded border border-border-color">የንግድ ፈቃድ</span>
+</div>
+<p class="text-sm text-text-secondary">ID: #BL-2023-9912 • Validation Error</p>
+<div class="mt-2 flex items-center gap-2 sm:hidden">
+<span class="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800">
+<span class="material-symbols-outlined text-[14px] mr-1">error</span>
+                                            Sync Failed
+                                        </span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end gap-3 sm:flex-row sm:items-center sm:gap-6">
+<div class="hidden sm:flex flex-col items-end gap-1 min-w-[140px]">
+<span class="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800">
+<span class="material-symbols-outlined text-[14px] mr-1">error</span>
+                                        Sync Failed
+                                    </span>
+<span class="text-xs text-red-600 font-medium cursor-pointer underline decoration-dotted">View details</span>
+</div>
+<div class="flex items-center gap-2 border-t pt-3 sm:border-t-0 sm:pt-0 w-full sm:w-auto justify-end border-border-color">
+<button class="p-2 text-text-secondary hover:text-primary hover:bg-background-light rounded-lg transition-colors" title="Edit Draft">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+</button>
+<button class="p-2 text-text-secondary hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+<button class="flex items-center gap-1 rounded-lg bg-red-50 px-3 py-1.5 text-xs font-bold text-red-700 hover:bg-red-100 transition-colors border border-red-200">
+                                        Retry
+                                        <span class="material-symbols-outlined text-[16px]">refresh</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Info -->
+<div class="flex items-center justify-center pt-8 pb-4 text-xs text-text-secondary gap-4">
+<span>GovAssist Ethiopia v2.4.1 (Offline Capable)</span>
+<span class="w-1 h-1 rounded-full bg-gray-300"></span>
+<span>PouchDB Storage: Active</span>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

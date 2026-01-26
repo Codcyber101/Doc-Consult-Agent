@@ -18,7 +18,7 @@ def tui():
 @app.command()
 def status():
     """Check system health status."""
-    console.print(f"[bold green]GovAssist Developer Console[/bold green]")
+    console.print("[bold green]GovAssist Developer Console[/bold green]")
     console.print(f"Environment: [blue]{config.ENV}[/blue]")
     console.print(f"Backend URL: {config.BACKEND_URL}")
     console.print(f"Temporal URL: {config.TEMPORAL_URL}")

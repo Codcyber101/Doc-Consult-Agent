@@ -8,7 +8,7 @@ class ReviewOverride:
     Ensures the final report is re-signed with the officer's context.
     """
     
-    async def apply_override(self, document_id: string, officer_id: str, corrections: Dict[str, Any]) -> Dict[str, Any]:
+    async def apply_override(self, document_id: str, officer_id: str, corrections: Dict[str, Any]) -> Dict[str, Any]:
         """
         Applies manual corrections and generates a new signed report.
         """

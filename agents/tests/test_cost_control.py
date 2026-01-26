@@ -1,5 +1,5 @@
 import pytest
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 from src.cost_control_agent.monitor import CostMonitor
 from src.cost_control_agent.enforcer import BudgetEnforcer
 

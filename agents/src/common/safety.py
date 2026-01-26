@@ -24,7 +24,7 @@ class SafetyAgent:
         # Simple file-based audit log for this implementation
         with open("pii_audit.log", "a") as f:
             f.write(f"Masked: {masked_text}\n")
-        print(f"PII masking audited and logged.")
+        print("PII masking audited and logged.")
 
 if __name__ == "__main__":
     agent = SafetyAgent()

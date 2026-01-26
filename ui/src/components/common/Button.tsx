@@ -30,76 +30,72 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   }, ref) => {
 
     const baseStyles = cn(
-      "inline-flex items-center justify-center rounded-xl font-semibold",
+      "inline-flex items-center justify-center rounded-xl font-bold",
       "transition-all duration-200 ease-out",
-      "focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2",
+      "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
       "disabled:opacity-50 disabled:pointer-events-none",
       "select-none cursor-pointer"
     );
 
     const variants = {
-      // Solid emerald (primary action)
+      // Primary Blue Action
       primary: cn(
-        "bg-emerald-600 text-white",
-        "hover:bg-emerald-700",
-        "shadow-[0_4px_14px_0_rgba(0,107,63,0.25)]",
-        "hover:shadow-[0_6px_20px_rgba(0,107,63,0.3)]"
+        "bg-primary text-white",
+        "hover:bg-primary-dark",
+        "shadow-[0_4px_14px_0_rgba(17,82,212,0.25)]",
+        "hover:shadow-[0_6px_20px_rgba(17,82,212,0.3)]"
       ),
 
-      // Gold accent (secondary action)
+      // Secondary Accent
       secondary: cn(
-        "bg-gold-500 text-slate-900 font-bold",
-        "hover:bg-gold-400",
-        "shadow-[0_4px_14px_0_rgba(253,184,19,0.25)]",
-        "hover:shadow-[0_6px_20px_rgba(253,184,19,0.35)]"
+        "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white",
+        "hover:bg-slate-200 dark:hover:bg-slate-700",
       ),
 
       // Outlined button
       outline: cn(
-        "border-2 border-slate-200 bg-white text-slate-700",
-        "hover:border-emerald-500/50 hover:bg-emerald-50/50 hover:text-emerald-700"
+        "border-2 border-slate-200 dark:border-slate-800 bg-transparent text-slate-700 dark:text-slate-300",
+        "hover:border-primary/50 hover:bg-primary/5 hover:text-primary"
       ),
 
       // Ghost/text button
       ghost: cn(
-        "text-slate-600 bg-transparent",
-        "hover:bg-slate-100 hover:text-slate-900"
+        "text-slate-600 dark:text-slate-400 bg-transparent",
+        "hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white"
       ),
 
       // Destructive/danger action
       destructive: cn(
-        "bg-red-earth text-white",
+        "bg-red-500 text-white",
         "hover:bg-red-600",
-        "shadow-[0_4px_14px_0_rgba(217,78,65,0.25)]"
+        "shadow-[0_4px_14px_0_rgba(239,68,68,0.25)]"
       ),
 
-      // NEW: Glow variant with animated glow effect
+      // Glow variant with animated glow effect
       glow: cn(
-        "bg-emerald-600 text-white",
-        "shadow-glow-emerald hover:shadow-glow-emerald-lg",
-        "hover:bg-emerald-500",
+        "bg-primary text-white",
+        "shadow-glow-primary hover:shadow-glow-primary",
+        "hover:bg-primary-dark",
         "relative overflow-hidden",
-        // Animated glow ring
         "before:absolute before:inset-0 before:rounded-xl",
         "before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent",
         "before:translate-x-[-200%] hover:before:translate-x-[200%]",
         "before:transition-transform before:duration-700"
       ),
 
-      // NEW: Gradient variant (emerald to teal)
+      // Gradient variant
       gradient: cn(
-        "bg-gradient-to-r from-emerald-600 to-emerald-500 text-white",
-        "hover:from-emerald-500 hover:to-emerald-400",
-        "shadow-[0_4px_20px_0_rgba(0,107,63,0.3)]",
-        "hover:shadow-[0_8px_30px_rgba(0,107,63,0.4)]"
+        "bg-gradient-to-r from-primary to-blue-600 text-white",
+        "hover:from-blue-600 hover:to-blue-700",
+        "shadow-[0_4px_20px_0_rgba(17,82,212,0.3)]",
+        "hover:shadow-[0_8px_30px_rgba(17,82,212,0.4)]"
       ),
 
-      // NEW: Glass-morphism variant
+      // Glass-morphism variant
       glass: cn(
-        "bg-white/70 backdrop-blur-md text-slate-800",
-        "border border-white/50",
-        "hover:bg-white/80",
-        "shadow-lg shadow-slate-200/20"
+        "bg-white/10 backdrop-blur-md text-white",
+        "border border-white/20",
+        "hover:bg-white/20",
       ),
     };
 
@@ -110,8 +106,8 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       xl: "h-16 px-10 text-lg gap-3",
     };
 
-    // Glow effect on hover (optional enhancement for any variant)
-    const glowEffect = glowOnHover ? "hover:shadow-glow-emerald" : "";
+    // Glow effect on hover
+    const glowEffect = glowOnHover ? "hover:shadow-glow-primary" : "";
 
     return (
       <motion.button
@@ -140,7 +136,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         )}
 
         {/* Button text */}
-        <span className="truncate">{children}</span>
+        <span className="truncate">{children as React.ReactNode}</span>
 
         {/* Right icon */}
         {!isLoading && rightIcon && (
