@@ -1,6 +1,6 @@
-import { Module, Global } from '@nestjs/common';
-import { TemporalService } from './temporal.service';
-import { DocumentWorkflowService } from './document-analysis.workflow';
+import { Module, Global } from "@nestjs/common";
+import { TemporalService } from "./temporal.service";
+import { DocumentWorkflowService } from "./document-analysis.workflow";
 
 @Global()
 @Module({

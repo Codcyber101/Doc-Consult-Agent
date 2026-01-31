@@ -1,5 +1,5 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { TemporalService } from './temporal.service';
+import { Injectable, Logger } from "@nestjs/common";
+import { TemporalService } from "./temporal.service";
 
 @Injectable()
 export class DocumentWorkflowService {
@@ -9,6 +9,8 @@ export class DocumentWorkflowService {
 
   async startAnalysis(documentId: string): Promise<string> {
     this.logger.log(`Starting analysis for document ${documentId}`);
-    return this.temporalService.startWorkflow('DocumentAnalysisWorkflow', { documentId });
+    return this.temporalService.startWorkflow("DocumentAnalysisWorkflow", {
+      documentId,
+    });
   }
 }

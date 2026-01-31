@@ -67,7 +67,7 @@ services:
     image: govassist-backend:dev
     build:
       context: ../backend
-    command: sh -c "npm install && npm run start:dev"
+    command: sh -c "npm install && npx nest build && npx nest start"
     ports:
       - "3001:3000"
     environment:
@@ -114,14 +114,14 @@ services:
     image: govassist-agents:dev
     build:
       context: ../agents
-    command: python src/main.py
+    command: python agents/src/main.py
     environment:
       TEMPORAL_HOST: temporal:7233
-      PYTHONPATH: /app/src
+      PYTHONPATH: /app
     depends_on:
       - temporal
     volumes:
-      - ../agents:/app
+      - ../agents:/app/agents
 
 volumes:
   postgres_data:

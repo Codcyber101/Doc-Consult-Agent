@@ -10,10 +10,12 @@ app = typer.Typer(
 )
 console = Console()
 
+
 @app.command()
 def tui():
     """Launch the Terminal User Interface."""
     run_tui()
+
 
 @app.command()
 def status():
@@ -23,6 +25,7 @@ def status():
     console.print(f"Backend URL: {config.BACKEND_URL}")
     console.print(f"Temporal URL: {config.TEMPORAL_URL}")
     # TODO: Add real health checks here in Phase 2
+
 
 if __name__ == "__main__":
     app()

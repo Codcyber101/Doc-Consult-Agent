@@ -1,5 +1,5 @@
-import { Module } from '@nestjs/common';
-import { MesobConnectorService } from '../connectors/mesob.service';
+import { Module } from "@nestjs/common";
+import { MesobConnectorService } from "../connectors/mesob.service";
 
 @Module({
   providers: [MesobConnectorService],

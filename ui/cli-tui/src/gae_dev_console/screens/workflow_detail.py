@@ -5,6 +5,7 @@ from textual.containers import Container
 from gae_dev_console.api.temporal import temporal_client
 from textual import work
 
+
 class WorkflowDetailScreen(Screen):
     """Screen for viewing details of a specific workflow."""
 
@@ -33,7 +34,7 @@ class WorkflowDetailScreen(Screen):
         # Mock implementation for now as actual history fetching is complex
         log = self.query_one(Log)
         status = self.query_one("#detail-status", Static)
-        
+
         try:
             handle = await temporal_client.get_workflow_handle(self.workflow_id)
             # In a real app, we would fetch history events here

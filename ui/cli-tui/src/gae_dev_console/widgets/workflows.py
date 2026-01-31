@@ -3,6 +3,7 @@ from textual import work
 from gae_dev_console.api.temporal import temporal_client
 from gae_dev_console.screens.workflow_detail import WorkflowDetailScreen
 
+
 class WorkflowTable(DataTable):
     """Table to display Temporal workflows."""
 
@@ -15,7 +16,7 @@ class WorkflowTable(DataTable):
     async def load_workflows(self) -> None:
         self.clear()
         workflows = await temporal_client.list_workflows()
-        
+
         # Temporal workflow objects have attributes like id, run_id, workflow_type, status, start_time
         # Adjust access based on exact temporalio object structure
         for wf in workflows:
@@ -25,7 +26,7 @@ class WorkflowTable(DataTable):
             w_type = getattr(wf, "workflow_type", "Unknown")
             w_status = getattr(wf, "status", "Unknown")
             w_start = str(getattr(wf, "start_time", ""))
-            
+
             self.add_row(w_id, w_type, str(w_status), w_start, key=w_id)
 
     def on_data_table_row_selected(self, event: DataTable.RowSelected) -> None:

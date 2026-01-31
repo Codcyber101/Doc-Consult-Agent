@@ -1,17 +1,22 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+} from "typeorm";
 
-@Entity('citations')
+@Entity("citations")
 export class Citation {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
   claim_text: string;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: "uuid" })
   snippet_id: string;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: "uuid" })
   analysis_id: string;
 
   @Column({ default: false })

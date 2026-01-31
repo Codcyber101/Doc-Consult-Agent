@@ -1,6 +1,6 @@
-import { Module } from '@nestjs/common';
-import { PolicyAdminService } from './admin.service';
-import { AdminPolicyController } from '../../api/controllers/admin-policy.controller';
+import { Module } from "@nestjs/common";
+import { PolicyAdminService } from "./admin.service";
+import { AdminPolicyController } from "../../api/controllers/admin-policy.controller";
 
 @Module({
   providers: [PolicyAdminService],

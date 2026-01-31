@@ -1,11 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+} from "typeorm";
 
-@Entity('source_bundles')
+@Entity("source_bundles")
 export class SourceBundle {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column('uuid', { array: true })
+  @Column("uuid", { array: true })
   snippets: string[];
 
   @Column()
