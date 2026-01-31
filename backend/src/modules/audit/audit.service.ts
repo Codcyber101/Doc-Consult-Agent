@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger } from "@nestjs/common";
 
 @Injectable()
 export class AuditService {
@@ -17,7 +17,9 @@ export class AuditService {
   }
 
   async emitSafetyAudit(maskedText: string, action: string) {
-    this.logger.warn(`[SAFETY AUDIT] Action: ${action} | Masked Result: ${maskedText}`);
+    this.logger.warn(
+      `[SAFETY AUDIT] Action: ${action} | Masked Result: ${maskedText}`,
+    );
     // Emit to Kafka logic here
     return true;
   }

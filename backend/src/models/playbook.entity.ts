@@ -1,8 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+} from "typeorm";
 
-@Entity('playbooks')
+@Entity("playbooks")
 export class Playbook {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
@@ -11,7 +16,7 @@ export class Playbook {
   @Column()
   jurisdiction: string;
 
-  @Column('jsonb')
+  @Column("jsonb")
   steps: any;
 
   @Column()

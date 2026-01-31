@@ -7,6 +7,7 @@ from textual import work
 from gae_dev_console.api.client import api_client
 from gae_dev_console.api.temporal import temporal_client
 
+
 class ServiceStatus(Static):
     """A widget to display the status of a single service."""
 
@@ -52,7 +53,7 @@ class ServiceStatus(Static):
         except Exception as e:
             self.is_online = False
             self.status = f"ERROR: {str(e)}"
-        
+
         self.refresh_classes()
 
     def watch_is_online(self, is_online: bool) -> None:
@@ -61,7 +62,7 @@ class ServiceStatus(Static):
             self.add_class("online")
         else:
             self.add_class("offline")
-    
+
     def refresh_classes(self):
         self.watch_is_online(self.is_online)
 
@@ -82,7 +83,7 @@ class SystemHealthPanel(Container):
 
     async def check_backend(self) -> bool:
         # We assume get_system_health returns a dict, and if 'status' is not error, it's ok.
-        # But for now, get_system_health isn't fully implemented on backend, 
+        # But for now, get_system_health isn't fully implemented on backend,
         # so we might get 'unreachable'.
         # For this widget, let's treat any response that is not 'unreachable' as sort of online,
         # or check the specific 'status' key.

@@ -1,5 +1,5 @@
-import { Module, Global } from '@nestjs/common';
-import { AuthGuard } from './auth.guard';
+import { Module, Global } from "@nestjs/common";
+import { AuthGuard } from "./auth.guard";
 
 @Global()
 @Module({

@@ -5,9 +5,10 @@ from textual.containers import Container
 
 from gae_dev_console.widgets.workflows import WorkflowTable
 
+
 class WorkflowInspectorScreen(Screen):
     """Screen for inspecting Temporal workflows."""
-    
+
     BINDINGS = [
         ("r", "refresh_table", "Refresh"),
     ]

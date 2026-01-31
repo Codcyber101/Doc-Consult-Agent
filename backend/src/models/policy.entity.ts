@@ -1,8 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+} from "typeorm";
 
-@Entity('policies')
+@Entity("policies")
 export class Policy {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
@@ -14,16 +19,20 @@ export class Policy {
   @Column()
   version: string;
 
-  @Column({ type: 'date' })
+  @Column({ type: "date" })
   effective_date: Date;
 
-  @Column('text')
+  @Column("text")
   content: string;
 
-  @Column({ type: 'enum', enum: ['DRAFT', 'APPROVED', 'DEPRECATED'], default: 'DRAFT' })
+  @Column({
+    type: "enum",
+    enum: ["DRAFT", "APPROVED", "DEPRECATED"],
+    default: "DRAFT",
+  })
   status: string;
 
-  @Column('jsonb', { nullable: true })
+  @Column("jsonb", { nullable: true })
   test_cases: any;
 
   @CreateDateColumn()

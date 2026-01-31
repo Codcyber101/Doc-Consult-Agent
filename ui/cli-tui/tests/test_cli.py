@@ -3,6 +3,7 @@ from gae_dev_console.cli import app
 
 runner = CliRunner()
 
+
 def test_status_command():
     result = runner.invoke(app, ["status"])
     assert result.exit_code == 0

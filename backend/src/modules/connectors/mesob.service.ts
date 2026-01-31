@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger } from "@nestjs/common";
 
 @Injectable()
 export class MesobConnectorService {
@@ -6,11 +6,13 @@ export class MesobConnectorService {
 
   async submitApplication(packageData: any): Promise<string> {
     const submissionId = `mesob-${Math.random().toString(36).substring(7)}`;
-    this.logger.log(`[MOCK MESOB] Submitting application package. Assigned ID: ${submissionId}`);
+    this.logger.log(
+      `[MOCK MESOB] Submitting application package. Assigned ID: ${submissionId}`,
+    );
     return submissionId;
   }
 
   async getStatus(submissionId: string): Promise<string> {
-    return 'UNDER_REVIEW';
+    return "UNDER_REVIEW";
   }
 }

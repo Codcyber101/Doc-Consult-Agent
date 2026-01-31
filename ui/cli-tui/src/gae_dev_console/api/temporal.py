@@ -2,6 +2,7 @@ from typing import List, Optional, Any
 from temporalio.client import Client
 from gae_dev_console.config import config
 
+
 class TemporalClientWrapper:
     """Wrapper around the Temporal Client for easier usage in TUI."""
 
@@ -15,7 +16,9 @@ class TemporalClientWrapper:
             self._client = await Client.connect(self.target_url)
         return self._client
 
-    async def list_workflows(self, query: str = "ExecutionStatus='Running'") -> List[Any]:
+    async def list_workflows(
+        self, query: str = "ExecutionStatus='Running'"
+    ) -> List[Any]:
         """List workflows matching the query."""
         try:
             client = await self.connect()
@@ -38,10 +41,11 @@ class TemporalClientWrapper:
         """Simple health check by trying to connect."""
         try:
             await self.connect()
-            await self._client.service_client.get_system_info() # type: ignore
+            await self._client.service_client.get_system_info()  # type: ignore
             return True
         except Exception:
             return False
+
 
 # Singleton instance
 temporal_client = TemporalClientWrapper()

@@ -1,11 +1,14 @@
-import { Injectable } from '@nestjs/common';
-import * as fs from 'fs';
-import * as path from 'path';
-import * as yaml from 'js-yaml';
+import { Injectable } from "@nestjs/common";
+import * as fs from "fs";
+import * as path from "path";
+import * as yaml from "js-yaml";
 
 @Injectable()
 export class PlaybookService {
-  private readonly registryPath = path.resolve(__dirname, '../../../../../policy-registry');
+  private readonly registryPath = path.resolve(
+    __dirname,
+    "../../../../../policy-registry",
+  );
 
   async findAll(): Promise<any[]> {
     const playbooks = [];
@@ -15,9 +18,9 @@ export class PlaybookService {
         const fullPath = path.join(dir, file);
         if (fs.statSync(fullPath).isDirectory()) {
           walk(fullPath);
-        } else if (file.endsWith('.yaml') || file.endsWith('.yml')) {
-          if (!fullPath.includes('schemas')) {
-            const content = fs.readFileSync(fullPath, 'utf8');
+        } else if (file.endsWith(".yaml") || file.endsWith(".yml")) {
+          if (!fullPath.includes("schemas")) {
+            const content = fs.readFileSync(fullPath, "utf8");
             playbooks.push(yaml.load(content));
           }
         }
@@ -29,6 +32,8 @@ export class PlaybookService {
 
   async findOne(serviceType: string, jurisdiction: string): Promise<any> {
     const all = await this.findAll();
-    return all.find(p => p.service_type === serviceType && p.jurisdiction === jurisdiction);
+    return all.find(
+      (p) => p.service_type === serviceType && p.jurisdiction === jurisdiction,
+    );
   }
 }

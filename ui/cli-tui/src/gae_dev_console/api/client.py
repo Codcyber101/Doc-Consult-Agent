@@ -2,6 +2,7 @@ import aiohttp
 from typing import Any, Dict, Optional
 from gae_dev_console.config import config
 
+
 class ApiClient:
     """Async client for the GovAssist Ethiopia Backend API."""
 
@@ -10,7 +11,12 @@ class ApiClient:
         self._session: Optional[aiohttp.ClientSession] = None
 
     async def _get_session(self) -> aiohttp.ClientSession:
-        if self._session is None or self._session.closed:
+        import asyncio
+
+        loop = asyncio.get_running_loop()
+        if self._session is None or self._session.closed or self._session._loop != loop:
+            if self._session and not self._session.closed:
+                await self._session.close()
             self._session = aiohttp.ClientSession()
         return self._session
 
@@ -29,7 +35,9 @@ class ApiClient:
         except Exception as e:
             return {"status": "unreachable", "error": str(e)}
 
-    async def trigger_agent(self, agent_name: str, payload: Dict[str, Any]) -> Dict[str, Any]:
+    async def trigger_agent(
+        self, agent_name: str, payload: Dict[str, Any]
+    ) -> Dict[str, Any]:
         """Trigger a specific agent with a payload."""
         session = await self._get_session()
         url = f"{self.base_url}/agents/{agent_name}/run"
@@ -38,6 +46,7 @@ class ApiClient:
                 return await response.json()
         except Exception as e:
             return {"status": "error", "error": str(e)}
+
 
 # Singleton instance
 api_client = ApiClient()

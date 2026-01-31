@@ -4,6 +4,7 @@ from gae_dev_console.screens.dashboard import DashboardScreen
 from gae_dev_console.screens.workflow_inspector import WorkflowInspectorScreen
 from gae_dev_console.screens.agent_runner import AgentRunnerScreen
 
+
 class GaeDevConsoleApp(App):
     """A Textual app for GovAssist Ethiopia Developer Console."""
 
@@ -27,9 +28,11 @@ class GaeDevConsoleApp(App):
         self.install_screen(AgentRunnerScreen(), name="agent_runner")
         self.push_screen("dashboard")
 
+
 def run():
     app = GaeDevConsoleApp()
     app.run()
+
 
 if __name__ == "__main__":
     run()

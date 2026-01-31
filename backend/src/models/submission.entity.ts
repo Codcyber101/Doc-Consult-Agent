@@ -1,8 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+} from "typeorm";
 
-@Entity('submissions')
+@Entity("submissions")
 export class Submission {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
@@ -11,10 +16,14 @@ export class Submission {
   @Column()
   portal_submission_id: string;
 
-  @Column({ type: 'enum', enum: ['PENDING', 'SUBMITTED', 'ACCEPTED', 'REJECTED', 'APPROVED'], default: 'PENDING' })
+  @Column({
+    type: "enum",
+    enum: ["PENDING", "SUBMITTED", "ACCEPTED", "REJECTED", "APPROVED"],
+    default: "PENDING",
+  })
   status: string;
 
-  @Column('jsonb', { nullable: true })
+  @Column("jsonb", { nullable: true })
   metadata: any;
 
   @CreateDateColumn()
