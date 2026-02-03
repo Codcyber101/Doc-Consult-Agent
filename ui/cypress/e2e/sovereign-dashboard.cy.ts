@@ -4,24 +4,24 @@ describe('Sovereign Utility Dashboard', () => {
   });
 
   it('should display the Sovereign greeting', () => {
-    cy.contains('h1', 'Selam').should('be.visible');
+    cy.contains('h1', 'Welcome back').should('be.visible');
     cy.contains('GovAssist').should('be.visible');
     cy.contains('Ethiopia').should('be.visible');
   });
 
   it('should list available services with correct styling', () => {
     // Check for the Service Cards
-    cy.contains('Available Services').scrollIntoView().should('be.visible');
+    cy.contains('Common Services').scrollIntoView().should('be.visible');
     
     // Check for specific service: Trade License
-    cy.contains('Trade License').should('be.visible');
-    cy.contains('500 ETB').should('be.visible');
+    cy.contains('Trade License Renewal').should('be.visible');
+    cy.contains('Est. 2 Days').should('be.visible');
     
     // Verify "Begin Process" button exists within the card
-    cy.contains('Trade License')
+    cy.contains('Trade License Renewal')
       .parents('.group')
-      .find('button')
-      .contains('Begin Process')
+      .find('a')
+      .contains('Start')
       .should('exist');
   });
 
@@ -35,7 +35,7 @@ describe('Sovereign Utility Dashboard', () => {
   });
 
   it('should show the Digital Vault feature', () => {
-    cy.contains('Digital Document Vault').scrollIntoView().should('be.visible');
-    cy.contains('Open Vault').should('be.visible');
+    cy.contains('Need Assistance?').scrollIntoView().should('be.visible');
+    cy.contains('Contact Support').should('be.visible');
   });
 });

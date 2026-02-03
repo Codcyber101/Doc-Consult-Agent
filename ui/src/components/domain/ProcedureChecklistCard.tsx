@@ -26,7 +26,7 @@ export function ProcedureChecklistCard({
   onStart,
 }: ProcedureChecklistCardProps) {
   return (
-    <Card className="group relative overflow-hidden border-slate-200 hover:border-primary/50 transition-all duration-300 rounded-3xl">
+    <Card className="group relative overflow-hidden border-border hover:border-primary/50 transition-all duration-300 rounded-3xl">
       {/* Background decoration */}
       <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
          <div className="w-24 h-24 rounded-full bg-primary blur-2xl transform translate-x-8 -translate-y-8" />
@@ -36,7 +36,7 @@ export function ProcedureChecklistCard({
         <div className="flex justify-between items-start mb-2">
             <div className="flex gap-2">
                {isOfflineAvailable && (
-                 <span className="inline-flex items-center rounded-full bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-xs font-bold text-slate-600 dark:text-slate-400">
+                 <span className="inline-flex items-center rounded-full bg-surface-muted dark:bg-slate-800 px-2.5 py-1 text-xs font-bold text-slate-600 dark:text-slate-400">
                    Offline Capable
                  </span>
                )}
@@ -56,7 +56,7 @@ export function ProcedureChecklistCard({
              <span className="font-bold text-slate-900 dark:text-white">{cost}</span>
            </div>
            
-           <div className="col-span-2 flex items-center gap-2 mt-2 pt-3 border-t border-slate-100 dark:border-slate-800">
+           <div className="col-span-2 flex items-center gap-2 mt-2 pt-3 border-t border-border dark:border-slate-800">
               {missingDocsCount > 0 ? (
                  <span className="flex items-center text-amber-600 font-bold">
                    <AlertCircle className="h-4 w-4 mr-1.5" />

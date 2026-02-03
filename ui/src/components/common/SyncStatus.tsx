@@ -45,7 +45,7 @@ export function SyncStatus() {
           {isSyncing ? (
             <RefreshCw className="w-4 h-4 text-gold-400 animate-spin" />
           ) : isOnline ? (
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
+            <ShieldCheck className="w-4 h-4 text-primary/80" />
           ) : (
             <WifiOff className="w-4 h-4 text-white" />
           )}

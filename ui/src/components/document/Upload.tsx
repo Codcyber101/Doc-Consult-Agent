@@ -50,7 +50,7 @@ export function Upload({ onUpload, accept = 'image/*,application/pdf', label = '
               cursor-pointer relative overflow-hidden rounded-[2rem] border-2 border-dashed p-10 transition-all duration-500 flex flex-col items-center justify-center text-center group
               ${isDragging 
                 ? 'border-sovereign-green bg-sovereign-green/5 ring-4 ring-sovereign-green/10' 
-                : 'border-gray-200 hover:border-sovereign-gold hover:bg-white'}
+                : 'border-gray-200 hover:border-sovereign-gold hover:bg-surface'}
             `}
           >
             <input 
@@ -93,7 +93,7 @@ export function Upload({ onUpload, accept = 'image/*,application/pdf', label = '
             key="filled"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white border-2 border-sovereign-green p-6 rounded-[2rem] flex items-center justify-between shadow-sovereign"
+            className="bg-surface border-2 border-sovereign-green p-6 rounded-[2rem] flex items-center justify-between shadow-sovereign"
           >
             <div className="flex items-center overflow-hidden gap-4">
               <div className="w-14 h-14 bg-sovereign-green/10 rounded-2xl flex items-center justify-center flex-shrink-0 text-sovereign-green">

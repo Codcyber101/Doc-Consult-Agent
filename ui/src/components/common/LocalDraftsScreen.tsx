@@ -68,7 +68,7 @@ export const LocalDraftsScreen = ({
     if (drafts.length === 0 && !isLoading) {
         return (
             <div className={cn("flex flex-col items-center justify-center p-12 text-center", className)}>
-                <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4 text-slate-400">
+                <div className="w-16 h-16 bg-surface-muted rounded-full flex items-center justify-center mb-4 text-slate-400">
                     <FileText className="w-8 h-8" />
                 </div>
                 <h3 className="text-lg font-bold text-slate-900 mb-2">No Drafts Found</h3>
@@ -111,14 +111,14 @@ export const LocalDraftsScreen = ({
                             <Card
                                 className={cn(
                                     "p-4 hover:shadow-md transition-shadow cursor-pointer border-l-4",
-                                    draft.hasConflict ? "border-l-red-500" : "border-l-emerald-500"
+                                    draft.hasConflict ? "border-l-red-500" : "border-l-primary"
                                 )}
                                 hoverable
                                 onClick={() => onResumeDraft(draft.id)}
                             >
                                 <div className="flex items-center gap-4">
                                     {/* Icon */}
-                                    <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0 text-slate-500">
+                                    <div className="w-10 h-10 rounded-xl bg-surface-muted flex items-center justify-center shrink-0 text-slate-500">
                                         <FileText className="w-5 h-5" />
                                     </div>
 
@@ -137,7 +137,7 @@ export const LocalDraftsScreen = ({
                                         </div>
 
                                         <div className="flex items-center gap-3 text-xs text-slate-500">
-                                            <span className="font-medium text-emerald-600">
+                                            <span className="font-medium text-primary">
                                                 {draft.type}
                                             </span>
                                             <span>•</span>
@@ -148,9 +148,9 @@ export const LocalDraftsScreen = ({
                                         </div>
 
                                         {/* Progress bar */}
-                                        <div className="mt-3 w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                                        <div className="mt-3 w-full bg-surface-muted h-1.5 rounded-full overflow-hidden">
                                             <div
-                                                className="h-full bg-emerald-500 rounded-full"
+                                                className="h-full bg-primary rounded-full"
                                                 style={{ width: `${draft.progress}%` }}
                                             />
                                         </div>
@@ -184,7 +184,7 @@ export const LocalDraftsScreen = ({
                                             variant="ghost"
                                             size="sm"
                                             onClick={() => onResumeDraft(draft.id)}
-                                            className="text-slate-400 hover:text-emerald-600"
+                                            className="text-slate-400 hover:text-primary"
                                         >
                                             <ChevronRight className="w-5 h-5" />
                                         </Button>

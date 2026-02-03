@@ -194,7 +194,7 @@ export const StatDisplay = ({
                 {trend && (
                     <span className={cn(
                         "text-xs font-semibold",
-                        trend.direction === 'up' ? 'text-emerald-500' : 'text-red-500'
+                        trend.direction === 'up' ? 'text-primary' : 'text-red-500'
                     )}>
                         {trend.direction === 'up' ? '↑' : '↓'} {trend.value}%
                     </span>

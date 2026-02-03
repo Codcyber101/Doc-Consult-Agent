@@ -24,12 +24,12 @@ export default function ServicesPage() {
   const [activeFilter, setActiveFilter] = useState("all");
 
   return (
-    <div className="flex min-h-screen bg-background text-foreground font-sans selection:bg-emerald-500/20">
+    <div className="flex min-h-screen bg-background text-foreground font-sans selection:bg-primary/20">
       <AppSidebar />
       
       <main className="flex-1 lg:pl-72 flex flex-col min-w-0">
         {/* Mobile Header */}
-        <div className="lg:hidden h-16 border-b border-slate-200 dark:border-slate-800 flex items-center px-4 sticky top-0 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md z-30">
+        <div className="lg:hidden h-16 border-b border-border dark:border-slate-800 flex items-center px-4 sticky top-0 bg-surface/80 dark:bg-slate-950/80 backdrop-blur-md z-30">
            <span className="font-bold text-lg font-display">GovAssist</span>
         </div>
 
@@ -39,7 +39,7 @@ export default function ServicesPage() {
           <aside className="hidden lg:flex w-64 flex-col gap-8 shrink-0 sticky top-6 self-start">
             {/* Categories */}
             <div className="flex flex-col gap-4">
-              <div className="flex flex-col pb-2 border-b border-slate-200 dark:border-slate-800">
+              <div className="flex flex-col pb-2 border-b border-border dark:border-slate-800">
                 <h1 className="text-base font-bold font-display">Categories</h1>
                 <p className="text-slate-500 dark:text-slate-400 text-xs font-medium">Browse by sector</p>
               </div>
@@ -58,7 +58,7 @@ export default function ServicesPage() {
 
             {/* Popular Services Widget */}
             <div className="flex flex-col gap-4">
-              <div className="flex flex-col pb-2 border-b border-slate-200 dark:border-slate-800">
+              <div className="flex flex-col pb-2 border-b border-border dark:border-slate-800">
                 <h1 className="text-base font-bold font-display">Popular Services</h1>
                 <p className="text-slate-500 dark:text-slate-400 text-xs font-medium">Most requested this week</p>
               </div>
@@ -74,7 +74,7 @@ export default function ServicesPage() {
               <div className="absolute -right-4 -top-4 opacity-10">
                 <User className="w-24 h-24" />
               </div>
-              <h3 className="font-bold mb-2 text-emerald-400 relative z-10 font-display">Need Help?</h3>
+              <h3 className="font-bold mb-2 text-primary/80 relative z-10 font-display">Need Help?</h3>
               <p className="text-xs text-slate-300 mb-4 relative z-10 leading-relaxed">Our support center is available 24/7 to assist with your applications.</p>
               <button className="w-full py-2.5 bg-white/10 hover:bg-white/20 text-white text-xs font-bold rounded-xl border border-white/10 transition-colors relative z-10 backdrop-blur-sm">
                 Contact Support
@@ -93,11 +93,11 @@ export default function ServicesPage() {
             </div>
 
             {/* Search Bar */}
-            <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl rounded-2xl shadow-sm border border-slate-200/60 dark:border-slate-800/60 p-2 mb-8 sticky top-20 lg:top-6 z-20">
+            <div className="bg-surface/60 dark:bg-slate-900/60 backdrop-blur-xl rounded-2xl shadow-sm border border-border/60 dark:border-slate-800/60 p-2 mb-8 sticky top-20 lg:top-6 z-20">
               <div className="flex flex-col md:flex-row gap-2">
                 <div className="flex-1 relative group">
                   <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <Search className="w-5 h-5 text-slate-400 group-focus-within:text-emerald-600 transition-colors" />
+                    <Search className="w-5 h-5 text-slate-400 group-focus-within:text-primary transition-colors" />
                   </div>
                   <input 
                     type="text" 
@@ -120,7 +120,7 @@ export default function ServicesPage() {
                 title="New Business License"
                 subtitle="አዲስ የንግድ ፈቃድ"
                 icon={<Store className="w-5 h-5" />}
-                color="emerald"
+                color="primary"
                 time="3-5 Working Days"
                 digitalReadiness={85}
                 fee="500 ETB"
@@ -180,7 +180,7 @@ export default function ServicesPage() {
 
             {/* Pagination */}
             <div className="mt-12 flex justify-center">
-              <button className="flex items-center gap-2 px-6 py-3 border border-slate-200 dark:border-slate-800 rounded-xl hover:border-emerald-500/50 hover:text-emerald-600 bg-white dark:bg-slate-900 transition-all font-bold text-sm shadow-sm hover:shadow-md">
+              <button className="flex items-center gap-2 px-6 py-3 border border-border dark:border-slate-800 rounded-xl hover:border-primary/50 hover:text-primary bg-surface dark:bg-slate-900 transition-all font-bold text-sm shadow-sm hover:shadow-md">
                 Load More Services
                 <div className="grid grid-cols-2 gap-0.5 size-3.5 opacity-50">
                    <div className="bg-current rounded-[0.5px]"/>
@@ -203,10 +203,10 @@ function CategoryItem({ icon, label, active }: { icon: React.ReactNode, label: s
     <a href="#" className={cn(
       "flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group",
       active 
-        ? "bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 font-bold border border-emerald-100 dark:border-emerald-800" 
-        : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 font-medium hover:text-slate-900 dark:hover:text-white"
+        ? "bg-primary/10 dark:bg-blue-900/20 text-primary dark:text-primary/80 font-bold border border-primary/20 dark:border-blue-800" 
+        : "text-slate-600 dark:text-slate-400 hover:bg-surface dark:hover:bg-slate-800 font-medium hover:text-slate-900 dark:hover:text-white"
     )}>
-      <div className={cn("transition-colors", !active && "text-slate-400 group-hover:text-emerald-600")}>
+      <div className={cn("transition-colors", !active && "text-slate-400 group-hover:text-primary")}>
         {icon}
       </div>
       <span className="text-sm">{label}</span>
@@ -222,12 +222,12 @@ function PopularServiceItem({ title, sub, icon, color }: { title: string, sub: s
   };
 
   return (
-    <div className="group flex gap-3 items-center cursor-pointer p-2.5 rounded-xl hover:bg-white dark:hover:bg-slate-800 transition-all border border-transparent hover:border-slate-100 dark:hover:border-slate-700 hover:shadow-sm">
+    <div className="group flex gap-3 items-center cursor-pointer p-2.5 rounded-xl hover:bg-surface dark:hover:bg-slate-800 transition-all border border-transparent hover:border-border dark:hover:border-slate-700 hover:shadow-sm">
       <div className={cn("p-2 rounded-lg shrink-0", bgColors[color])}>
         {icon}
       </div>
       <div>
-        <p className="text-sm font-bold text-slate-700 dark:text-slate-200 group-hover:text-emerald-600 transition-colors">{title}</p>
+        <p className="text-sm font-bold text-slate-700 dark:text-slate-200 group-hover:text-primary transition-colors">{title}</p>
         <p className="text-[10px] text-slate-400 font-ethiopic">{sub}</p>
       </div>
     </div>
@@ -241,8 +241,8 @@ function FilterButton({ label, active, onClick }: { label: string, active?: bool
       className={cn(
         "whitespace-nowrap px-4 py-2 rounded-xl text-sm font-bold transition-all",
         active 
-          ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-md transform scale-105" 
-          : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
+          ? "bg-slate-900 dark:bg-surface text-white dark:text-slate-900 shadow-md transform scale-105" 
+          : "bg-surface-muted dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-surface dark:hover:bg-slate-700"
       )}
     >
       {label}
@@ -254,7 +254,7 @@ interface CatalogCardProps {
   title: string;
   subtitle: string;
   icon: React.ReactNode;
-  color: "emerald" | "blue" | "purple" | "amber" | "pink" | "slate";
+  color: "primary" | "blue" | "purple" | "amber" | "pink" | "slate";
   time: string;
   digitalReadiness: number;
   fee: string;
@@ -262,16 +262,16 @@ interface CatalogCardProps {
 
 function CatalogCard({ title, subtitle, icon, color, time, digitalReadiness, fee }: CatalogCardProps) {
   const colors = {
-    emerald: "bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400",
+    primary: "bg-primary/10 dark:bg-blue-900/20 text-primary dark:text-primary/80",
     blue: "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400",
     purple: "bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400",
     amber: "bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400",
     pink: "bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400",
-    slate: "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400",
+    slate: "bg-surface-muted dark:bg-slate-800 text-slate-600 dark:text-slate-400",
   };
 
   const progressColors = {
-    emerald: "bg-emerald-500",
+    primary: "bg-primary",
     blue: "bg-blue-500",
     purple: "bg-purple-500",
     amber: "bg-amber-500",
@@ -280,7 +280,7 @@ function CatalogCard({ title, subtitle, icon, color, time, digitalReadiness, fee
   };
 
   const textColors = {
-    emerald: "text-emerald-600 dark:text-emerald-400",
+    primary: "text-primary dark:text-primary/80",
     blue: "text-blue-600 dark:text-blue-400",
     purple: "text-purple-600 dark:text-purple-400",
     amber: "text-amber-600 dark:text-amber-400",
@@ -289,19 +289,19 @@ function CatalogCard({ title, subtitle, icon, color, time, digitalReadiness, fee
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/60 dark:border-slate-800/60 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col group overflow-hidden">
+    <div className="bg-surface dark:bg-slate-900 rounded-2xl border border-border/60 dark:border-slate-800/60 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col group overflow-hidden">
       <div className="p-6 flex-1">
         <div className="flex justify-between items-start mb-4">
           <div className={cn("p-2.5 rounded-xl", colors[color])}>
             {icon}
           </div>
-          <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded-lg" title="MESOB Payment Integrated">
-            <Zap className="w-3 h-3 text-emerald-500 fill-emerald-500" />
+          <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-500 bg-surface-muted dark:bg-slate-800 px-2 py-1 rounded-lg" title="MESOB Payment Integrated">
+            <Zap className="w-3 h-3 text-primary fill-primary" />
             <span>MESOB</span>
           </div>
         </div>
         
-        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1 group-hover:text-emerald-600 transition-colors font-display">{title}</h3>
+        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1 group-hover:text-primary transition-colors font-display">{title}</h3>
         <h4 className="text-sm text-slate-500 dark:text-slate-400 font-ethiopic mb-6">{subtitle}</h4>
         
         <div className="space-y-4">
@@ -315,19 +315,19 @@ function CatalogCard({ title, subtitle, icon, color, time, digitalReadiness, fee
               <span className="text-slate-400">Digital Readiness</span>
               <span className={textColors[color]}>{digitalReadiness}% Online</span>
             </div>
-            <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-1.5">
+            <div className="w-full bg-surface-muted dark:bg-slate-800 rounded-full h-1.5">
               <div className={cn("h-1.5 rounded-full transition-all duration-500", progressColors[color])} style={{ width: `${digitalReadiness}%` }}></div>
             </div>
           </div>
         </div>
       </div>
       
-      <div className="px-6 py-4 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-900/50 group-hover:bg-slate-50 dark:group-hover:bg-slate-800/50 transition-colors">
+      <div className="px-6 py-4 border-t border-border dark:border-slate-800 flex justify-between items-center bg-surface/50 dark:bg-slate-900/50 group-hover:bg-surface dark:group-hover:bg-slate-800/50 transition-colors">
         <div>
           <p className="text-[10px] text-slate-400 uppercase font-black tracking-widest">Fee</p>
           <p className="text-sm font-bold text-slate-900 dark:text-white">{fee}</p>
         </div>
-        <button className="text-sm font-bold text-emerald-600 hover:text-emerald-700 flex items-center gap-1 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+        <button className="text-sm font-bold text-primary hover:text-primary flex items-center gap-1 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300">
           View Details <ArrowRight className="w-4 h-4" />
         </button>
       </div>

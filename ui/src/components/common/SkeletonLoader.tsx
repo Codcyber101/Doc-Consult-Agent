@@ -46,15 +46,15 @@ export const SkeletonLoader = React.forwardRef<HTMLDivElement, SkeletonLoaderPro
         const animationStyles = {
             shimmer: cn(
                 'relative overflow-hidden',
-                'bg-slate-200 dark:bg-slate-700',
+                'bg-surface-muted dark:bg-slate-700',
                 // Shimmer gradient overlay
                 'before:absolute before:inset-0',
                 'before:bg-gradient-to-r before:from-transparent before:via-white/60 before:to-transparent',
                 'before:animate-[shimmer_1.5s_infinite]',
                 'before:-translate-x-full'
             ),
-            pulse: 'bg-slate-200 dark:bg-slate-700 animate-pulse',
-            none: 'bg-slate-200 dark:bg-slate-700',
+            pulse: 'bg-surface-muted dark:bg-slate-700 animate-pulse',
+            none: 'bg-surface-muted dark:bg-slate-700',
         };
 
         // Build inline styles for explicit width/height
@@ -136,7 +136,7 @@ export const SkeletonCard = ({ className, ...props }: SkeletonPresetProps) => (
 
 /** Service tile skeleton (matches ServiceTile component) */
 export const SkeletonServiceTile = ({ className, ...props }: SkeletonPresetProps) => (
-    <div className={cn("p-8 rounded-[2rem] border border-slate-100 bg-white", className)} {...props}>
+    <div className={cn("p-8 rounded-[2rem] border border-border bg-surface", className)} {...props}>
         <div className="flex items-start justify-between mb-6">
             <SkeletonLoader variant="rounded" className="w-14 h-14" />
             <SkeletonLoader variant="rounded" className="w-16 h-6" />

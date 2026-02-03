@@ -40,7 +40,7 @@ export default function TradeLicenseStep3() {
          <motion.div 
            initial={{ scale: 0.5, opacity: 0 }}
            animate={{ scale: 1, opacity: 1 }}
-           className="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-3xl flex items-center justify-center mx-auto mb-6"
+           className="w-20 h-20 bg-primary/10 text-primary rounded-3xl flex items-center justify-center mx-auto mb-6"
          >
             <ShieldCheck className="h-10 w-10" />
          </motion.div>
@@ -56,16 +56,16 @@ export default function TradeLicenseStep3() {
               <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">{item.label}</p>
               <div className="flex items-center justify-between">
                  <p className="text-lg font-bold text-slate-900">{item.value}</p>
-                 {item.status === 'success' && <CheckCircle2 className="h-5 w-5 text-emerald-500" />}
+                 {item.status === 'success' && <CheckCircle2 className="h-5 w-5 text-primary" />}
               </div>
            </Card>
          ))}
       </div>
 
-      <Card className="p-0 overflow-hidden border-2 border-emerald-600/20">
-         <div className="bg-emerald-50 p-4 border-b border-emerald-100 flex items-center gap-2">
-            <FileText className="h-4 w-4 text-emerald-600" />
-            <span className="text-xs font-bold text-emerald-800 uppercase tracking-wider">Audit Log Hash</span>
+      <Card className="p-0 overflow-hidden border-2 border-primary/20">
+         <div className="bg-primary/10 p-4 border-b border-primary/20 flex items-center gap-2">
+            <FileText className="h-4 w-4 text-primary" />
+            <span className="text-xs font-bold text-slate-800 uppercase tracking-wider">Audit Log Hash</span>
          </div>
          <div className="p-6 font-mono text-[10px] text-slate-400 break-all">
             0x71c942a7d7124d1d6c8b9c8c9e8f1a1d1c1b1a1d1c1b1a1d1c1b1a1d1c1b1a
@@ -81,7 +81,7 @@ export default function TradeLicenseStep3() {
            size="lg" 
            onClick={() => setIsConsentOpen(true)}
            rightIcon={<Send className="h-4 w-4" />}
-           className="px-12 shadow-xl shadow-emerald-600/20"
+           className="px-12 shadow-xl shadow-primary/20"
          >
            Authorize Submission
          </Button>

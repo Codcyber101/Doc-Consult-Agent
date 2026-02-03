@@ -59,8 +59,8 @@ export default function DocumentDetailPage({ params }: { params: Promise<{ id: s
   const [isProvenanceOpen, setIsProvenanceOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-50 selection:bg-emerald-100 selection:text-emerald-900 font-sans">
-      <div className="fixed inset-0 bg-mesh-emerald pointer-events-none opacity-30" />
+    <div className="min-h-screen bg-surface selection:bg-primary/10 selection:text-foreground font-sans">
+      <div className="fixed inset-0 bg-mesh pointer-events-none opacity-30" />
       <Navbar user={{ name: "Abebe Bikila" }} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
@@ -71,10 +71,10 @@ export default function DocumentDetailPage({ params }: { params: Promise<{ id: s
              </Button>
            </Link>
            <div className="flex gap-3">
-              <Button variant="outline" className="rounded-xl border-slate-200">
+              <Button variant="outline" className="rounded-xl border-border">
                  <Share2 className="w-4 h-4 mr-2" /> Share
               </Button>
-              <Button variant="outline" className="rounded-xl border-slate-200 text-red-600 hover:bg-red-50">
+              <Button variant="outline" className="rounded-xl border-border text-red-600 hover:bg-red-50">
                  <Trash2 className="w-4 h-4 mr-2" /> Revoke
               </Button>
            </div>
@@ -83,7 +83,7 @@ export default function DocumentDetailPage({ params }: { params: Promise<{ id: s
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           {/* Document Preview Area */}
           <div className="lg:col-span-8 space-y-8">
-             <Card className="overflow-hidden border-slate-200 shadow-xl relative aspect-[16/10] bg-slate-900 group">
+             <Card className="overflow-hidden border-border shadow-xl relative aspect-[16/10] bg-slate-900 group">
                 <div className="absolute inset-0 flex items-center justify-center">
                    <div className="flex flex-col items-center gap-4 text-white/20">
                       <FileText className="w-24 h-24" />
@@ -92,10 +92,10 @@ export default function DocumentDetailPage({ params }: { params: Promise<{ id: s
                 </div>
                 
                 {/* Simulated ID Overlay */}
-                <div className="absolute inset-12 border-2 border-emerald-500/20 rounded-2xl flex flex-col justify-end p-10 bg-gradient-to-t from-slate-950 to-transparent">
+                <div className="absolute inset-12 border-2 border-primary/20 rounded-2xl flex flex-col justify-end p-10 bg-gradient-to-t from-slate-950 to-transparent">
                    <div className="flex justify-between items-end">
                       <div>
-                         <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest mb-1">Authenticated Holder</p>
+                         <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-1">Authenticated Holder</p>
                          <h2 className="text-3xl font-display font-bold text-white tracking-tight">{doc.extraction[0].value}</h2>
                          <p className="text-sm text-slate-400 font-mono mt-2">{doc.id}</p>
                       </div>
@@ -121,15 +121,15 @@ export default function DocumentDetailPage({ params }: { params: Promise<{ id: s
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                    {doc.extraction.map((item: any, i: number) => (
-                     <Card key={i} className="bg-white border-slate-100">
+                     <Card key={i} className="bg-surface border-border">
                         <CardContent className="p-5 flex justify-between items-center">
                            <div>
                               <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{item.field}</p>
                               <p className="text-sm font-bold text-slate-900">{item.value}</p>
                            </div>
                            <div className="text-right">
-                              <p className="text-[10px] font-bold text-emerald-600 uppercase mb-1">{item.confidence}% Conf.</p>
-                              <CheckCircle2 className="w-4 h-4 text-emerald-500 ml-auto" />
+                              <p className="text-[10px] font-bold text-primary uppercase mb-1">{item.confidence}% Conf.</p>
+                              <CheckCircle2 className="w-4 h-4 text-primary ml-auto" />
                            </div>
                         </CardContent>
                      </Card>
@@ -140,17 +140,17 @@ export default function DocumentDetailPage({ params }: { params: Promise<{ id: s
 
           {/* Metadata & Provenance Sidebar */}
           <div className="lg:col-span-4 space-y-8">
-             <Card className="bg-white border-slate-200 overflow-hidden relative">
-                <CardHeader className="bg-slate-50 border-b border-slate-100">
+             <Card className="bg-surface border-border overflow-hidden relative">
+                <CardHeader className="bg-surface border-b border-border">
                    <CardTitle className="text-lg">Transmission Security</CardTitle>
                 </CardHeader>
                 <CardContent className="p-6 space-y-6">
                    <div className="space-y-4">
-                      <div className="flex items-center gap-3 p-4 bg-emerald-50 border border-emerald-100 rounded-2xl">
-                         <ShieldCheck className="w-6 h-6 text-emerald-600" />
+                      <div className="flex items-center gap-3 p-4 bg-primary/10 border border-primary/20 rounded-2xl">
+                         <ShieldCheck className="w-6 h-6 text-primary" />
                          <div>
-                            <p className="text-xs font-bold text-emerald-900">Cryptographically Signed</p>
-                            <p className="text-[10px] text-emerald-700 uppercase font-black">HSM National Root</p>
+                            <p className="text-xs font-bold text-slate-900">Cryptographically Signed</p>
+                            <p className="text-[10px] text-primary uppercase font-black">HSM National Root</p>
                          </div>
                       </div>
                       
@@ -163,14 +163,14 @@ export default function DocumentDetailPage({ params }: { params: Promise<{ id: s
                       </Button>
                    </div>
 
-                   <Separator className="bg-slate-100" />
+                   <Separator className="bg-surface-muted" />
 
                    <div className="space-y-4">
                       <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-400">Sharing History</h4>
                       <div className="space-y-4">
                          {doc.history.map((log: any, i: number) => (
                            <div key={i} className="flex gap-4">
-                              <div className="w-1 h-10 bg-slate-100 rounded-full shrink-0" />
+                              <div className="w-1 h-10 bg-surface-muted rounded-full shrink-0" />
                               <div>
                                  <p className="text-xs font-bold text-slate-900">{log.agency}</p>
                                  <p className="text-[10px] text-slate-500 uppercase">{log.action} • {log.date}</p>
@@ -180,8 +180,8 @@ export default function DocumentDetailPage({ params }: { params: Promise<{ id: s
                       </div>
                    </div>
 
-                   <Button variant="outline" className="w-full h-14 rounded-2xl border-slate-200 gap-2 font-bold text-slate-600">
-                      <Download className="w-5 h-5 text-emerald-600" /> Download Encrypted Archive
+                   <Button variant="outline" className="w-full h-14 rounded-2xl border-border gap-2 font-bold text-slate-600">
+                      <Download className="w-5 h-5 text-primary" /> Download Encrypted Archive
                    </Button>
                 </CardContent>
                 <div className="absolute inset-0 grain opacity-[0.02] pointer-events-none" />
@@ -197,7 +197,7 @@ export default function DocumentDetailPage({ params }: { params: Promise<{ id: s
                       You have the right to revoke access to this document at any time. Revocation will invalidate all active sharing links across government nodes.
                    </p>
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-600/10 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent" />
              </div>
           </div>
         </div>

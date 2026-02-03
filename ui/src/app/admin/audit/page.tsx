@@ -62,12 +62,12 @@ export default function AuditLogPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <h1 className="text-3xl font-display font-bold text-slate-900 tracking-tight">
-            Sovereign <span className="text-emerald-600 italic">Audit Ledger</span>
+            Sovereign <span className="text-primary italic">Audit Ledger</span>
           </h1>
           <p className="text-slate-500 font-medium mt-1">Immutable trace of all national gateway events and cryptographic handshakes.</p>
         </div>
         
-        <Button variant="outline" className="h-12 border-slate-200 gap-2 font-bold rounded-xl px-6">
+        <Button variant="outline" className="h-12 border-border gap-2 font-bold rounded-xl px-6">
            <Download className="w-4 h-4" /> Export Signed Log
         </Button>
       </div>
@@ -79,9 +79,9 @@ export default function AuditLogPage() {
            { label: 'Registry Nodes', value: '12 Active', icon: <Server /> },
            { label: 'National Gateway', value: 'Stable', icon: <Globe /> },
          ].map((node, i) => (
-           <Card key={i} className="bg-slate-50/50 border-slate-100 shadow-sm overflow-hidden relative">
+           <Card key={i} className="bg-surface/50 border-border shadow-sm overflow-hidden relative">
               <CardContent className="p-6 flex items-center gap-4">
-                 <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-emerald-600 shadow-sm border border-slate-100">
+                 <div className="w-10 h-10 rounded-xl bg-surface flex items-center justify-center text-primary shadow-sm border border-border">
                     {node.icon}
                  </div>
                  <div>
@@ -95,8 +95,8 @@ export default function AuditLogPage() {
       </div>
 
       {/* Main Ledger */}
-      <Card className="rounded-[2.5rem] border-slate-100 shadow-xl overflow-hidden relative">
-         <CardHeader className="bg-slate-50/50 border-b border-slate-100 p-8 flex flex-row items-center justify-between">
+      <Card className="rounded-[2.5rem] border-border shadow-xl overflow-hidden relative">
+         <CardHeader className="bg-surface/50 border-b border-border p-8 flex flex-row items-center justify-between">
             <div>
                <CardTitle className="text-xl">Transmission History</CardTitle>
                <p className="text-xs text-slate-400 font-medium uppercase tracking-widest mt-1">Real-time Block Ledger</p>
@@ -106,7 +106,7 @@ export default function AuditLogPage() {
                <input 
                  type="text" 
                  placeholder="Search TX ID or Hash..." 
-                 className="h-10 pl-10 pr-4 bg-white border border-slate-200 rounded-lg text-xs outline-none focus:border-emerald-500 w-64"
+                 className="h-10 pl-10 pr-4 bg-surface border border-border rounded-lg text-xs outline-none focus:border-primary w-64"
                />
             </div>
          </CardHeader>
@@ -114,7 +114,7 @@ export default function AuditLogPage() {
             <div className="overflow-x-auto">
                <table className="w-full">
                   <thead>
-                     <tr className="bg-slate-50 text-left border-b border-slate-100">
+                     <tr className="bg-surface text-left border-b border-border">
                         <th className="px-8 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Transaction ID</th>
                         <th className="px-8 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Event Nature</th>
                         <th className="px-8 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Entity Source</th>
@@ -125,13 +125,13 @@ export default function AuditLogPage() {
                   </thead>
                   <tbody className="divide-y divide-slate-50">
                      {AUDIT_LOGS.map((log) => (
-                        <tr key={log.id} className="hover:bg-slate-50/50 transition-colors group">
+                        <tr key={log.id} className="hover:bg-surface/50 transition-colors group">
                            <td className="px-8 py-6 font-mono text-xs font-bold text-slate-900">{log.id}</td>
                            <td className="px-8 py-6">
                               <div className="flex items-center gap-2">
                                  <div className={cn(
                                    "w-2 h-2 rounded-full",
-                                   log.status === 'Success' ? "bg-emerald-500" : "bg-amber-500"
+                                   log.status === 'Success' ? "bg-primary" : "bg-amber-500"
                                  )} />
                                  <span className="text-xs font-bold text-slate-700">{log.event}</span>
                               </div>
@@ -142,13 +142,13 @@ export default function AuditLogPage() {
                               </div>
                            </td>
                            <td className="px-8 py-6">
-                              <div className="flex items-center gap-2 font-mono text-[10px] text-slate-400 bg-slate-100/50 px-2 py-1 rounded w-fit">
+                              <div className="flex items-center gap-2 font-mono text-[10px] text-slate-400 bg-surface-muted/50 px-2 py-1 rounded w-fit">
                                  {log.hash} <Fingerprint className="w-3 h-3 opacity-50" />
                               </div>
                            </td>
                            <td className="px-8 py-6 text-xs font-medium text-slate-500">{log.timestamp}</td>
                            <td className="px-8 py-6 text-right">
-                              <Button variant="ghost" size="icon" className="text-slate-300 hover:text-emerald-600">
+                              <Button variant="ghost" size="icon" className="text-slate-300 hover:text-primary">
                                  <ExternalLink className="w-4 h-4" />
                               </Button>
                            </td>

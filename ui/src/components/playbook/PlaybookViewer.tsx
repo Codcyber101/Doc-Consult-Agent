@@ -19,7 +19,7 @@ interface PlaybookProps {
 
 export const PlaybookViewer: React.FC<PlaybookProps> = ({ playbook }) => {
   return (
-    <div className="p-6 bg-white shadow rounded-lg">
+    <div className="p-6 bg-surface shadow rounded-lg">
       <h2 className="text-2xl font-bold mb-2">{playbook.service_type.replace(/_/g, ' ')}</h2>
       <p className="text-gray-600 mb-6">Jurisdiction: {playbook.jurisdiction}</p>
       

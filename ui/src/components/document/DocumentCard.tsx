@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { Badge } from '../common/Badge';
 import { Button } from '../common/Button';
@@ -38,12 +39,18 @@ export const DocumentCard = ({
   };
 
   return (
-    <div className={cn("group relative flex flex-col rounded-xl border border-slate-200 bg-white overflow-hidden shadow-sm-soft transition-all hover:shadow-md-soft", className)}>
+    <div className={cn("group relative flex flex-col rounded-xl border border-border bg-surface overflow-hidden shadow-sm-soft transition-all hover:shadow-md-soft", className)}>
       
       {/* Preview Area */}
-      <div className="relative aspect-[3/2] bg-slate-50 flex items-center justify-center border-b border-slate-100">
+      <div className="relative aspect-[3/2] bg-surface-muted flex items-center justify-center border-b border-border/60">
         {thumbnailUrl ? (
-          <img src={thumbnailUrl} alt={title} className="w-full h-full object-cover" />
+          <Image
+            src={thumbnailUrl}
+            alt={title}
+            fill
+            sizes="(max-width: 768px) 100vw, 420px"
+            className="object-cover"
+          />
         ) : (
           <FileText className="h-10 w-10 text-slate-300" />
         )}
@@ -51,7 +58,7 @@ export const DocumentCard = ({
         {/* Overlay Actions */}
         <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/5 transition-colors flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100">
            {onView && (
-             <Button variant="ghost" size="sm" onClick={onView} className="bg-white/90 hover:bg-white shadow-sm">
+             <Button variant="ghost" size="sm" onClick={onView} className="bg-surface/90 hover:bg-surface shadow-sm">
                <Eye className="h-4 w-4 mr-1" /> View
              </Button>
            )}
@@ -68,7 +75,7 @@ export const DocumentCard = ({
         {/* OCR Score or Error */}
         <div className="mt-auto">
           {status === 'invalid' && errorMessage && (
-             <div className="flex items-start gap-1.5 text-xs text-red-earth mt-2">
+             <div className="flex items-start gap-1.5 text-xs text-danger mt-2">
                 <AlertCircle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
                 <span>{errorMessage}</span>
              </div>
@@ -80,9 +87,9 @@ export const DocumentCard = ({
                  <span>Legibility</span>
                  <span>{readinessScore}%</span>
               </div>
-              <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+              <div className="h-1.5 w-full bg-surface-muted rounded-full overflow-hidden">
                 <div 
-                   className={cn("h-full rounded-full", readinessScore > 80 ? "bg-emerald-500" : "bg-gold-500")} 
+                   className={cn("h-full rounded-full", readinessScore > 80 ? "bg-primary" : "bg-gold-500")} 
                    style={{ width: `${readinessScore}%` }} 
                 />
               </div>

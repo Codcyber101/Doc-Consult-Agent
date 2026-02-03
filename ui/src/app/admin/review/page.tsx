@@ -67,21 +67,21 @@ export default function ReviewQueuePage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <h1 className="text-3xl font-display font-bold text-slate-900 tracking-tight">
-            Human-in-the-Loop <span className="text-emerald-600 italic">Review Queue</span>
+            Human-in-the-Loop <span className="text-primary italic">Review Queue</span>
           </h1>
           <p className="text-slate-500 font-medium mt-1">Audit submissions flagged by automated agents.</p>
         </div>
         
         <div className="flex gap-3">
            <div className="relative group">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-emerald-600 transition-colors" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-primary transition-colors" />
               <input 
                 type="text" 
                 placeholder="Find submission..." 
-                className="h-11 pl-10 pr-4 bg-white border border-slate-200 rounded-xl text-sm outline-none focus:border-emerald-500 shadow-sm w-64"
+                className="h-11 pl-10 pr-4 bg-surface border border-border rounded-xl text-sm outline-none focus:border-primary shadow-sm w-64"
               />
            </div>
-           <Button variant="outline" className="h-11 px-4 gap-2 border-slate-200">
+           <Button variant="outline" className="h-11 px-4 gap-2 border-border">
               <Filter className="w-4 h-4" /> Filter
            </Button>
         </div>
@@ -92,7 +92,7 @@ export default function ReviewQueuePage() {
         <div className="xl:col-span-4 space-y-4">
            <div className="flex items-center justify-between px-2 mb-4">
               <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Queue: 12 Active</span>
-              <button className="text-[10px] font-black uppercase tracking-widest text-emerald-600 hover:underline">Batch Process</button>
+              <button className="text-[10px] font-black uppercase tracking-widest text-primary hover:underline">Batch Process</button>
            </div>
            
            <div className="space-y-3">
@@ -103,13 +103,13 @@ export default function ReviewQueuePage() {
                   className={cn(
                     "p-5 rounded-2xl border-2 transition-all cursor-pointer group relative overflow-hidden",
                     selectedItem.id === item.id 
-                      ? "border-emerald-600 bg-white shadow-lg" 
-                      : "border-white bg-white/50 hover:border-slate-200 shadow-sm"
+                      ? "border-primary bg-surface shadow-lg" 
+                      : "border-border bg-surface/50 hover:border-border shadow-sm"
                   )}
                 >
                    <div className="flex items-start justify-between mb-3 relative z-10">
                       <div className="flex items-center gap-3">
-                         <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center text-slate-400">
+                         <div className="w-10 h-10 rounded-lg bg-surface-muted flex items-center justify-center text-slate-400">
                             <FileText className="w-5 h-5" />
                          </div>
                          <div>
@@ -119,7 +119,7 @@ export default function ReviewQueuePage() {
                       </div>
                       <div className={cn(
                         "text-[10px] font-black uppercase px-2 py-0.5 rounded-md",
-                        item.status === 'Pending' ? "bg-slate-100 text-slate-600" : 
+                        item.status === 'Pending' ? "bg-surface-muted text-slate-600" : 
                         item.status === 'Reviewing' ? "bg-amber-100 text-amber-700" : "bg-red-100 text-red-700"
                       )}>
                         {item.status}
@@ -131,7 +131,7 @@ export default function ReviewQueuePage() {
                       <div className="flex items-center justify-between text-[10px] font-bold uppercase">
                          <span className="text-slate-400">{item.jurisdiction}</span>
                          <span className={cn(
-                           item.agentConfidence < 70 ? "text-red-500" : "text-emerald-600"
+                           item.agentConfidence < 70 ? "text-red-500" : "text-primary"
                          )}>{item.agentConfidence}% Agent Score</span>
                       </div>
                    </div>
@@ -151,12 +151,12 @@ export default function ReviewQueuePage() {
                 key={selectedItem.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white rounded-[3rem] border border-slate-100 shadow-xl overflow-hidden flex flex-col h-[800px]"
+                className="bg-surface rounded-[3rem] border border-border shadow-xl overflow-hidden flex flex-col h-[800px]"
               >
                  {/* Audit Header */}
-                 <div className="p-8 border-b border-slate-50 bg-slate-50/50 flex items-center justify-between">
+                 <div className="p-8 border-b border-border bg-surface/50 flex items-center justify-between">
                     <div className="flex items-center gap-6">
-                       <div className="w-16 h-16 rounded-2xl bg-emerald-600 flex items-center justify-center text-white shadow-lg">
+                       <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center text-white shadow-lg">
                           <Users className="w-8 h-8" />
                        </div>
                        <div>
@@ -165,10 +165,10 @@ export default function ReviewQueuePage() {
                        </div>
                     </div>
                     <div className="flex gap-2">
-                       <Button variant="outline" size="icon" className="rounded-xl border-slate-200">
+                       <Button variant="outline" size="icon" className="rounded-xl border-border">
                           <History className="w-4 h-4 text-slate-400" />
                        </Button>
-                       <Button variant="outline" size="icon" className="rounded-xl border-slate-200">
+                       <Button variant="outline" size="icon" className="rounded-xl border-border">
                           <MessageSquare className="w-4 h-4 text-slate-400" />
                        </Button>
                     </div>
@@ -183,7 +183,7 @@ export default function ReviewQueuePage() {
                           <p className="absolute bottom-6 text-[10px] font-black text-white/20 uppercase tracking-widest">Digital Archive Mirror</p>
                           
                           {/* Mock OCR Overlay */}
-                          <div className="absolute top-20 left-20 p-2 bg-emerald-500/20 border border-emerald-500/50 rounded text-[10px] text-emerald-400 font-mono">
+                          <div className="absolute top-20 left-20 p-2 bg-primary/20 border border-primary/50 rounded text-[10px] text-primary/80 font-mono">
                              NAME: {selectedItem.applicant.toUpperCase()}
                           </div>
                           <div className="absolute top-32 left-20 p-2 bg-red-500/20 border border-red-500/50 rounded text-[10px] text-red-400 font-mono">
@@ -202,23 +202,23 @@ export default function ReviewQueuePage() {
                     </div>
 
                     {/* Agent Analysis Sidebar */}
-                    <div className="w-80 border-l border-slate-100 p-8 space-y-8 overflow-y-auto">
+                    <div className="w-80 border-l border-border p-8 space-y-8 overflow-y-auto">
                        <div>
                           <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Agent Assessment</h4>
                           <div className="space-y-4">
-                             <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                             <div className="p-4 bg-surface rounded-2xl border border-border">
                                 <div className="flex justify-between items-end mb-2">
                                    <span className="text-xs font-bold text-slate-900">Confidence</span>
                                    <span className={cn(
                                      "text-lg font-black",
-                                     selectedItem.agentConfidence < 70 ? "text-red-600" : "text-emerald-600"
+                                     selectedItem.agentConfidence < 70 ? "text-red-600" : "text-primary"
                                    )}>{selectedItem.agentConfidence}%</span>
                                 </div>
-                                <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                                <div className="w-full h-1.5 bg-surface-muted rounded-full overflow-hidden">
                                    <div 
                                      className={cn(
                                        "h-full rounded-full transition-all duration-1000",
-                                       selectedItem.agentConfidence < 70 ? "bg-red-500" : "bg-emerald-500"
+                                       selectedItem.agentConfidence < 70 ? "bg-red-500" : "bg-primary"
                                      )}
                                      style={{ width: `${selectedItem.agentConfidence}%` }}
                                    />
@@ -238,18 +238,18 @@ export default function ReviewQueuePage() {
                                   </div>
                                 ))
                              ) : (
-                                <div className="flex gap-3 p-3 bg-emerald-50 border border-emerald-100 rounded-xl">
-                                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
-                                   <span className="text-xs font-medium text-emerald-700">Clear Policy Compliance</span>
+                                <div className="flex gap-3 p-3 bg-primary/10 border border-primary/20 rounded-xl">
+                                   <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
+                                   <span className="text-xs font-medium text-primary">Clear Policy Compliance</span>
                                 </div>
                              )}
                           </div>
                        </div>
 
-                       <div className="pt-8 border-t border-slate-50">
+                       <div className="pt-8 border-t border-border">
                           <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Final Decision</h4>
                           <div className="space-y-3">
-                             <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold h-12 rounded-xl shadow-glow-emerald">
+                             <Button className="w-full bg-primary hover:bg-primary-dark text-white font-bold h-12 rounded-xl shadow-glow-primary">
                                 Approve Transmission
                              </Button>
                              <Button variant="outline" className="w-full h-12 rounded-xl text-red-600 border-red-100 hover:bg-red-50">

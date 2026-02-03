@@ -40,7 +40,7 @@ export default function TestAdminPage() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 p-8 space-y-12">
+        <div className="min-h-screen bg-surface p-8 space-y-12">
 
             <section>
                 <div className="mb-4">

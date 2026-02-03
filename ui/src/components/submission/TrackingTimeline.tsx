@@ -75,7 +75,7 @@ export function TrackingTimeline() {
       variants={container}
       initial="hidden"
       animate="show"
-      className="bg-white p-10 rounded-[2.5rem] border border-gray-100 shadow-sovereign relative overflow-hidden"
+      className="bg-surface p-10 rounded-[2.5rem] border border-gray-100 shadow-sovereign relative overflow-hidden"
     >
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-12 gap-4">
         <div>
