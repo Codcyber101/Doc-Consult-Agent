@@ -46,7 +46,7 @@ export default function TestOfflinePage() {
 
             <section className="space-y-4">
                 <h2 className="text-xl font-bold">Local Drafts Screen</h2>
-                <div className="border p-4 rounded-xl bg-slate-50">
+                <div className="border p-4 rounded-xl bg-surface">
                     <LocalDraftsScreen
                         drafts={drafts}
                         onResumeDraft={(id) => toast.info(`Resume draft ${id}`)}

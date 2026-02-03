@@ -71,23 +71,23 @@ export const ReadinessScorePanel = ({
 
     // Score color based on value
     const getScoreColor = () => {
-        if (score >= 100) return 'text-emerald-500';
-        if (score >= 70) return 'text-emerald-600';
+        if (score >= 100) return 'text-primary';
+        if (score >= 70) return 'text-primary';
         if (score >= 40) return 'text-gold-500';
         return 'text-red-500';
     };
 
     const getStrokeColor = () => {
-        if (score >= 100) return '#10b981';
-        if (score >= 70) return '#006B3F';
+        if (score >= 100) return '#1152d4';
+        if (score >= 70) return '#1152d4';
         if (score >= 40) return '#FDB813';
         return '#D94E41';
     };
 
     return (
         <div className={cn(
-            "bg-white rounded-3xl border-2 border-slate-100 p-6 sm:p-8",
-            isReady && "border-emerald-200 bg-emerald-50/30",
+            "bg-surface rounded-3xl border-2 border-border p-6 sm:p-8",
+            isReady && "border-primary/20 bg-primary/10",
             className
         )}>
             <div className="flex flex-col sm:flex-row items-center gap-6">
@@ -135,7 +135,7 @@ export const ReadinessScorePanel = ({
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.7 }}
                             >
-                                <Sparkles className="w-4 h-4 text-emerald-500" />
+                                <Sparkles className="w-4 h-4 text-primary" />
                             </motion.div>
                         )}
                     </div>
@@ -180,7 +180,7 @@ export const ReadinessScorePanel = ({
 
             {/* Missing Items */}
             {!isReady && missingItems.length > 0 && (
-                <div className="mt-6 pt-6 border-t border-slate-100">
+                <div className="mt-6 pt-6 border-t border-border">
                     <h4 className="text-sm font-bold text-slate-700 mb-4 uppercase tracking-wider">
                         Required Items ({missingItems.length})
                     </h4>
@@ -192,7 +192,7 @@ export const ReadinessScorePanel = ({
                                 initial={{ opacity: 0, x: -10 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: index * 0.1 }}
-                                className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 hover:bg-slate-100 transition-colors"
+                                className="flex items-start gap-3 p-3 rounded-xl bg-surface-muted hover:bg-surface transition-colors"
                             >
                                 <AlertCircle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
                                 <div className="flex-1 min-w-0">

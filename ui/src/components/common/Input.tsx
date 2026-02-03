@@ -39,7 +39,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     onChange,
     ...props
   }, ref) => {
-    const inputId = id || React.useId();
+    const generatedId = React.useId();
+    const inputId = id ?? generatedId;
     const [isFocused, setIsFocused] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [charCount, setCharCount] = useState(
@@ -87,8 +88,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const stateStyles = error
       ? "border-red-earth focus:border-red-earth focus:ring-red-earth/20"
       : success
-        ? "border-emerald-500 focus:border-emerald-500 focus:ring-emerald-500/20"
-        : "border-slate-200 hover:border-slate-300 focus:border-emerald-500 focus:ring-emerald-500/20";
+        ? "border-primary focus:border-primary focus:ring-primary/20"
+        : "border-border hover:border-border focus:border-primary focus:ring-primary/20";
 
     return (
       <motion.div
@@ -101,7 +102,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {leftIcon && (
             <div className={cn(
               "absolute left-4 top-1/2 -translate-y-1/2 text-slate-400",
-              isFocused && "text-emerald-500",
+              isFocused && "text-primary",
               error && "text-red-earth"
             )}>
               {leftIcon}
@@ -120,10 +121,10 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
             className={cn(
-              "peer block w-full rounded-xl border bg-white text-slate-900",
+              "peer block w-full rounded-xl border bg-surface text-slate-900",
               "transition-all duration-200 ease-out",
               "focus:outline-none focus:ring-4",
-              "disabled:opacity-50 disabled:bg-slate-50 disabled:cursor-not-allowed",
+              "disabled:opacity-50 disabled:bg-surface-muted disabled:cursor-not-allowed",
               "placeholder-transparent",
               stateStyles,
               sizeStyles[size].input,
@@ -148,8 +149,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
               error
                 ? "text-red-earth"
                 : success
-                  ? "text-emerald-600"
-                  : "text-slate-500 peer-focus:text-emerald-600",
+                  ? "text-primary"
+                  : "text-slate-500 peer-focus:text-primary",
               sizeStyles[size].label,
               leftIcon && "peer-placeholder-shown:left-11 peer-focus:left-4"
             )}
@@ -185,7 +186,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 500, damping: 15 }}
               >
-                <CheckCircle2 className={cn(sizeStyles[size].icon, "text-emerald-500")} />
+                <CheckCircle2 className={cn(sizeStyles[size].icon, "text-primary")} />
               </motion.div>
             )}
 

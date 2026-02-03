@@ -59,15 +59,15 @@ export const DraftQueueTable = ({
     };
 
     const getRiskColor = (score: number) => {
-        if (score < 30) return 'text-emerald-600';
+        if (score < 30) return 'text-primary';
         if (score < 70) return 'text-amber-600';
         return 'text-red-600';
     };
 
     return (
-        <div className={cn("bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm", className)}>
+        <div className={cn("bg-surface rounded-2xl border border-border overflow-hidden shadow-sm", className)}>
             {/* Filters Header (Mock) */}
-            <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+            <div className="px-6 py-4 border-b border-border flex justify-between items-center bg-surface-muted/60">
                 <h3 className="font-bold text-slate-700 flex items-center gap-2">
                     <FileText className="w-5 h-5 text-slate-400" />
                     Review Queue <span className="text-slate-400 font-normal">({items.length})</span>
@@ -88,7 +88,7 @@ export const DraftQueueTable = ({
             {items.length > 0 && (
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left">
-                        <thead className="text-xs text-slate-500 uppercase bg-slate-50/50">
+                        <thead className="text-xs text-slate-500 uppercase bg-surface-muted/60">
                             <tr>
                                 <th className="px-6 py-3 font-semibold">Applicant</th>
                                 <th className="px-6 py-3 font-semibold">Service Type</th>
@@ -98,12 +98,12 @@ export const DraftQueueTable = ({
                                 <th className="px-6 py-3 font-semibold text-right">Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100">
+                        <tbody className="divide-y divide-border">
                             {items.map((item) => (
-                                <tr key={item.id} className="hover:bg-slate-50/80 transition-colors group">
+                                <tr key={item.id} className="hover:bg-surface-muted/80 transition-colors group">
                                     <td className="px-6 py-4 font-medium text-slate-900">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500">
+                                            <div className="w-8 h-8 rounded-full bg-surface-muted flex items-center justify-center text-slate-500">
                                                 <User className="w-4 h-4" />
                                             </div>
                                             {item.applicant}
@@ -118,10 +118,10 @@ export const DraftQueueTable = ({
                                     </td>
                                     <td className="px-6 py-4">
                                         <div className="flex items-center gap-2">
-                                            <div className="w-full bg-slate-100 rounded-full h-1.5 w-16">
+                                            <div className="w-full bg-surface-muted rounded-full h-1.5 w-16">
                                                 <div
                                                     className={cn("h-full rounded-full",
-                                                        item.riskScore < 30 ? "bg-emerald-500" :
+                                                        item.riskScore < 30 ? "bg-primary" :
                                                             item.riskScore < 70 ? "bg-amber-500" : "bg-red-500"
                                                     )}
                                                     style={{ width: `${item.riskScore}%` }}
@@ -139,7 +139,7 @@ export const DraftQueueTable = ({
                                         <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                             <button
                                                 onClick={() => onApprove(item.id)}
-                                                className="p-1.5 rounded-lg text-emerald-600 hover:bg-emerald-50 transition-colors"
+                                                className="p-1.5 rounded-lg text-primary hover:bg-primary/10 transition-colors"
                                                 title="Quick Approve"
                                             >
                                                 <CheckCircle className="w-4 h-4" />

@@ -53,7 +53,7 @@ export function WizardShell({
                 {i < totalSteps - 1 && (
                   <div className={cn(
                     "w-6 h-px shrink-0",
-                    i + 1 < currentStep ? "bg-primary" : "bg-slate-200 dark:bg-slate-700"
+                    i + 1 < currentStep ? "bg-primary" : "bg-surface-muted dark:bg-slate-700"
                   )} />
                 )}
               </React.Fragment>
@@ -82,12 +82,12 @@ export function WizardShell({
         </motion.div>
 
         {/* Action Bar */}
-        <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+        <div className="mt-12 pt-8 border-t border-border dark:border-slate-800 flex items-center justify-between">
             <div>
               {onBack && (
                 <button 
                   onClick={onBack}
-                  className="flex items-center gap-2 px-4 py-2 text-slate-600 dark:text-slate-400 font-bold hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 text-slate-600 dark:text-slate-400 font-bold hover:bg-surface-muted dark:hover:bg-slate-800 rounded-xl transition-colors"
                 >
                   <ChevronLeft className="w-4 h-4" />
                   Back
@@ -128,7 +128,7 @@ function StepIndicator({ status, number }: { status: "completed" | "active" | "p
   }
 
   return (
-    <div className="size-7 rounded-full border-2 border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-400 shrink-0">
+    <div className="size-7 rounded-full border-2 border-border dark:border-slate-700 flex items-center justify-center text-slate-400 shrink-0">
        <span className="text-xs font-bold font-mono">{number}</span>
     </div>
   );

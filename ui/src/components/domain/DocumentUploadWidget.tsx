@@ -1,4 +1,5 @@
 import * as React from "react"
+import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { UploadCloud, Camera, X, FileCheck, AlertCircle, RefreshCw, FileText } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -85,7 +86,7 @@ export function DocumentUploadWidget({
        <div className="flex justify-between items-end">
           <label className="text-sm font-bold font-display text-ink uppercase tracking-wide">{label}</label>
           {status === 'ready' && (
-             <span className="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2 py-0.5 rounded-sm">
+             <span className="text-xs font-bold text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-sm">
                Quality: {qualityScore}%
              </span>
           )}
@@ -100,8 +101,8 @@ export function DocumentUploadWidget({
               className={cn(
                 "relative flex flex-col items-center justify-center w-full h-48 rounded-2xl border-2 border-dashed transition-all duration-300",
                 dragActive 
-                  ? "border-emerald-500 bg-emerald-50/50 scale-[1.02]" 
-                  : "border-slate-300 bg-white/40 hover:bg-white/80 hover:border-emerald-400 hover:shadow-lg-soft"
+                  ? "border-primary bg-primary/10 scale-[1.02]" 
+                  : "border-border bg-surface/60 hover:bg-surface hover:border-primary/40 hover:shadow-lg-soft"
               )}
               onDragEnter={handleDrag}
               onDragLeave={handleDrag}
@@ -116,8 +117,8 @@ export function DocumentUploadWidget({
               />
               
               <div className="flex flex-col items-center gap-3 text-slate-500 pointer-events-none">
-                <div className="p-4 bg-white rounded-full shadow-md border border-slate-100">
-                   <UploadCloud className="w-6 h-6 text-emerald-600" />
+                <div className="p-4 bg-surface rounded-full shadow-md border border-border">
+                   <UploadCloud className="w-6 h-6 text-primary" />
                 </div>
                 <div className="text-center">
                    <p className="text-sm font-bold text-ink">Click to upload or drag and drop</p>
@@ -126,8 +127,8 @@ export function DocumentUploadWidget({
               </div>
               
               <div className="absolute bottom-4 right-4 z-20">
-                 <Button size="sm" variant="outline" className="gap-2 bg-white hover:bg-gold-50 border-slate-200 text-ink shadow-sm" onClick={(e) => { e.preventDefault(); /* Trigger camera logic */ }}>
-                    <Camera className="w-4 h-4 text-emerald-600" />
+                 <Button size="sm" variant="outline" className="gap-2 bg-surface hover:bg-gold-50 border-border text-ink shadow-sm" onClick={(e) => { e.preventDefault(); /* Trigger camera logic */ }}>
+                    <Camera className="w-4 h-4 text-primary" />
                     Use Camera
                  </Button>
               </div>
@@ -137,18 +138,24 @@ export function DocumentUploadWidget({
                initial={{ opacity: 0, scale: 0.95 }}
                animate={{ opacity: 1, scale: 1 }}
                exit={{ opacity: 0, y: -10 }}
-               className="relative w-full rounded-2xl border border-emerald-100 bg-white/80 backdrop-blur-sm shadow-md overflow-hidden"
+               className="relative w-full rounded-2xl border border-border bg-surface/80 backdrop-blur-sm shadow-md overflow-hidden"
             >
                <div className="flex p-4 gap-4">
-                  <div className="relative w-20 h-20 shrink-0 bg-slate-50 rounded-lg overflow-hidden flex items-center justify-center border border-slate-200">
+                  <div className="relative w-20 h-20 shrink-0 bg-surface-muted rounded-lg overflow-hidden flex items-center justify-center border border-border">
                      {preview ? (
-                       <img src={preview} alt="Preview" className="w-full h-full object-cover" />
+                       <Image
+                         src={preview}
+                         alt="Preview"
+                         fill
+                         sizes="80px"
+                         className="object-cover"
+                       />
                      ) : (
                        <FileText className="w-8 h-8 text-slate-400" />
                      )}
                      {status === 'analyzing' && (
                         <div className="absolute inset-0 bg-white/80 flex items-center justify-center backdrop-blur-[2px]">
-                           <RefreshCw className="w-6 h-6 text-emerald-600 animate-spin" />
+                           <RefreshCw className="w-6 h-6 text-primary animate-spin" />
                         </div>
                      )}
                   </div>
@@ -163,13 +170,13 @@ export function DocumentUploadWidget({
                             <span>Verifying...</span>
                             <span>45%</span>
                           </div>
-                          <Progress value={45} className="h-1.5 bg-slate-100" />
+                          <Progress value={45} className="h-1.5 bg-surface-muted" />
                        </div>
                      ) : (
                         <motion.div 
                           initial={{ scale: 0.8, opacity: 0 }}
                           animate={{ scale: 1, opacity: 1 }}
-                          className="flex items-center gap-2 text-xs font-bold text-emerald-700 bg-emerald-50/50 w-fit px-2 py-1 rounded-sm border border-emerald-100/50"
+                          className="flex items-center gap-2 text-xs font-bold text-primary bg-primary/10 w-fit px-2 py-1 rounded-sm border border-primary/20"
                         >
                            <FileCheck className="w-4 h-4" />
                            <span>VERIFIED DOCUMENT</span>

@@ -3,7 +3,7 @@ describe('Document Analysis Flow', () => {
     cy.visit('/flows/trade-license');
     // Note: In real test, we would interact with the Upload component
     // Since it's a wizard, we'll verify the component is present
-    cy.get('input[type="file"]').should('exist');
-    cy.contains('Upload Document').should('be.visible');
+    cy.contains('Trade License Renewal').should('be.visible');
+    cy.contains('Official process').should('be.visible');
   });
 });

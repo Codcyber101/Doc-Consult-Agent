@@ -33,11 +33,11 @@ export default function DashboardPage() {
                 Welcome back, Abebe
               </h1>
               <p className="text-slate-500 dark:text-slate-400 font-medium">
-                Access government services, track applications, and manage your digital identity.
+                Start a service, finish your checklist, and track submissions in one place.
               </p>
             </div>
             
-            <div className="hidden md:flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-full">
+            <div className="hidden md:flex items-center gap-2 px-4 py-2 bg-primary/10 dark:bg-blue-900/20 border border-primary/20 dark:border-blue-800 rounded-full">
               <Fingerprint className="w-4 h-4 text-primary" />
               <div className="flex flex-col leading-none">
                 <span className="text-[10px] uppercase text-slate-500 font-bold tracking-wider">Security Level</span>
@@ -47,10 +47,11 @@ export default function DashboardPage() {
           </div>
 
           {/* Hero Banner (Abstract Gradient) */}
-          <div className="relative rounded-3xl overflow-hidden bg-slate-900 dark:bg-black min-h-[280px] flex items-center p-8 md:p-12 shadow-2xl shadow-primary/20 group">
+          <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 dark:bg-black min-h-[280px] flex items-center p-8 md:p-12 shadow-2xl shadow-primary/20 group">
              {/* Abstract Background */}
              <div className="absolute inset-0 bg-mesh opacity-40 mix-blend-screen" />
-             <div className="absolute right-0 top-0 w-[400px] h-[400px] bg-primary/20 blur-[100px] rounded-full pointer-events-none" />
+             <div className="absolute right-0 top-0 w-[420px] h-[420px] bg-primary/20 blur-[120px] rounded-full pointer-events-none" />
+             <div className="absolute left-[-10%] bottom-[-30%] w-[420px] h-[420px] bg-primary/20 blur-[140px] rounded-full pointer-events-none" />
              
              <div className="relative z-10 max-w-2xl space-y-6">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-blue-300 text-xs font-bold uppercase tracking-wider">
@@ -64,7 +65,7 @@ export default function DashboardPage() {
                    Secure your digital identity with the new <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200">National ID</span>
                 </h2>
                 <div className="flex gap-4">
-                   <button className="px-6 py-3 bg-white text-blue-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-black/20 hover:-translate-y-0.5">
+                   <button className="px-6 py-3 bg-surface text-blue-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-black/20 hover:-translate-y-0.5">
                       Apply Now
                    </button>
                    <button className="px-6 py-3 bg-white/10 text-white font-bold rounded-xl hover:bg-white/20 transition-colors backdrop-blur-md">
@@ -139,7 +140,7 @@ export default function DashboardPage() {
                    <p className="text-blue-100 text-sm mb-6 leading-relaxed relative z-10 max-w-[80%]">
                       Our support team is available 24/7 to help you navigate through government services.
                    </p>
-                   <button className="bg-white text-blue-700 text-sm font-bold py-3 px-5 rounded-xl hover:bg-blue-50 transition-colors shadow-lg shadow-black/10 relative z-10 w-full sm:w-auto">
+                   <button className="bg-surface text-blue-700 text-sm font-bold py-3 px-5 rounded-xl hover:bg-blue-50 transition-colors shadow-lg shadow-black/10 relative z-10 w-full sm:w-auto">
                       Contact Support
                    </button>
                 </div>

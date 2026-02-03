@@ -27,18 +27,18 @@ export default function WizardLayout({
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Wizard Header - Focus Mode */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+      <header className="sticky top-0 z-50 bg-surface/80 backdrop-blur-md border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 sm:h-20">
             <div className="flex items-center gap-4">
-              <Link href="/" className="p-2 hover:bg-slate-100 rounded-xl transition-colors text-slate-400 hover:text-slate-900">
+              <Link href="/" className="p-2 hover:bg-surface-muted rounded-xl transition-colors text-slate-400 hover:text-slate-900">
                 <X className="h-5 w-5" />
               </Link>
-              <div className="h-6 w-[1px] bg-slate-200 hidden sm:block"></div>
+              <div className="h-6 w-[1px] bg-border hidden sm:block"></div>
               <div className="hidden sm:block">
-                <p className="text-[10px] font-black text-emerald-600 uppercase tracking-[0.2em] leading-none mb-1">Application</p>
+                <p className="text-[10px] font-black text-primary uppercase tracking-[0.2em] leading-none mb-1">Application</p>
                 <h2 className="text-sm font-black text-slate-900 leading-none">Trade License Renewal</h2>
               </div>
             </div>
@@ -52,7 +52,7 @@ export default function WizardLayout({
                   <Save className="h-4 w-4" />
                   Save & Exit
                </Button>
-               <div className="h-8 w-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:text-emerald-600 cursor-pointer transition-colors">
+               <div className="h-8 w-8 rounded-full bg-surface-muted flex items-center justify-center text-slate-400 hover:text-primary cursor-pointer transition-colors">
                   <HelpCircle className="h-4 w-4" />
                </div>
             </div>
@@ -60,11 +60,11 @@ export default function WizardLayout({
         </div>
         
         {/* Mobile Progress Bar */}
-        <div className="md:hidden w-full bg-slate-100 h-1">
+        <div className="md:hidden w-full bg-surface-muted h-1">
            <motion.div 
              initial={{ width: 0 }}
              animate={{ width: `${getProgress()}%` }}
-             className="h-full bg-emerald-600"
+             className="h-full bg-primary"
            />
         </div>
       </header>

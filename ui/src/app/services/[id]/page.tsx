@@ -44,8 +44,8 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ id: st
   const service = SERVICE_DATA[id] || SERVICE_DATA['trade-license']; // Fallback for demo
 
   return (
-    <div className="min-h-screen bg-slate-50 selection:bg-emerald-100 selection:text-emerald-900 font-sans">
-      <div className="fixed inset-0 bg-mesh-emerald pointer-events-none opacity-30" />
+    <div className="min-h-screen bg-surface selection:bg-primary/10 selection:text-foreground font-sans">
+      <div className="fixed inset-0 bg-mesh pointer-events-none opacity-30" />
       <Navbar user={{ name: "Abebe Bikila" }} />
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
@@ -63,11 +63,11 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ id: st
               animate={{ opacity: 1, x: 0 }}
             >
               <div className="flex items-center gap-2 mb-4">
-                 <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-[10px] font-black uppercase tracking-widest rounded-lg">
+                 <span className="px-3 py-1 bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest rounded-lg">
                    {service.category}
                  </span>
                  <div className="flex items-center gap-1 text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-4">
-                    <ShieldCheck className="w-3 h-3 text-emerald-600" /> Sovereign Verified
+                    <ShieldCheck className="w-3 h-3 text-primary" /> Sovereign Verified
                  </div>
               </div>
               <h1 className="text-4xl md:text-5xl font-display font-bold text-slate-900 tracking-tight">
@@ -78,7 +78,7 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ id: st
               </p>
             </motion.div>
 
-            <Separator className="bg-slate-200" />
+            <Separator className="bg-border" />
 
             {/* Checklist */}
             <section className="space-y-6">
@@ -90,10 +90,10 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ id: st
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: i * 0.1 }}
-                      className="flex items-center justify-between p-5 bg-white rounded-2xl border border-slate-100 shadow-sm group hover:border-emerald-500/30 transition-all"
+                      className="flex items-center justify-between p-5 bg-surface rounded-2xl border border-border shadow-sm group hover:border-primary/30 transition-all"
                     >
                        <div className="flex items-center gap-4">
-                          <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-colors">
+                          <div className="w-10 h-10 rounded-xl bg-surface flex items-center justify-center text-slate-400 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
                              {req.icon}
                           </div>
                           <div>
@@ -101,7 +101,7 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ id: st
                              <p className="text-[10px] font-medium text-slate-400 uppercase tracking-wider">{req.type}</p>
                           </div>
                        </div>
-                       <CheckCircle2 className="w-5 h-5 text-slate-100 group-hover:text-emerald-500 transition-colors" />
+                       <CheckCircle2 className="w-5 h-5 text-slate-100 group-hover:text-primary transition-colors" />
                     </motion.div>
                   ))}
                </div>
@@ -110,11 +110,11 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ id: st
             {/* FAQ */}
             <section className="space-y-6">
                <h3 className="text-xl font-display font-bold text-slate-900 flex items-center gap-2">
-                  <HelpCircle className="w-5 h-5 text-emerald-600" /> FAQs
+                  <HelpCircle className="w-5 h-5 text-primary" /> FAQs
                </h3>
                <div className="space-y-4">
                   {service.faqs.map((faq: any, i: number) => (
-                    <div key={i} className="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                    <div key={i} className="p-6 bg-surface rounded-2xl border border-border">
                        <p className="text-sm font-bold text-slate-900 mb-2">{faq.q}</p>
                        <p className="text-sm text-slate-600 leading-relaxed">{faq.a}</p>
                     </div>
@@ -125,23 +125,23 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ id: st
 
           {/* Action Sidebar */}
           <div className="lg:col-span-5">
-             <Card className="sticky top-24 border-2 border-emerald-600 shadow-sovereign overflow-hidden">
-                <CardHeader className="bg-emerald-600 text-white p-8">
+             <Card className="sticky top-24 border-2 border-primary shadow-sovereign overflow-hidden">
+                <CardHeader className="bg-primary text-white p-8">
                    <div className="flex justify-between items-center mb-4">
                       <Briefcase className="w-8 h-8 opacity-50" />
                       <span className="text-[10px] font-black uppercase tracking-[0.2em] bg-white/20 px-3 py-1 rounded-full">Official Flow</span>
                    </div>
                    <CardTitle className="text-2xl text-white">Ready to Start?</CardTitle>
-                   <CardDescription className="text-emerald-100 font-medium opacity-90">
+                   <CardDescription className="text-slate-200 font-medium opacity-90">
                       Our automated agents will assist you in mapping your documents to compliance standards.
                    </CardDescription>
                 </CardHeader>
-                <CardContent className="p-8 space-y-8 bg-white">
+                <CardContent className="p-8 space-y-8 bg-surface">
                    <div className="grid grid-cols-2 gap-6">
                       <div className="space-y-1">
                          <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Est. Duration</p>
                          <div className="flex items-center gap-2 text-slate-900">
-                            <Clock className="w-4 h-4 text-emerald-600" />
+                            <Clock className="w-4 h-4 text-primary" />
                             <span className="font-bold">{service.estimatedTime}</span>
                          </div>
                       </div>
@@ -153,21 +153,21 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ id: st
                       </div>
                    </div>
 
-                   <div className="p-4 bg-emerald-50 rounded-xl flex items-start gap-3">
-                      <AlertCircle className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
-                      <p className="text-xs text-emerald-800 leading-relaxed">
+                   <div className="p-4 bg-primary/10 rounded-xl flex items-start gap-3">
+                      <AlertCircle className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                      <p className="text-xs text-slate-800 leading-relaxed">
                          <strong>Data Privacy:</strong> This process uses end-to-end HSM encryption. Your documents are never stored in unmasked cleartext on cloud servers.
                       </p>
                    </div>
 
                    <Link href={`/flows/${id}`}>
-                      <Button className="w-full h-16 rounded-2xl bg-slate-900 hover:bg-emerald-700 text-white text-lg font-bold gap-3 shadow-xl">
+                      <Button className="w-full h-16 rounded-2xl bg-slate-900 hover:bg-primary-dark text-white text-lg font-bold gap-3 shadow-xl">
                          Initialize Wizard <Play className="w-5 h-5 text-gold-500 fill-gold-500" />
                       </Button>
                    </Link>
 
                    <div className="text-center">
-                      <button className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-emerald-600 transition-colors">
+                      <button className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-primary transition-colors">
                          Download Policy YAML (Developer Only)
                       </button>
                    </div>

@@ -43,7 +43,7 @@ export const Badge = ({
       "dark:bg-red-900/30 dark:text-red-300 dark:border-red-800"
     ),
     neutral: cn(
-      "bg-slate-100 text-slate-600 border-slate-200",
+      "bg-surface-muted text-slate-600 border-border",
       "dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
     ),
     info: cn(

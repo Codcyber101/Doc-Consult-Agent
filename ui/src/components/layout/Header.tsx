@@ -5,7 +5,7 @@ import { Globe, Bell, Search, Menu } from "lucide-react";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur shadow-sm">
+    <header className="sticky top-0 z-50 w-full border-b border-border dark:border-slate-800 bg-surface/95 dark:bg-slate-900/95 backdrop-blur shadow-sm">
       <div className="px-4 md:px-10 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="flex items-center justify-center size-8 rounded bg-primary/10 text-primary">
@@ -23,7 +23,7 @@ export function Header() {
           </nav>
           
           <div className="flex items-center gap-2">
-            <button className="flex items-center justify-center gap-2 rounded-lg h-9 px-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-sm font-medium">
+            <button className="flex items-center justify-center gap-2 rounded-lg h-9 px-3 bg-surface-muted dark:bg-slate-800 hover:bg-surface dark:hover:bg-slate-700 transition-colors text-sm font-medium">
               <Globe className="w-4 h-4" />
               <span className="hidden sm:inline">English / አማርኛ</span>
               <span className="sm:hidden">EN</span>

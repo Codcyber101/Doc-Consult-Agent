@@ -5,20 +5,20 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        default: "bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm hover:shadow-md transition-all duration-300",
+        default: "bg-primary text-white hover:bg-primary-dark shadow-sm hover:shadow-md transition-all duration-300",
         destructive:
-          "bg-red-earth text-white hover:bg-red-600 shadow-sm",
+          "bg-danger text-white hover:bg-red-600 shadow-sm",
         outline:
-          "border border-slate-200 bg-white hover:bg-slate-50 hover:text-slate-900 text-slate-700",
+          "border border-border bg-surface hover:bg-surface-muted hover:text-slate-900 text-slate-700",
         secondary:
-          "bg-gold-500 text-slate-900 hover:bg-gold-400 shadow-sm",
-        ghost: "hover:bg-slate-100 hover:text-slate-900 text-slate-600",
-        link: "text-emerald-600 underline-offset-4 hover:underline",
-        sovereign: "bg-emerald-900 text-gold-500 border border-gold-500/30 hover:bg-emerald-800 hover:shadow-glow-gold transition-all duration-500",
+          "bg-accent text-slate-900 hover:bg-amber-300 shadow-sm",
+        ghost: "hover:bg-surface-muted hover:text-slate-900 text-slate-600",
+        link: "text-primary underline-offset-4 hover:underline",
+        sovereign: "bg-primary text-white border border-primary/30 hover:bg-primary-dark hover:shadow-glow-gold transition-all duration-500",
       },
       size: {
         default: "h-11 px-6 py-2", // Large touch target by default

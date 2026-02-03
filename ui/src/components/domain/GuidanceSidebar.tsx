@@ -22,17 +22,17 @@ export function GuidanceSidebar() {
   };
 
   return (
-    <aside className="w-full md:w-[420px] bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl border-l border-slate-200/50 dark:border-slate-800/50 flex flex-col h-full shadow-2xl shadow-slate-200/50 dark:shadow-black/50 z-20 overflow-hidden relative">
+    <aside className="w-full md:w-[420px] bg-surface/50 dark:bg-slate-900/50 backdrop-blur-xl border-l border-border/60 dark:border-slate-800/50 flex flex-col h-full shadow-2xl shadow-slate-200/50 dark:shadow-black/50 z-20 overflow-hidden relative">
       {/* Decorative Gradient Blob */}
-      <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-emerald-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
       {/* Header */}
-      <div className="px-6 py-6 border-b border-slate-200/50 dark:border-slate-800/50 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md sticky top-0 z-30">
+      <div className="px-6 py-6 border-b border-border/60 dark:border-slate-800/50 bg-surface/40 dark:bg-slate-900/40 backdrop-blur-md sticky top-0 z-30">
         <div className="flex items-center gap-2 mb-2">
-          <div className="p-1.5 bg-emerald-100 dark:bg-emerald-900/30 rounded-full">
-            <Gavel className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+          <div className="p-1.5 bg-primary/10 dark:bg-blue-900/30 rounded-full">
+            <Gavel className="w-4 h-4 text-primary dark:text-blue-400" />
           </div>
-          <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 font-display">
+          <span className="text-xs font-bold uppercase tracking-wider text-primary dark:text-blue-400 font-display">
             Step 3: Identification
           </span>
         </div>
@@ -47,10 +47,10 @@ export function GuidanceSidebar() {
         {/* Accordions */}
         <div className="flex flex-col gap-4">
           {/* Plain Language Guide */}
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-hidden group">
+          <div className="rounded-xl border border-border dark:border-slate-800 bg-surface dark:bg-slate-900 shadow-sm overflow-hidden group">
             <button
               onClick={() => toggleSection("plain-language")}
-              className="w-full flex items-center justify-between px-5 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+              className="w-full flex items-center justify-between px-5 py-4 hover:bg-surface-muted dark:hover:bg-slate-800/50 transition-colors"
             >
               <div className="flex flex-col items-start gap-1">
                 <span className="text-slate-900 dark:text-white text-sm font-bold font-display">Plain Language Guide</span>
@@ -68,14 +68,14 @@ export function GuidanceSidebar() {
                   exit={{ height: 0, opacity: 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="px-5 pb-5 pt-1 border-t border-slate-100 dark:border-slate-800/50">
-                    <h4 className="text-emerald-700 dark:text-emerald-400 font-bold text-sm mb-2 font-ethiopic">
+                  <div className="px-5 pb-5 pt-1 border-t border-border/60 dark:border-slate-800/50">
+                    <h4 className="text-primary dark:text-blue-400 font-bold text-sm mb-2 font-ethiopic">
                       ይህ መረጃ ለምን አስፈለገ?
                     </h4>
                     <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4 font-ethiopic">
                       መንግስት ህጋዊ አገልግሎት ለመስጠት ማንነትዎን ማረጋገጥ አለበት። ይህ የማጭበርበር ወንጀልን ለመከላከል ይረዳል።
                     </p>
-                    <div className="relative pl-3 border-l-2 border-emerald-500/20">
+                    <div className="relative pl-3 border-l-2 border-primary/20">
                       <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed italic">
                         Identity verification is required to prevent fraud and ensure service delivery to the correct individual. We cross-reference this with the National ID database.
                       </p>
@@ -87,10 +87,10 @@ export function GuidanceSidebar() {
           </div>
 
           {/* Legal Context */}
-          <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm overflow-hidden group">
+          <div className="rounded-xl border border-border dark:border-slate-800 bg-surface dark:bg-slate-900 shadow-sm overflow-hidden group">
             <button
               onClick={() => toggleSection("legal-context")}
-              className="w-full flex items-center justify-between px-5 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+              className="w-full flex items-center justify-between px-5 py-4 hover:bg-surface-muted dark:hover:bg-slate-800/50 transition-colors"
             >
               <div className="flex flex-col items-start gap-1">
                 <span className="text-slate-900 dark:text-white text-sm font-bold font-display">Legal Context</span>
@@ -108,21 +108,21 @@ export function GuidanceSidebar() {
                   exit={{ height: 0, opacity: 0 }}
                   className="overflow-hidden"
                 >
-                  <div className="px-5 pb-5 pt-2 border-t border-slate-100 dark:border-slate-800/50">
+                  <div className="px-5 pb-5 pt-2 border-t border-border/60 dark:border-slate-800/50">
                     <ul className="space-y-4">
                       <li className="flex flex-col gap-1">
                         <span className="text-slate-900 dark:text-white text-sm font-medium">Proclamation No. 980/2016</span>
                         <span className="text-slate-500 dark:text-slate-400 text-xs">Article 14(2) - Authentication of Documents</span>
-                        <a href="#" className="inline-flex items-center gap-1 text-emerald-600 hover:text-emerald-700 text-xs font-bold mt-1 group/link">
+                        <a href="#" className="inline-flex items-center gap-1 text-primary hover:text-primary-dark text-xs font-bold mt-1 group/link">
                           Read Full Text 
                           <ExternalLink className="w-3 h-3 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
                         </a>
                       </li>
-                      <div className="h-px bg-slate-100 dark:bg-slate-800 w-full" />
+                      <div className="h-px bg-border dark:bg-slate-800 w-full" />
                       <li className="flex flex-col gap-1">
                         <span className="text-slate-900 dark:text-white text-sm font-medium">Regulation No. 421/2018</span>
                         <span className="text-slate-500 dark:text-slate-400 text-xs">Section 5 - Digital Signatures</span>
-                        <a href="#" className="inline-flex items-center gap-1 text-emerald-600 hover:text-emerald-700 text-xs font-bold mt-1 group/link">
+                        <a href="#" className="inline-flex items-center gap-1 text-primary hover:text-primary-dark text-xs font-bold mt-1 group/link">
                           Read Full Text 
                           <ExternalLink className="w-3 h-3 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
                         </a>
@@ -161,12 +161,12 @@ export function GuidanceSidebar() {
         </div>
 
         {/* Quick Tip */}
-        <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800/30 rounded-xl p-5 flex gap-4 items-start relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-emerald-400/20 to-transparent -mr-4 -mt-4 rounded-full blur-xl" />
-          <Lightbulb className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5 relative z-10" />
+        <div className="bg-primary/10 dark:bg-blue-900/20 border border-primary/20 dark:border-blue-800/30 rounded-xl p-5 flex gap-4 items-start relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-primary/20 to-transparent -mr-4 -mt-4 rounded-full blur-xl" />
+          <Lightbulb className="w-5 h-5 text-primary dark:text-blue-400 shrink-0 mt-0.5 relative z-10" />
           <div className="relative z-10">
-            <h5 className="text-emerald-800 dark:text-emerald-300 text-sm font-bold mb-1">Quick Tip</h5>
-            <p className="text-emerald-700/80 dark:text-emerald-400/80 text-sm leading-relaxed">
+            <h5 className="text-slate-900 dark:text-blue-200 text-sm font-bold mb-1">Quick Tip</h5>
+            <p className="text-slate-700/80 dark:text-blue-300/80 text-sm leading-relaxed">
               Ensure all uploaded documents are scanned in color and edges are clearly visible.
             </p>
           </div>
@@ -174,8 +174,8 @@ export function GuidanceSidebar() {
       </div>
 
       {/* Footer Actions */}
-      <div className="p-6 border-t border-slate-200/50 dark:border-slate-800/50 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md">
-        <button className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-6 bg-slate-900 hover:bg-slate-800 dark:bg-white dark:hover:bg-slate-100 text-white dark:text-slate-900 gap-2 shadow-lg shadow-slate-200/50 dark:shadow-black/20 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900">
+      <div className="p-6 border-t border-border/60 dark:border-slate-800/50 bg-surface/40 dark:bg-slate-900/40 backdrop-blur-md">
+        <button className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-6 bg-slate-900 hover:bg-slate-800 dark:bg-surface dark:hover:bg-surface-muted text-white dark:text-slate-900 gap-2 shadow-lg shadow-slate-200/50 dark:shadow-black/20 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900">
           <MessageCircle className="w-5 h-5" />
           <span className="truncate text-sm font-bold tracking-wide">Contact Support</span>
         </button>
@@ -187,8 +187,8 @@ export function GuidanceSidebar() {
 
 function DocumentExampleCard({ title, subtitle, image }: { title: string, subtitle: string, image: string }) {
   return (
-    <button className="group flex flex-col gap-2 text-left focus:outline-none rounded-xl p-1 transition-all hover:bg-slate-100 dark:hover:bg-slate-800/50">
-      <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm group-hover:shadow-md transition-all">
+    <button className="group flex flex-col gap-2 text-left focus:outline-none rounded-xl p-1 transition-all hover:bg-surface-muted dark:hover:bg-slate-800/50">
+      <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden border border-border dark:border-slate-700 shadow-sm group-hover:shadow-md transition-all">
         <div 
           className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" 
           style={{ backgroundImage: `url('${image}')` }}
@@ -199,7 +199,7 @@ function DocumentExampleCard({ title, subtitle, image }: { title: string, subtit
         </div>
       </div>
       <div className="px-1">
-        <p className="text-slate-900 dark:text-white text-xs font-bold leading-tight group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">{title}</p>
+        <p className="text-slate-900 dark:text-white text-xs font-bold leading-tight group-hover:text-primary dark:group-hover:text-blue-400 transition-colors">{title}</p>
         <p className="text-slate-500 dark:text-slate-400 text-[10px] mt-0.5">{subtitle}</p>
       </div>
     </button>

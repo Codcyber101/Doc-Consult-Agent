@@ -21,7 +21,7 @@ export function AppSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden lg:flex w-72 flex-col bg-white dark:bg-slate-950 border-r border-slate-200 dark:border-slate-800 h-screen fixed inset-y-0 z-40 transition-all duration-300">
+    <aside className="hidden lg:flex w-72 flex-col bg-surface dark:bg-slate-950 border-r border-border dark:border-slate-800 h-screen fixed inset-y-0 z-40 transition-all duration-300">
       {/* Logo Area */}
       <div className="p-6 pb-2">
         <Link href="/" className="flex items-center gap-3 group">
@@ -60,12 +60,12 @@ export function AppSidebar() {
           badge="3"
         />
         
-        <div className="my-6 border-t border-slate-200 dark:border-slate-800" />
+        <div className="my-6 border-t border-border dark:border-slate-800" />
         
         <p className="px-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">System</p>
         
         <div className="px-3 py-2">
-          <div className="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-4 border border-slate-200 dark:border-slate-800">
+          <div className="bg-surface-muted dark:bg-slate-900/50 rounded-xl p-4 border border-border dark:border-slate-800">
             <div className="flex justify-between items-center mb-2">
               <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
                 <Database className="w-3.5 h-3.5" />
@@ -73,7 +73,7 @@ export function AppSidebar() {
               </div>
               <span className="text-[10px] font-bold text-primary bg-primary/10 px-1.5 py-0.5 rounded">Sync Active</span>
             </div>
-            <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-1.5 mb-1 overflow-hidden">
+            <div className="w-full bg-surface-muted dark:bg-slate-700 rounded-full h-1.5 mb-1 overflow-hidden">
               <div className="bg-primary h-1.5 rounded-full w-[24%]" />
             </div>
             <p className="text-[10px] text-slate-400 text-right font-mono">12MB / 50MB</p>
@@ -82,9 +82,9 @@ export function AppSidebar() {
       </nav>
 
       {/* Footer */}
-      <div className="p-4 border-t border-slate-200 dark:border-slate-800">
-        <button className="flex items-center gap-3 px-3 py-2.5 w-full rounded-xl text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors group">
-          <div className="size-8 rounded-full bg-slate-200 dark:bg-slate-800 bg-cover bg-center border border-slate-300 dark:border-slate-700" style={{ backgroundImage: 'url(https://ui-avatars.com/api/?name=Abebe+Bikila&background=1152d4&color=fff)' }} />
+      <div className="p-4 border-t border-border dark:border-slate-800">
+        <button className="flex items-center gap-3 px-3 py-2.5 w-full rounded-xl text-slate-600 dark:text-slate-400 hover:bg-surface-muted dark:hover:bg-slate-900 transition-colors group">
+          <div className="size-8 rounded-full bg-surface-muted dark:bg-slate-800 bg-cover bg-center border border-border dark:border-slate-700" style={{ backgroundImage: 'url(https://ui-avatars.com/api/?name=Abebe+Bikila&background=1152d4&color=fff)' }} />
           <div className="flex flex-col items-start">
             <span className="text-xs font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">Abebe Bikila</span>
             <span className="text-[10px] text-slate-500">Citizen ID: 94822</span>
@@ -113,7 +113,7 @@ function NavItem({ href, icon, label, subLabel, active, badge }: NavItemProps) {
         "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group relative overflow-hidden",
         active 
           ? "bg-primary/10 text-primary font-bold shadow-sm" 
-          : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white font-medium"
+          : "text-slate-600 dark:text-slate-400 hover:bg-surface dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white font-medium"
       )}
     >
       {active && <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-primary rounded-r-full" />}

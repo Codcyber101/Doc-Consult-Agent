@@ -71,20 +71,20 @@ export const ProcedureChecklistCard = ({
 
     const statusStyles = {
         completed: {
-            icon: <CheckCircle2 className="w-6 h-6 text-emerald-500" />,
-            border: 'border-emerald-200 bg-emerald-50/50',
+            icon: <CheckCircle2 className="w-6 h-6 text-primary" />,
+            border: 'border-primary/20 bg-primary/10',
             badge: 'success' as const,
             badgeText: 'Completed',
         },
         current: {
-            icon: <Circle className="w-6 h-6 text-emerald-600 animate-pulse" />,
-            border: 'border-emerald-500 border-2 shadow-lg shadow-emerald-100',
+            icon: <Circle className="w-6 h-6 text-primary animate-pulse" />,
+            border: 'border-primary border-2 shadow-lg shadow-primary/20',
             badge: 'info' as const,
             badgeText: 'Current Step',
         },
         pending: {
             icon: <Circle className="w-6 h-6 text-slate-300" />,
-            border: 'border-slate-200',
+            border: 'border-border',
             badge: 'neutral' as const,
             badgeText: 'Pending',
         },
@@ -104,7 +104,7 @@ export const ProcedureChecklistCard = ({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: stepNumber * 0.05 }}
             className={cn(
-                "rounded-2xl border bg-white p-5 transition-all",
+                "rounded-2xl border bg-surface p-5 transition-all",
                 styles.border,
                 expanded && "shadow-lg",
                 className
@@ -182,7 +182,7 @@ export const ProcedureChecklistCard = ({
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
-                    className="mt-4 pt-4 border-t border-slate-100 space-y-4"
+                    className="mt-4 pt-4 border-t border-border space-y-4"
                 >
                     {/* Required documents */}
                     {step.documents && step.documents.length > 0 && (

@@ -48,9 +48,9 @@ export const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
 
         // Background opacity levels
         const opacityLevels = {
-            light: 'bg-white/40 dark:bg-slate-900/40',
-            medium: 'bg-white/60 dark:bg-slate-900/60',
-            heavy: 'bg-white/80 dark:bg-slate-900/80',
+            light: 'bg-surface/40 dark:bg-slate-900/40',
+            medium: 'bg-surface/60 dark:bg-slate-900/60',
+            heavy: 'bg-surface/80 dark:bg-slate-900/80',
         };
 
         // Border styles

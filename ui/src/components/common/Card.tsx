@@ -33,39 +33,39 @@ export const Card = React.forwardRef<HTMLDivElement, CardProps>(
     const variants = {
       // Standard white card with subtle shadow
       default: cn(
-        "bg-white dark:bg-slate-900 shadow-lg-soft dark:shadow-none border border-slate-100 dark:border-white/5",
+        "bg-surface dark:bg-slate-900 shadow-lg-soft dark:shadow-none border border-border dark:border-white/5",
         "hover:shadow-xl-soft dark:hover:border-white/10"
       ),
 
       // Flat, no shadow
-      flat: "bg-slate-50 dark:bg-slate-800",
+      flat: "bg-surface-muted dark:bg-slate-800",
 
       // Outlined card
       bordered: cn(
-        "bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800",
-        "hover:border-slate-200 dark:hover:border-slate-700"
+        "bg-surface dark:bg-slate-900 border-2 border-border dark:border-slate-800",
+        "hover:border-border dark:hover:border-slate-700"
       ),
 
       // Glass-morphism effect
       glass: cn(
-        "bg-white/70 dark:bg-slate-900/60 backdrop-blur-xl",
+        "bg-surface/70 dark:bg-slate-900/60 backdrop-blur-xl",
         "border border-white/30 dark:border-white/5",
         "shadow-xl shadow-slate-200/20 dark:shadow-none"
       ),
 
       // Elevated with stronger shadow
       elevated: cn(
-        "bg-white dark:bg-slate-900",
+        "bg-surface dark:bg-slate-900",
         "shadow-xl shadow-slate-200/50 dark:shadow-black/20",
-        "border border-slate-50 dark:border-white/5"
+        "border border-border dark:border-white/5"
       ),
 
       // Gradient border effect
       gradient: cn(
-        "bg-white",
+        "bg-surface",
         "border-2 border-transparent",
         "bg-clip-padding",
-        "[background:linear-gradient(white,white)_padding-box,linear-gradient(135deg,#006B3F,#10b981,#FDB813)_border-box]"
+        "[background:linear-gradient(var(--surface),var(--surface))_padding-box,linear-gradient(135deg,#006B3F,#10b981,#FDB813)_border-box]"
       ),
     };
 
@@ -138,7 +138,7 @@ export const CardBody = ({ className, children, ...props }: CardSectionProps) =>
 export const CardFooter = ({ className, children, ...props }: CardSectionProps) => (
   <div
     className={cn(
-      "mt-6 pt-6 border-t border-slate-100",
+      "mt-6 pt-6 border-t border-border",
       "flex items-center justify-end gap-3",
       className
     )}

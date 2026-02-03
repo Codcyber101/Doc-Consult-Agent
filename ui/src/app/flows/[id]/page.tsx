@@ -21,9 +21,9 @@ export default async function FlowPage({ params }: { params: Promise<{ id: strin
       </div>
 
       {/* Main Interaction Area */}
-      <Card className="p-8 border-dashed border-2 border-slate-300 bg-slate-50 hover:bg-slate-100 transition-colors cursor-pointer group text-center">
-        <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm group-hover:scale-110 transition-transform">
-          <UploadCloud className="w-8 h-8 text-emerald-600" />
+      <Card className="p-8 border-dashed border-2 border-border bg-surface-muted hover:bg-surface transition-colors cursor-pointer group text-center">
+        <div className="w-16 h-16 bg-surface rounded-full flex items-center justify-center mx-auto mb-4 shadow-sm group-hover:scale-110 transition-transform">
+          <UploadCloud className="w-8 h-8 text-primary" />
         </div>
         <h3 className="font-semibold text-slate-900">Click to upload or drag and drop</h3>
         <p className="text-sm text-slate-500 mt-1">
@@ -38,7 +38,7 @@ export default async function FlowPage({ params }: { params: Promise<{ id: strin
       </div>
 
       {/* Navigation Actions */}
-      <div className="flex items-center justify-between pt-6 border-t border-slate-200">
+      <div className="flex items-center justify-between pt-6 border-t border-border">
         <Button variant="ghost" leftIcon={<ArrowLeft className="w-4 h-4"/>}>
           Back
         </Button>

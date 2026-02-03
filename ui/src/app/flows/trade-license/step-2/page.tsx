@@ -47,7 +47,7 @@ export default function TradeLicenseStep2() {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-emerald-900 text-white p-8 rounded-2xl shadow-lg relative overflow-hidden"
+            className="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-slate-900 text-white p-8 rounded-2xl shadow-lg relative overflow-hidden"
           >
              {/* Decorative Background */}
              <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
@@ -57,7 +57,7 @@ export default function TradeLicenseStep2() {
              <div className="relative z-10">
                 <Badge variant="warning" className="mb-3 bg-gold-500 text-slate-900 border-none">Analysis in Progress</Badge>
                 <h2 className="text-2xl font-bold font-display">Sovereign Document Intelligence</h2>
-                <p className="text-emerald-100/70 text-sm max-w-md mt-1">
+                <p className="text-slate-200/70 text-sm max-w-md mt-1">
                   Our agents are currently extracting data and verifying it against national policies.
                 </p>
              </div>
@@ -105,7 +105,7 @@ export default function TradeLicenseStep2() {
             </div>
           </Card>
 
-          <div className="pt-8 flex items-center justify-between border-t border-slate-100">
+          <div className="pt-8 flex items-center justify-between border-t border-border">
              <Button variant="ghost" onClick={() => router.back()} leftIcon={<ChevronLeft className="h-4 w-4" />}>
                Back
              </Button>

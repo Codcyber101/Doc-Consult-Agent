@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   User, 
@@ -48,12 +49,12 @@ export default function KebeleIDWizard() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
-        <div className="bg-emerald-900 rounded-[3rem] p-12 text-white text-center shadow-sovereign max-w-2xl w-full relative overflow-hidden">
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <div className="bg-slate-900 rounded-[3rem] p-12 text-white text-center shadow-sovereign max-w-2xl w-full relative overflow-hidden">
            <div className="relative z-10">
-              <CheckCircle2 className="w-20 h-20 text-emerald-400 mx-auto mb-8" />
+              <CheckCircle2 className="w-20 h-20 text-primary/80 mx-auto mb-8" />
               <h1 className="text-4xl font-display font-bold mb-4">Renewal Initialized</h1>
-              <p className="text-emerald-100/80 text-lg mb-10">
+              <p className="text-slate-200/80 text-lg mb-10">
                 Your Kebele ID data has been matched with the National Biometric Database.
               </p>
               <Button variant="secondary" className="px-10 h-14 rounded-2xl font-bold">Track Transmission</Button>
@@ -88,9 +89,9 @@ export default function KebeleIDWizard() {
       {/* Step 2: Biometrics */}
       {currentStep === 2 && (
         <div className="space-y-8">
-           <div className="relative aspect-square max-w-[300px] mx-auto bg-slate-900 rounded-full border-4 border-slate-200 overflow-hidden group">
+           <div className="relative aspect-square max-w-[300px] mx-auto bg-slate-900 rounded-full border-4 border-border overflow-hidden group">
               {capturedPhoto ? (
-                <img src={capturedPhoto} alt="Captured" className="w-full h-full object-cover" />
+                <Image src={capturedPhoto} alt="Captured" fill sizes="300px" className="object-cover" />
               ) : (
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-white/20">
                    <Scan className="w-16 h-16 mb-4 animate-pulse" />
@@ -99,7 +100,7 @@ export default function KebeleIDWizard() {
               )}
               
               {isCapturing && (
-                <div className="absolute inset-0 bg-emerald-600/20 backdrop-blur-sm flex items-center justify-center">
+                <div className="absolute inset-0 bg-primary/20 backdrop-blur-sm flex items-center justify-center">
                    <RefreshCw className="w-10 h-10 text-white animate-spin" />
                 </div>
               )}
@@ -108,10 +109,10 @@ export default function KebeleIDWizard() {
               <div className="absolute inset-0 border-[20px] border-slate-900/50 pointer-events-none" />
            </div>
 
-           <div className="text-center space-y-4">
+          <div className="text-center space-y-4">
               <Button 
                 onClick={handleCapture}
-                className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-full px-8 h-14 font-bold shadow-lg gap-2"
+                className="bg-primary hover:bg-primary-dark text-white rounded-full px-8 h-14 font-bold shadow-lg gap-2"
               >
                  <Camera className="w-5 h-5" /> {capturedPhoto ? 'Retake Photo' : 'Capture Live Biometric'}
               </Button>
@@ -133,7 +134,7 @@ export default function KebeleIDWizard() {
       {currentStep === 3 && (
         <div className="space-y-6">
            <div className="flex items-center gap-2 mb-4">
-              <MapPin className="w-5 h-5 text-emerald-600" />
+              <MapPin className="w-5 h-5 text-primary" />
               <h4 className="font-bold text-slate-900">Residential Address</h4>
            </div>
            <Input label="House Number" placeholder="e.g. 122/A" />
@@ -160,8 +161,8 @@ export default function KebeleIDWizard() {
                { id: 'doc', label: 'Evidence Quality', status: 'invalid', fixActionLabel: 'Verify' }
              ]}
            />
-           <div className="p-6 bg-slate-50 border border-slate-100 rounded-3xl flex items-center gap-6">
-              <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-emerald-600 shadow-sm border border-slate-100">
+           <div className="p-6 bg-surface-muted border border-border rounded-3xl flex items-center gap-6">
+              <div className="w-12 h-12 rounded-xl bg-surface flex items-center justify-center text-primary shadow-sm border border-border">
                  <ShieldCheck className="w-6 h-6" />
               </div>
               <div>

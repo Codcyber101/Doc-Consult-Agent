@@ -22,12 +22,12 @@ import { cn } from "@/lib/utils";
 
 export default function QueuePage() {
   return (
-    <div className="flex min-h-screen bg-background text-foreground font-sans selection:bg-emerald-500/20">
+    <div className="flex min-h-screen bg-background text-foreground font-sans selection:bg-primary/20">
       <AppSidebar />
       
       <main className="flex-1 lg:pl-72 flex flex-col min-w-0">
         {/* Mobile Header */}
-        <div className="lg:hidden h-16 border-b border-slate-200 dark:border-slate-800 flex items-center px-4 sticky top-0 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md z-30">
+        <div className="lg:hidden h-16 border-b border-border dark:border-slate-800 flex items-center px-4 sticky top-0 bg-surface/80 dark:bg-slate-950/80 backdrop-blur-md z-30">
            <span className="font-bold text-lg font-display">GovAssist</span>
         </div>
 
@@ -47,11 +47,11 @@ export default function QueuePage() {
               </p>
             </div>
             <div className="flex gap-2">
-              <button className="inline-flex items-center justify-center rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-4 py-2.5 text-sm font-bold text-slate-700 dark:text-slate-200 shadow-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+              <button className="inline-flex items-center justify-center rounded-xl bg-surface dark:bg-slate-900 border border-border dark:border-slate-800 px-4 py-2.5 text-sm font-bold text-slate-700 dark:text-slate-200 shadow-sm hover:bg-surface dark:hover:bg-slate-800 transition-colors">
                 <History className="mr-2 w-4 h-4" />
                 History
               </button>
-              <button className="inline-flex items-center justify-center rounded-xl bg-emerald-600 hover:bg-emerald-700 px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-emerald-600/20 transition-all hover:-translate-y-0.5">
+              <button className="inline-flex items-center justify-center rounded-xl bg-primary hover:bg-primary-dark px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5">
                 <RefreshCw className="mr-2 w-4 h-4 animate-spin-slow" style={{ animationDuration: '3s' }} />
                 Force Sync All
               </button>
@@ -72,7 +72,7 @@ export default function QueuePage() {
                   </p>
                 </div>
                 <div className="mt-3 md:mt-0 md:ml-4">
-                  <button className="whitespace-nowrap rounded-lg bg-white dark:bg-amber-900/20 px-4 py-2 text-xs font-bold text-amber-700 dark:text-amber-300 shadow-sm ring-1 ring-inset ring-amber-200 dark:ring-amber-800 hover:bg-amber-50 dark:hover:bg-amber-900/30 transition-colors">
+                  <button className="whitespace-nowrap rounded-lg bg-surface dark:bg-amber-900/20 px-4 py-2 text-xs font-bold text-amber-700 dark:text-amber-300 shadow-sm ring-1 ring-inset ring-amber-200 dark:ring-amber-800 hover:bg-amber-50 dark:hover:bg-amber-900/30 transition-colors">
                     Retry Connection
                   </button>
                 </div>
@@ -98,7 +98,7 @@ export default function QueuePage() {
               icon={<CheckCircle2 className="w-5 h-5" />} 
               label="Last Successful Sync" 
               value="Yesterday, 4 PM" 
-              color="emerald" 
+              color="primary" 
             />
           </div>
 
@@ -145,7 +145,7 @@ export default function QueuePage() {
             <span>GovAssist Ethiopia v2.4.1 (Offline Capable)</span>
             <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700"></span>
             <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
               PouchDB Storage: Active
             </span>
           </div>
@@ -156,15 +156,15 @@ export default function QueuePage() {
   );
 }
 
-function StatCard({ icon, label, value, color }: { icon: React.ReactNode, label: string, value: string, color: "blue" | "purple" | "emerald" }) {
+function StatCard({ icon, label, value, color }: { icon: React.ReactNode, label: string, value: string, color: "blue" | "purple" | "primary" }) {
   const styles = {
     blue: "bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400",
     purple: "bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400",
-    emerald: "bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400",
+    primary: "bg-primary/10 text-primary dark:bg-blue-900/20 dark:text-primary/80",
   };
 
   return (
-    <div className="rounded-2xl border border-slate-200/60 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50 p-5 shadow-sm backdrop-blur-sm flex items-center gap-4">
+    <div className="rounded-2xl border border-border/60 dark:border-slate-800/60 bg-surface/50 dark:bg-slate-900/50 p-5 shadow-sm backdrop-blur-sm flex items-center gap-4">
       <div className={cn("size-12 rounded-xl flex items-center justify-center", styles[color])}>
         {icon}
       </div>
@@ -190,15 +190,15 @@ interface QueueItemProps {
 function QueueItem({ status, title, subtitle, id, time, progress, errorMsg, icon }: QueueItemProps) {
   return (
     <div className={cn(
-      "group relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 rounded-2xl border bg-white/60 dark:bg-slate-900/60 p-5 shadow-sm transition-all hover:shadow-md backdrop-blur-sm",
-      status === "error" ? "border-red-200 dark:border-red-900/30 opacity-90 hover:opacity-100" : "border-slate-200/60 dark:border-slate-800/60",
+      "group relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 rounded-2xl border bg-surface/60 dark:bg-slate-900/60 p-5 shadow-sm transition-all hover:shadow-md backdrop-blur-sm",
+      status === "error" ? "border-red-200 dark:border-red-900/30 opacity-90 hover:opacity-100" : "border-border/60 dark:border-slate-800/60",
       status === "syncing" && "border-blue-200/60 dark:border-blue-900/30"
     )}>
       {/* Left Side */}
       <div className="flex items-start gap-4">
         <div className={cn(
           "flex size-12 shrink-0 items-center justify-center rounded-xl",
-          status === "waiting" && "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400",
+          status === "waiting" && "bg-surface-muted dark:bg-slate-800 text-slate-600 dark:text-slate-400",
           status === "syncing" && "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400",
           status === "error" && "bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400"
         )}>
@@ -207,7 +207,7 @@ function QueueItem({ status, title, subtitle, id, time, progress, errorMsg, icon
         <div className="flex flex-col">
           <div className="flex items-center gap-2">
             <h4 className="text-base font-bold text-slate-900 dark:text-white font-display">{title}</h4>
-            <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700 font-ethiopic">
+            <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 bg-surface-muted dark:bg-slate-800 px-1.5 py-0.5 rounded border border-border dark:border-slate-700 font-ethiopic">
               {subtitle}
             </span>
           </div>
@@ -221,7 +221,7 @@ function QueueItem({ status, title, subtitle, id, time, progress, errorMsg, icon
           {/* Mobile Status */}
           <div className="mt-2 flex items-center gap-2 sm:hidden">
              {status === "waiting" && (
-                <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-bold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+                <span className="inline-flex items-center rounded-full bg-surface-muted px-2.5 py-0.5 text-xs font-bold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
                   <span className="mr-1.5 size-1.5 rounded-full bg-slate-500"></span>
                   Waiting
                 </span>
@@ -243,7 +243,7 @@ function QueueItem({ status, title, subtitle, id, time, progress, errorMsg, icon
         <div className="hidden sm:flex flex-col items-end gap-1 min-w-[140px]">
           {status === "waiting" && (
             <>
-              <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-bold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+              <span className="inline-flex items-center rounded-full bg-surface-muted px-2.5 py-0.5 text-xs font-bold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
                 <span className="mr-1.5 size-1.5 rounded-full bg-slate-500"></span>
                 Waiting for connection
               </span>
@@ -259,7 +259,7 @@ function QueueItem({ status, title, subtitle, id, time, progress, errorMsg, icon
                   </span>
                   <span className="font-bold text-slate-700 dark:text-white">{progress}%</span>
                </div>
-               <div className="h-1.5 w-full rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+               <div className="h-1.5 w-full rounded-full bg-surface-muted dark:bg-slate-800 overflow-hidden">
                   <div className="h-full rounded-full bg-blue-500 transition-all duration-500 relative" style={{ width: `${progress}%` }}>
                      <div className="absolute inset-0 bg-white/30 animate-[shimmer_2s_infinite]" />
                   </div>
@@ -280,27 +280,27 @@ function QueueItem({ status, title, subtitle, id, time, progress, errorMsg, icon
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-2 border-t border-slate-100 dark:border-slate-800/50 pt-3 sm:border-t-0 sm:pt-0 w-full sm:w-auto justify-end">
+        <div className="flex items-center gap-2 border-t border-border dark:border-slate-800/50 pt-3 sm:border-t-0 sm:pt-0 w-full sm:w-auto justify-end">
           {status === "syncing" ? (
              <>
                 <button className="p-2 text-slate-300 dark:text-slate-600 cursor-not-allowed rounded-lg" disabled title="Edit Disabled">
                    <Edit2 className="w-4 h-4" />
                 </button>
-                <button className="flex items-center gap-1.5 rounded-lg bg-white dark:bg-slate-800 px-3 py-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 shadow-sm hover:bg-slate-50">
+                <button className="flex items-center gap-1.5 rounded-lg bg-surface dark:bg-slate-800 px-3 py-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 border border-border dark:border-slate-700 shadow-sm hover:bg-surface">
                    Pause
                    <Pause className="w-3.5 h-3.5" />
                 </button>
              </>
           ) : (
              <>
-                <button className="p-2 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg transition-colors" title="Edit Draft">
+                <button className="p-2 text-slate-400 hover:text-primary hover:bg-primary/10 dark:hover:bg-blue-900/20 rounded-lg transition-colors" title="Edit Draft">
                    <Edit2 className="w-4 h-4" />
                 </button>
                 <button className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors" title="Delete">
                    <Trash2 className="w-4 h-4" />
                 </button>
                 {status === "waiting" && (
-                   <button className="flex items-center gap-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                <button className="flex items-center gap-1.5 rounded-lg bg-surface-muted dark:bg-slate-800 px-3 py-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-surface dark:hover:bg-slate-700 transition-colors">
                       Sync
                       <ArrowUpCircle className="w-3.5 h-3.5" />
                    </button>

@@ -69,6 +69,10 @@ export const ToastProvider = ({
 }: ToastProviderProps) => {
     const [toasts, setToasts] = useState<Toast[]>([]);
 
+    const removeToast = useCallback((id: string) => {
+        setToasts(prev => prev.filter(t => t.id !== id));
+    }, []);
+
     const addToast = useCallback((toast: Omit<Toast, 'id'>) => {
         const id = `toast-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
         const newToast: Toast = {
@@ -90,11 +94,7 @@ export const ToastProvider = ({
         }
 
         return id;
-    }, [maxVisible]);
-
-    const removeToast = useCallback((id: string) => {
-        setToasts(prev => prev.filter(t => t.id !== id));
-    }, []);
+    }, [maxVisible, removeToast]);
 
     const clearAll = useCallback(() => {
         setToasts([]);
@@ -147,14 +147,14 @@ interface ToastItemProps {
 
 const ToastItem = ({ toast, onClose }: ToastItemProps) => {
     const icons = {
-        success: <CheckCircle2 className="h-5 w-5 text-emerald-500" />,
+        success: <CheckCircle2 className="h-5 w-5 text-primary" />,
         error: <AlertCircle className="h-5 w-5 text-red-500" />,
         warning: <AlertTriangle className="h-5 w-5 text-amber-500" />,
         info: <Info className="h-5 w-5 text-blue-500" />,
     };
 
     const borderColors = {
-        success: 'border-l-emerald-500',
+        success: 'border-l-primary',
         error: 'border-l-red-500',
         warning: 'border-l-amber-500',
         info: 'border-l-blue-500',
@@ -170,8 +170,8 @@ const ToastItem = ({ toast, onClose }: ToastItemProps) => {
             className={cn(
                 "pointer-events-auto",
                 "flex items-start gap-3 p-4",
-                "bg-white/95 backdrop-blur-lg rounded-xl",
-                "border border-slate-200 border-l-4",
+                "bg-surface/95 backdrop-blur-lg rounded-xl",
+                "border border-border border-l-4",
                 "shadow-xl shadow-slate-200/50",
                 borderColors[toast.type]
             )}
@@ -194,7 +194,7 @@ const ToastItem = ({ toast, onClose }: ToastItemProps) => {
                 {toast.action && (
                     <button
                         onClick={toast.action.onClick}
-                        className="mt-2 text-sm font-semibold text-emerald-600 hover:text-emerald-700 transition-colors"
+                        className="mt-2 text-sm font-semibold text-primary hover:text-primary-dark transition-colors"
                     >
                         {toast.action.label}
                     </button>
@@ -204,7 +204,7 @@ const ToastItem = ({ toast, onClose }: ToastItemProps) => {
             {/* Close button */}
             <button
                 onClick={onClose}
-                className="shrink-0 p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+                className="shrink-0 p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-surface-muted transition-colors"
             >
                 <X className="h-4 w-4" />
             </button>

@@ -61,15 +61,15 @@ export const SyncStateIndicator = ({
     const stateConfig = {
         online: {
             icon: <CheckCircle2 className="w-4 h-4" />,
-            color: 'text-emerald-600',
-            bgColor: 'bg-emerald-100',
+            color: 'text-primary',
+            bgColor: 'bg-primary/10',
             label: 'Synced',
             description: lastSynced ? `Last synced ${lastSynced}` : 'All changes saved',
         },
         offline: {
             icon: <WifiOff className="w-4 h-4" />,
             color: 'text-slate-500',
-            bgColor: 'bg-slate-100',
+            bgColor: 'bg-surface-muted',
             label: 'Offline',
             description: 'Changes saved locally',
         },
@@ -165,7 +165,7 @@ export const SyncStateIndicator = ({
             animate={{ opacity: 1, y: 0 }}
             className={cn(
                 "p-4 rounded-xl border",
-                state === 'error' ? 'border-red-200 bg-red-50' : 'border-slate-200 bg-white',
+                state === 'error' ? 'border-red-200 bg-red-50' : 'border-border bg-surface',
                 className
             )}
         >
@@ -221,7 +221,7 @@ export const SyncStateIndicator = ({
 
             {/* Queue preview for queued state */}
             {state === 'queued' && queueCount > 0 && (
-                <div className="mt-3 pt-3 border-t border-slate-100">
+                <div className="mt-3 pt-3 border-t border-border">
                     <div className="flex items-center gap-2 text-xs text-slate-500">
                         <Upload className="w-3 h-3" />
                         <span>{queueCount} item{queueCount > 1 ? 's' : ''} waiting to upload</span>

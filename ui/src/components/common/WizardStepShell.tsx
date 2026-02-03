@@ -101,11 +101,11 @@ export const WizardStepShell = ({
     };
 
     return (
-        <div className="min-h-screen flex flex-col bg-white">
+        <div className="min-h-screen flex flex-col bg-background">
             {/* Progress bar */}
-            <div className="w-full h-1 bg-slate-100">
+            <div className="w-full h-1 bg-surface-muted">
                 <motion.div
-                    className="h-full bg-gradient-to-r from-emerald-600 to-emerald-500"
+                    className="h-full bg-gradient-to-r from-primary to-primary-dark"
                     initial={{ width: 0 }}
                     animate={{ width: `${progress}%` }}
                     transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
@@ -113,17 +113,17 @@ export const WizardStepShell = ({
             </div>
 
             {/* Header */}
-            <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-lg border-b border-slate-100">
+            <header className="sticky top-0 z-40 bg-surface/80 backdrop-blur-lg border-b border-border">
                 <div className="max-w-3xl mx-auto px-4 sm:px-6 py-4">
                     <div className="flex items-center justify-between">
                         {/* Step indicator */}
                         <div className="flex items-center gap-3">
-                            <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">
+                            <span className="text-xs font-bold text-primary bg-primary/10 px-2.5 py-1 rounded-full">
                                 Step {currentStep} of {totalSteps}
                             </span>
                             {helpContent && (
                                 <button
-                                    className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+                                    className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-surface-muted transition-colors"
                                     title={helpContent}
                                 >
                                     <HelpCircle className="w-4 h-4" />
@@ -167,17 +167,17 @@ export const WizardStepShell = ({
                                 </h1>
                                 {description && (
                                     <p className="text-slate-500 text-lg leading-relaxed">
-                                        {description}
-                                    </p>
-                                )}
-                                {showWhyNeeded && onWhyNeeded && (
-                                    <button
-                                        onClick={onWhyNeeded}
-                                        className="mt-2 text-sm font-medium text-emerald-600 hover:text-emerald-700 hover:underline transition-colors"
-                                    >
-                                        Why is this needed?
-                                    </button>
-                                )}
+                                {description}
+                            </p>
+                        )}
+                        {showWhyNeeded && onWhyNeeded && (
+                            <button
+                                onClick={onWhyNeeded}
+                                className="mt-2 text-sm font-medium text-primary hover:text-primary-dark hover:underline transition-colors"
+                            >
+                                Why is this needed?
+                            </button>
+                        )}
                             </div>
 
                             {/* Step content */}
@@ -190,7 +190,7 @@ export const WizardStepShell = ({
             </main>
 
             {/* Footer with navigation */}
-            <footer className="sticky bottom-0 bg-white/80 backdrop-blur-lg border-t border-slate-100">
+            <footer className="sticky bottom-0 bg-surface/80 backdrop-blur-lg border-t border-border">
                 <div className="max-w-3xl mx-auto px-4 sm:px-6 py-4">
                     {customFooter || (
                         <div className="flex items-center justify-between gap-4">

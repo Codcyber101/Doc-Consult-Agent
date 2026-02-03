@@ -54,7 +54,7 @@ export const ConflictResolutionDialog = ({
                 initial={{ opacity: 0, scale: 0.95, y: 10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden"
+                className="relative w-full max-w-2xl bg-surface rounded-3xl shadow-2xl overflow-hidden"
             >
                 {/* Header */}
                 <div className="bg-amber-50 p-6 border-b border-amber-100 flex items-start justify-between">
@@ -79,14 +79,14 @@ export const ConflictResolutionDialog = ({
                 <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
 
                     {/* Remote Version */}
-                    <div className="rounded-2xl border border-slate-200 p-4 bg-slate-50/50 hover:bg-slate-50 hover:border-blue-200 transition-colors cursor-pointer group"
+                    <div className="rounded-2xl border border-border p-4 bg-surface/50 hover:bg-surface hover:border-blue-200 transition-colors cursor-pointer group"
                         onClick={() => onResolve('remote')}>
                         <div className="flex items-center justify-between mb-4">
                             <div className="flex items-center gap-2">
                                 <Cloud className="w-5 h-5 text-blue-500" />
                                 <span className="font-bold text-slate-700">Server Version</span>
                             </div>
-                            <div className="w-5 h-5 rounded-full border-2 border-slate-300 group-hover:border-blue-500" />
+                            <div className="w-5 h-5 rounded-full border-2 border-border group-hover:border-blue-500" />
                         </div>
 
                         <div className="space-y-2 text-sm">
@@ -106,18 +106,18 @@ export const ConflictResolutionDialog = ({
                     </div>
 
                     {/* Local Version */}
-                    <div className="rounded-2xl border-2 border-emerald-500 bg-emerald-50/10 p-4 cursor-pointer group relative"
+                    <div className="rounded-2xl border-2 border-primary bg-primary/10 p-4 cursor-pointer group relative"
                         onClick={() => onResolve('local')}>
-                        <div className="absolute top-3 right-3 text-emerald-600 text-xs font-bold uppercase tracking-wider bg-emerald-100 px-2 py-1 rounded-md">
+                        <div className="absolute top-3 right-3 text-primary text-xs font-bold uppercase tracking-wider bg-primary/10 px-2 py-1 rounded-md">
                             Recommended
                         </div>
 
                         <div className="flex items-center justify-between mb-4">
                             <div className="flex items-center gap-2">
-                                <Monitor className="w-5 h-5 text-emerald-600" />
+                                <Monitor className="w-5 h-5 text-primary" />
                                 <span className="font-bold text-slate-900">Your Device</span>
                             </div>
-                            <div className="w-5 h-5 rounded-full border-[5px] border-emerald-600" />
+                            <div className="w-5 h-5 rounded-full border-[5px] border-primary" />
                         </div>
 
                         <div className="space-y-2 text-sm">

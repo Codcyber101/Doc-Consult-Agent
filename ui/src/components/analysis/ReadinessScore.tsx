@@ -12,12 +12,12 @@ export function ReadinessScore({ score }: ReadinessScoreProps) {
   const isMedium = score >= 70 && score < 90;
   
   const colorClass = isHigh 
-    ? 'text-sovereign-green' 
-    : isMedium ? 'text-sovereign-gold' : 'text-sovereign-red';
+    ? 'text-primary' 
+    : isMedium ? 'text-gold-500' : 'text-danger';
     
   const bgColorClass = isHigh 
-    ? 'bg-sovereign-green/10' 
-    : isMedium ? 'bg-sovereign-gold/10' : 'bg-sovereign-red/10';
+    ? 'bg-primary/10' 
+    : isMedium ? 'bg-gold-500/10' : 'bg-danger/10';
 
   return (
     <motion.div 
@@ -56,7 +56,7 @@ export function ReadinessScore({ score }: ReadinessScoreProps) {
         </div>
       </div>
       <div>
-        <p className="text-[10px] font-black uppercase tracking-[0.15em] text-gray-500 mb-0.5">Application Readiness</p>
+        <p className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-500 mb-0.5">Application Readiness</p>
         <p className={`text-sm font-bold ${colorClass}`}>
           {isHigh ? 'Optimized' : isMedium ? 'Good Progress' : 'Action Required'}
         </p>

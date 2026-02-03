@@ -42,29 +42,29 @@ export default function Step1Page() {
           {/* Left Column: Instructions & Action */}
           <div className="lg:col-span-5 space-y-8">
             <div>
-              <Badge className="mb-4 bg-emerald-50 text-emerald-700 border-emerald-100 font-black uppercase tracking-widest text-[10px]">Step 01 / 05</Badge>
+              <Badge className="mb-4 bg-primary/10 text-primary border-primary/20 font-black uppercase tracking-widest text-[10px]">Step 01 / 05</Badge>
               <h1 className="text-4xl font-black text-slate-900 tracking-tight font-display mb-6">
-                Upload your <span className="text-emerald-600">Old Trade License</span>
+                Upload your <span className="text-primary">Old Trade License</span>
               </h1>
               <p className="text-lg text-slate-500 font-medium leading-relaxed">
                 To begin your renewal, we need to analyze your existing license. Our AI will automatically extract the details to save you time.
               </p>
             </div>
 
-            <Card className="p-8 border-2 border-dashed border-slate-200 bg-slate-50/50 hover:bg-white hover:border-emerald-500/30 transition-all group">
+            <Card className="p-8 border-2 border-dashed border-border bg-surface-muted/60 hover:bg-surface hover:border-primary/30 transition-all group">
                {!file && !isUploading ? (
                  <div className="flex flex-col items-center text-center py-10">
-                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center shadow-md mb-6 group-hover:scale-110 transition-transform text-emerald-600">
+                    <div className="w-16 h-16 bg-surface rounded-2xl flex items-center justify-center shadow-md mb-6 group-hover:scale-110 transition-transform text-primary">
                       <Upload className="w-8 h-8" />
                     </div>
                     <h3 className="text-lg font-black text-slate-900 mb-2">Click to upload or drag & drop</h3>
                     <p className="text-sm text-slate-400 font-bold uppercase tracking-tighter mb-8">PDF, PNG, or JPG (Max 10MB)</p>
-                    <Button onClick={simulateUpload} variant="outline" className="rounded-2xl border-2 border-slate-200">Select Document</Button>
+                    <Button onClick={simulateUpload} variant="outline" className="rounded-2xl border-2 border-border">Select Document</Button>
                  </div>
                ) : (
                  <div className="space-y-6">
-                    <div className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-slate-100 shadow-sm">
-                       <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center text-emerald-600">
+                    <div className="flex items-center gap-4 p-4 bg-surface rounded-2xl border border-border shadow-sm">
+                       <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
                           <FileText className="w-6 h-6" />
                        </div>
                        <div className="flex-1 min-w-0">
@@ -83,18 +83,18 @@ export default function Step1Page() {
                           className="space-y-3"
                         >
                            <div className="flex items-center justify-between">
-                              <span className="text-xs font-black text-emerald-600 uppercase tracking-widest flex items-center gap-2">
-                                <span className="flex h-2 w-2 rounded-full bg-emerald-600 animate-ping"></span>
+                              <span className="text-xs font-black text-primary uppercase tracking-widest flex items-center gap-2">
+                                <span className="flex h-2 w-2 rounded-full bg-primary animate-ping"></span>
                                 Analyzing Content...
                               </span>
                               <span className="text-xs font-bold text-slate-400 italic">Expected: 15s</span>
                            </div>
-                           <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                           <div className="w-full h-1.5 bg-surface-muted rounded-full overflow-hidden">
                               <motion.div 
                                 initial={{ width: 0 }}
                                 animate={{ width: "70%" }}
                                 transition={{ duration: 3, repeat: Infinity, repeatType: "reverse" }}
-                                className="h-full bg-emerald-600 rounded-full"
+                                className="h-full bg-primary rounded-full"
                               />
                            </div>
                         </motion.div>
@@ -102,12 +102,12 @@ export default function Step1Page() {
                         <motion.div 
                           initial={{ opacity: 0, scale: 0.95 }}
                           animate={{ opacity: 1, scale: 1 }}
-                          className="bg-emerald-50 rounded-2xl p-4 flex items-start gap-3 border border-emerald-100"
+                          className="bg-primary/10 rounded-2xl p-4 flex items-start gap-3 border border-primary/20"
                         >
-                           <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+                           <ShieldCheck className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                            <div>
-                              <p className="text-sm font-black text-emerald-900 leading-tight mb-1">Analysis Complete</p>
-                              <p className="text-xs font-medium text-emerald-700">We've extracted your License Number, Business Name, and Expiry Date successfully.</p>
+                              <p className="text-sm font-black text-slate-900 leading-tight mb-1">Analysis Complete</p>
+                              <p className="text-xs font-medium text-slate-700">We&apos;ve extracted your License Number, Business Name, and Expiry Date successfully.</p>
                            </div>
                         </motion.div>
                       ) : null}
@@ -127,41 +127,41 @@ export default function Step1Page() {
 
           {/* Right Column: Preview / Side Panel */}
           <div className="lg:col-span-7 h-full">
-            <div className="bg-slate-100 rounded-[2.5rem] border-2 border-slate-200 min-h-[500px] flex flex-col overflow-hidden relative group">
+            <div className="bg-surface-muted rounded-[2.5rem] border-2 border-border min-h-[500px] flex flex-col overflow-hidden relative group">
                
                {file?.status === 'ready' ? (
                  <>
                    <div className="absolute top-6 left-6 z-10">
                       <Badge className="bg-slate-900 text-white border-none shadow-lg py-1.5 px-3 flex items-center gap-2">
-                         <Eye className="w-3 h-3 text-emerald-400" />
+                         <Eye className="w-3 h-3 text-primary" />
                          <span className="text-[9px] font-black uppercase tracking-widest">Document Preview</span>
                       </Badge>
                    </div>
                    
                    {/* Mock Document Preview Content */}
-                   <div className="flex-1 bg-white m-4 rounded-[1.5rem] shadow-inner flex flex-col p-12 overflow-hidden">
+                   <div className="flex-1 bg-surface m-4 rounded-[1.5rem] shadow-inner flex flex-col p-12 overflow-hidden">
                       <div className="w-full max-w-md mx-auto space-y-8 opacity-40 select-none">
                          <div className="flex justify-between items-start">
-                            <div className="w-16 h-16 bg-slate-200 rounded-full"></div>
+                            <div className="w-16 h-16 bg-surface-muted rounded-full"></div>
                             <div className="space-y-2 text-right">
-                               <div className="h-4 w-32 bg-slate-200 rounded ml-auto"></div>
-                               <div className="h-3 w-48 bg-slate-100 rounded ml-auto"></div>
+                               <div className="h-4 w-32 bg-surface-muted rounded ml-auto"></div>
+                               <div className="h-3 w-48 bg-surface-muted rounded ml-auto"></div>
                             </div>
                          </div>
-                         <div className="h-8 w-64 bg-slate-200 rounded"></div>
+                         <div className="h-8 w-64 bg-surface-muted rounded"></div>
                          <div className="space-y-4">
-                            <div className="h-4 w-full bg-slate-100 rounded"></div>
-                            <div className="h-4 w-full bg-slate-100 rounded"></div>
-                            <div className="h-4 w-3/4 bg-slate-100 rounded"></div>
+                            <div className="h-4 w-full bg-surface-muted rounded"></div>
+                            <div className="h-4 w-full bg-surface-muted rounded"></div>
+                            <div className="h-4 w-3/4 bg-surface-muted rounded"></div>
                          </div>
-                         <div className="grid grid-cols-2 gap-8 pt-8 border-t border-slate-100">
+                         <div className="grid grid-cols-2 gap-8 pt-8 border-t border-border/60">
                             <div className="space-y-3">
-                               <div className="h-3 w-20 bg-slate-100 rounded"></div>
-                               <div className="h-4 w-32 bg-slate-200 rounded"></div>
+                               <div className="h-3 w-20 bg-surface-muted rounded"></div>
+                               <div className="h-4 w-32 bg-surface-muted rounded"></div>
                             </div>
                             <div className="space-y-3 text-right">
-                               <div className="h-3 w-20 bg-slate-100 rounded ml-auto"></div>
-                               <div className="h-4 w-32 bg-slate-200 rounded ml-auto"></div>
+                               <div className="h-3 w-20 bg-surface-muted rounded ml-auto"></div>
+                               <div className="h-4 w-32 bg-surface-muted rounded ml-auto"></div>
                             </div>
                          </div>
                       </div>
@@ -172,14 +172,14 @@ export default function Step1Page() {
                         animate={{ opacity: 1 }}
                         className="absolute inset-0 pointer-events-none"
                       >
-                         <div className="absolute top-[185px] left-[78px] w-[260px] h-[35px] bg-emerald-500/10 border-2 border-emerald-500/30 rounded-lg backdrop-blur-[1px]"></div>
-                         <div className="absolute top-[310px] left-[78px] w-[140px] h-[25px] bg-emerald-500/10 border-2 border-emerald-500/30 rounded-lg backdrop-blur-[1px]"></div>
+                         <div className="absolute top-[185px] left-[78px] w-[260px] h-[35px] bg-primary/10 border-2 border-primary/30 rounded-lg backdrop-blur-[1px]"></div>
+                         <div className="absolute top-[310px] left-[78px] w-[140px] h-[25px] bg-primary/10 border-2 border-primary/30 rounded-lg backdrop-blur-[1px]"></div>
                       </motion.div>
                    </div>
                  </>
                ) : (
                  <div className="flex-1 flex flex-col items-center justify-center text-slate-400 px-12 text-center">
-                    <div className="w-20 h-20 bg-slate-200/50 rounded-full flex items-center justify-center mb-6">
+                    <div className="w-20 h-20 bg-surface rounded-full flex items-center justify-center mb-6 border border-border">
                        <Eye className="w-8 h-8 opacity-20" />
                     </div>
                     <p className="text-lg font-black uppercase tracking-widest opacity-30">Preview Area</p>
@@ -188,10 +188,10 @@ export default function Step1Page() {
                )}
 
                {/* Decorative floating elements */}
-               <div className="absolute bottom-4 right-4 bg-white/80 backdrop-blur shadow-sm border border-slate-200 rounded-2xl py-2 px-4 flex items-center gap-3">
+               <div className="absolute bottom-4 right-4 bg-surface/80 backdrop-blur shadow-sm border border-border rounded-2xl py-2 px-4 flex items-center gap-3">
                   <div className="flex -space-x-2">
                      {[1,2,3].map(i => (
-                       <div key={i} className="w-6 h-6 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-[8px] font-black text-slate-400">
+                       <div key={i} className="w-6 h-6 rounded-full border-2 border-white bg-surface-muted flex items-center justify-center text-[8px] font-black text-slate-400">
                           {i}
                        </div>
                      ))}
@@ -204,7 +204,7 @@ export default function Step1Page() {
       </div>
 
       {/* Sticky Footer for Navigation */}
-      <footer className="sticky bottom-0 bg-white border-t border-slate-100 py-6 px-4 shadow-[0_-10px_30px_rgba(0,0,0,0.02)]">
+      <footer className="sticky bottom-0 bg-surface border-t border-border py-6 px-4 shadow-[0_-10px_30px_rgba(0,0,0,0.02)]">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
            <Button variant="ghost" className="rounded-2xl font-black text-slate-400">Back</Button>
            <div className="flex items-center gap-4">

@@ -20,9 +20,9 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 const STATS = [
-  { label: 'Active Submissions', value: '1,284', change: '+12%', icon: <Activity className="text-emerald-600" /> },
+  { label: 'Active Submissions', value: '1,284', change: '+12%', icon: <Activity className="text-primary" /> },
   { label: 'Pending Reviews', value: '42', change: '-5%', icon: <Clock className="text-gold-600" /> },
-  { label: 'Verified Identities', value: '85.2k', change: '+8%', icon: <ShieldCheck className="text-emerald-600" /> },
+  { label: 'Verified Identities', value: '85.2k', change: '+8%', icon: <ShieldCheck className="text-primary" /> },
   { label: 'Policy Assets', value: '12', change: '0%', icon: <Archive className="text-slate-600" /> },
 ];
 
@@ -49,7 +49,7 @@ export default function AdminDashboardPage() {
       >
         <div>
            <h1 className="text-4xl font-display font-bold tracking-tight text-slate-900">
-             Registry <span className="text-emerald-600 italic">Surveillance</span>
+             Registry <span className="text-primary italic">Surveillance</span>
            </h1>
            <p className="text-slate-500 font-medium text-lg mt-2">Real-time status of sovereign document processes.</p>
         </div>
@@ -67,15 +67,15 @@ export default function AdminDashboardPage() {
       >
         {STATS.map((stat) => (
           <motion.div key={stat.label} variants={item}>
-             <Card className="hover:border-emerald-500/50 transition-all duration-500 overflow-hidden relative">
+             <Card className="hover:border-primary/50 transition-all duration-500 overflow-hidden relative">
                 <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-                   <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center">
+                   <div className="w-10 h-10 rounded-xl bg-surface flex items-center justify-center">
                       {stat.icon}
                    </div>
                    <div className={cn(
                      "text-[10px] font-black px-2 py-0.5 rounded-full",
-                     stat.change.startsWith('+') ? "bg-emerald-50 text-emerald-700" : 
-                     stat.change === '0%' ? "bg-slate-50 text-slate-500" : "bg-red-50 text-red-700"
+                     stat.change.startsWith('+') ? "bg-primary/10 text-primary" : 
+                     stat.change === '0%' ? "bg-surface text-slate-500" : "bg-red-50 text-red-700"
                    )}>
                      {stat.change}
                    </div>
@@ -104,7 +104,7 @@ export default function AdminDashboardPage() {
                     <CardTitle className="text-xl">Transmission Volume</CardTitle>
                     <CardDescription>National Gateway Traffic</CardDescription>
                  </div>
-                 <select className="bg-slate-50 border border-slate-100 rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-widest outline-none">
+                 <select className="bg-surface border border-border rounded-lg px-3 py-1.5 text-[10px] font-black uppercase tracking-widest outline-none">
                     <option>Last 7 Days</option>
                     <option>Last 30 Days</option>
                  </select>
@@ -116,7 +116,7 @@ export default function AdminDashboardPage() {
                       initial={{ height: 0 }}
                       animate={{ height: `${h}%` }}
                       transition={{ delay: 0.5 + i * 0.1, duration: 1 }}
-                      className="flex-1 bg-gradient-emerald rounded-t-lg relative group"
+                      className="flex-1 bg-gradient-to-r from-primary to-primary-dark rounded-t-lg relative group"
                     >
                        <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[10px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
                           {Math.round(h * 12.4)}
@@ -124,7 +124,7 @@ export default function AdminDashboardPage() {
                     </motion.div>
                  ))}
               </CardContent>
-              <div className="absolute inset-0 bg-mesh-emerald opacity-5 pointer-events-none" />
+              <div className="absolute inset-0 bg-mesh opacity-5 pointer-events-none" />
            </Card>
         </motion.div>
 
@@ -155,7 +155,7 @@ export default function AdminDashboardPage() {
                     </div>
                  ))}
                  
-                 <Button className="w-full mt-6 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs uppercase tracking-widest h-12 shadow-glow-emerald">
+                 <Button className="w-full mt-6 bg-primary hover:bg-primary text-white font-bold text-xs uppercase tracking-widest h-12 shadow-glow-primary">
                     Enter Review Queue
                  </Button>
               </CardContent>

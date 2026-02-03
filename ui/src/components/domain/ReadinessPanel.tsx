@@ -28,8 +28,8 @@ export function ReadinessPanel({ score, items, onFixItem }: ReadinessPanelProps)
   const strokeDashoffset = circumference - (score / 100) * circumference
 
   return (
-    <Card className="bg-white/60 backdrop-blur-sm border-white/40 shadow-lg-soft overflow-hidden">
-       <CardHeader className="pb-2 border-b border-black/5">
+    <Card className="bg-surface/70 backdrop-blur-sm border-border/60 shadow-lg-soft overflow-hidden">
+       <CardHeader className="pb-2 border-b border-border/60">
          <CardTitle className="flex items-center justify-between font-display text-ink">
             <span>Readiness Check</span>
             <span className={cn(
@@ -46,13 +46,13 @@ export function ReadinessPanel({ score, items, onFixItem }: ReadinessPanelProps)
           <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
              
              {/* Score Visualization */}
-             <div className="relative flex-shrink-0 w-36 h-36 flex items-center justify-center bg-white rounded-full shadow-inner border border-slate-100">
+             <div className="relative flex-shrink-0 w-36 h-36 flex items-center justify-center bg-surface rounded-full shadow-inner border border-border">
                  <svg className="w-28 h-28 transform -rotate-90">
                     <circle
                       cx="56" cy="56" r={radius}
                       stroke="currentColor" strokeWidth="6"
                       fill="transparent"
-                      className="text-slate-100"
+                      className="text-surface-muted"
                     />
                     <motion.circle
                       initial={{ strokeDashoffset: circumference }}
@@ -84,13 +84,13 @@ export function ReadinessPanel({ score, items, onFixItem }: ReadinessPanelProps)
                       "flex items-center justify-between p-3 rounded-lg border transition-colors",
                       item.status === 'missing' ? "bg-red-50/30 border-red-200/50 hover:bg-red-50/50" : 
                       item.status === 'invalid' ? "bg-amber-50/30 border-amber-200/50 hover:bg-amber-50/50" :
-                      "bg-blue-50/10 border-slate-100 hover:bg-white"
+                      "bg-primary/5 border-border hover:bg-surface"
                     )}
                   >
                      <div className="flex items-center gap-3">
                         {item.status === 'ready' ? (
-                           <div className="h-6 w-6 rounded-full bg-blue-100 flex items-center justify-center">
-                               <CheckCircle className="h-4 w-4 text-blue-700" />
+                           <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center">
+                               <CheckCircle className="h-4 w-4 text-primary" />
                            </div>
                         ) : (
                            <AlertTriangle className={cn(

@@ -87,11 +87,11 @@ export const ConsentScreen = ({
 
     return (
         <div className={cn(
-            "bg-white rounded-3xl border-2 border-slate-100 overflow-hidden",
+            "bg-surface rounded-3xl border-2 border-border overflow-hidden",
             className
         )}>
             {/* Header */}
-            <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 p-6 text-white">
+            <div className="bg-gradient-to-r from-primary to-primary-dark p-6 text-white">
                 <div className="flex items-center gap-3 mb-3">
                     <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
                         <Shield className="w-5 h-5" />
@@ -101,20 +101,20 @@ export const ConsentScreen = ({
                     </Badge>
                 </div>
                 <h2 className="text-xl font-bold mb-2">{title}</h2>
-                <p className="text-emerald-100 text-sm">{description}</p>
+                <p className="text-slate-200 text-sm">{description}</p>
             </div>
 
             {/* Content */}
             <div className="p-6 space-y-6">
                 {/* Recipient & Purpose */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="bg-slate-50 rounded-xl p-4">
+                    <div className="bg-surface-muted rounded-xl p-4">
                         <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
                             Recipient
                         </p>
                         <p className="font-medium text-slate-900">{recipient}</p>
                     </div>
-                    <div className="bg-slate-50 rounded-xl p-4">
+                    <div className="bg-surface-muted rounded-xl p-4">
                         <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
                             Purpose
                         </p>
@@ -149,7 +149,7 @@ export const ConsentScreen = ({
                         )}
                     </div>
 
-                    <div className="bg-slate-50 rounded-xl p-4 space-y-3">
+                    <div className="bg-surface-muted rounded-xl p-4 space-y-3">
                         {/* Regular fields */}
                         {regularFields.map((field, i) => (
                             <div key={i} className="flex items-center justify-between text-sm">
@@ -162,7 +162,7 @@ export const ConsentScreen = ({
                         {sensitiveFields.length > 0 && (
                             <>
                                 {regularFields.length > 0 && (
-                                    <div className="border-t border-slate-200 my-3" />
+                                    <div className="border-t border-border my-3" />
                                 )}
                                 <div className="flex items-center gap-2 text-xs text-amber-600 mb-2">
                                     <Lock className="w-3 h-3" />
@@ -206,8 +206,8 @@ export const ConsentScreen = ({
                         <div className={cn(
                             "w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all",
                             hasAgreed
-                                ? "bg-emerald-600 border-emerald-600"
-                                : "border-slate-300 group-hover:border-emerald-400"
+                                ? "bg-primary border-primary"
+                                : "border-border group-hover:border-primary/60"
                         )}>
                             {hasAgreed && <CheckCircle2 className="w-3.5 h-3.5 text-white" />}
                         </div>
@@ -218,13 +218,13 @@ export const ConsentScreen = ({
                             <span className="text-slate-500">
                                 {' '}I have read the{' '}
                                 {privacyPolicyUrl && (
-                                    <a href={privacyPolicyUrl} target="_blank" rel="noopener" className="text-emerald-600 hover:underline">
+                                    <a href={privacyPolicyUrl} target="_blank" rel="noopener" className="text-primary hover:underline">
                                         Privacy Policy
                                     </a>
                                 )}
                                 {privacyPolicyUrl && termsUrl && ' and '}
                                 {termsUrl && (
-                                    <a href={termsUrl} target="_blank" rel="noopener" className="text-emerald-600 hover:underline">
+                                    <a href={termsUrl} target="_blank" rel="noopener" className="text-primary hover:underline">
                                         Terms of Service
                                     </a>
                                 )}

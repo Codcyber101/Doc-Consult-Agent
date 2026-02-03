@@ -18,7 +18,7 @@ export const LanguageSwitcher = () => {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-slate-100 transition-colors text-slate-600 hover:text-slate-900 border border-transparent hover:border-slate-200"
+        className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-surface-muted transition-colors text-slate-600 hover:text-slate-900 border border-transparent hover:border-border"
       >
         <Globe className="h-4 w-4" />
         <span className="text-sm font-bold uppercase tracking-wider">{currentLang}</span>
@@ -35,7 +35,7 @@ export const LanguageSwitcher = () => {
               initial={{ opacity: 0, y: 10, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 10, scale: 0.95 }}
-              className="absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden z-20"
+              className="absolute right-0 mt-2 w-48 bg-surface rounded-2xl shadow-xl border border-border overflow-hidden z-20"
             >
               <div className="p-2">
                 {languages.map((lang) => (
@@ -48,8 +48,8 @@ export const LanguageSwitcher = () => {
                     className={cn(
                       "w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm transition-colors",
                       currentLang === lang.code 
-                        ? "bg-emerald-50 text-emerald-700 font-bold" 
-                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                        ? "bg-primary/10 text-primary font-bold" 
+                        : "text-slate-600 hover:bg-surface-muted hover:text-slate-900"
                     )}
                   >
                     <div className="flex flex-col items-start">

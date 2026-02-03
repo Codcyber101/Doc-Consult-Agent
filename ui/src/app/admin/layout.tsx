@@ -29,14 +29,14 @@ export default function AdminDashboard({ children }: { children: React.ReactNode
   const pathname = usePathname();
 
   return (
-    <div className="flex h-screen bg-slate-50 selection:bg-emerald-100 selection:text-emerald-900 font-sans">
+    <div className="flex h-screen bg-surface selection:bg-primary/10 selection:text-foreground font-sans">
       {/* Background decoration */}
-      <div className="fixed inset-0 bg-mesh-emerald pointer-events-none opacity-50" />
+      <div className="fixed inset-0 bg-mesh pointer-events-none opacity-50" />
 
       {/* Sovereign Sidebar */}
       <nav className="w-72 bg-slate-900 text-white p-8 flex flex-col relative z-10 shadow-2xl">
         <div className="flex items-center gap-3 mb-12 px-2">
-          <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
+          <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary/20">
             <Shield size={20} />
           </div>
           <div>
@@ -83,7 +83,7 @@ export default function AdminDashboard({ children }: { children: React.ReactNode
             <div className="relative z-10">
                <div className="flex items-center justify-between mb-4">
                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Node Status</span>
-                 <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                 <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                </div>
                <p className="text-[10px] font-bold text-slate-400 uppercase leading-relaxed">
                  Connected to Cluster <br/>
@@ -102,7 +102,7 @@ export default function AdminDashboard({ children }: { children: React.ReactNode
       
       {/* Main Content Area */}
       <main className="flex-1 overflow-auto relative z-10 flex flex-col">
-        <header className="h-20 bg-white/80 backdrop-blur-glass border-b border-slate-200 flex items-center justify-between px-10 sticky top-0 z-20">
+        <header className="h-20 bg-surface/80 backdrop-blur-glass border-b border-border flex items-center justify-between px-10 sticky top-0 z-20">
           <div className="flex items-center gap-4">
             <div className="px-3 py-1 bg-slate-900 text-white text-[9px] font-black rounded-lg uppercase tracking-widest">Environment: Production</div>
           </div>
@@ -113,7 +113,7 @@ export default function AdminDashboard({ children }: { children: React.ReactNode
                <span className="absolute top-2 right-2 w-2 h-2 bg-red-earth rounded-full border border-white"></span>
             </Button>
             
-            <div className="w-px h-4 bg-slate-200" />
+            <div className="w-px h-4 bg-border" />
             
             <div className="flex items-center gap-3">
               <div className="text-right">

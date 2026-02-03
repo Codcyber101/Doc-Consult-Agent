@@ -45,11 +45,11 @@ export default function VitalEventsWizard() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
-        <div className="bg-emerald-900 rounded-[3rem] p-12 text-white text-center shadow-sovereign max-w-2xl w-full">
-           <CheckCircle2 className="w-20 h-20 text-emerald-400 mx-auto mb-8" />
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <div className="bg-slate-900 rounded-[3rem] p-12 text-white text-center shadow-sovereign max-w-2xl w-full">
+           <CheckCircle2 className="w-20 h-20 text-primary/80 mx-auto mb-8" />
            <h1 className="text-4xl font-display font-bold mb-4">Registry Synced</h1>
-           <p className="text-emerald-100/80 text-lg mb-10 leading-relaxed">
+           <p className="text-slate-200/80 text-lg mb-10 leading-relaxed">
              The vital event archive has been successfully recorded in the National Civil Registry.
            </p>
            <Button variant="secondary" className="px-10 h-14 rounded-2xl font-bold">Download Certificate</Button>
@@ -78,13 +78,13 @@ export default function VitalEventsWizard() {
                className={cn(
                  "p-6 rounded-[2rem] border-2 text-left transition-all flex items-center gap-6 group",
                  eventType === type.id 
-                   ? "border-emerald-600 bg-emerald-50 shadow-md" 
-                   : "border-slate-100 bg-white hover:border-slate-200"
+                   ? "border-primary bg-primary/10 shadow-md" 
+                   : "border-border bg-surface hover:border-border"
                )}
              >
                 <div className={cn(
                   "w-14 h-14 rounded-2xl flex items-center justify-center transition-colors",
-                  eventType === type.id ? "bg-emerald-600 text-white" : "bg-slate-100 text-slate-400"
+                  eventType === type.id ? "bg-primary text-white" : "bg-surface-muted text-slate-400"
                 )}>
                    {React.cloneElement(type.icon as any, { className: 'w-7 h-7' })}
                 </div>
@@ -94,7 +94,7 @@ export default function VitalEventsWizard() {
                 </div>
                 <ChevronRight className={cn(
                   "w-5 h-5 transition-transform",
-                  eventType === type.id ? "text-emerald-600 translate-x-1" : "text-slate-300"
+                  eventType === type.id ? "text-primary translate-x-1" : "text-slate-300"
                 )} />
              </button>
            ))}
@@ -105,7 +105,7 @@ export default function VitalEventsWizard() {
       {currentStep === 2 && (
         <div className="space-y-6">
            <div className="flex items-center gap-2 mb-4">
-              <FileText className="w-5 h-5 text-emerald-600" />
+              <FileText className="w-5 h-5 text-primary" />
               <h4 className="font-bold text-slate-900 capitalize">{eventType} Details</h4>
            </div>
            <Input label="Primary Person Full Name" placeholder="e.g. Abebe Bikila" />
@@ -120,9 +120,9 @@ export default function VitalEventsWizard() {
       {/* Step 3: Relationship */}
       {currentStep === 3 && (
         <div className="space-y-8">
-           <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100 space-y-6">
+           <div className="bg-surface-muted p-6 rounded-3xl border border-border space-y-6">
               <div className="flex items-center gap-3">
-                 <LinkIcon className="w-5 h-5 text-emerald-600" />
+                 <LinkIcon className="w-5 h-5 text-primary" />
                  <h4 className="font-bold text-slate-900">National ID Linkage</h4>
               </div>
               <div className="space-y-4">
@@ -148,7 +148,7 @@ export default function VitalEventsWizard() {
       {/* Step 4: Transmission */}
       {currentStep === 4 && (
         <div className="space-y-8 text-center py-6">
-           <div className="w-20 h-20 bg-emerald-50 text-emerald-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-sm">
+           <div className="w-20 h-20 bg-primary/10 text-primary rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-sm">
               <ShieldCheck className="w-10 h-10" />
            </div>
            <h3 className="text-2xl font-display font-bold text-slate-900">Sovereign Verification</h3>
@@ -158,7 +158,7 @@ export default function VitalEventsWizard() {
            
            <div className="p-6 bg-slate-900 rounded-[2rem] text-left relative overflow-hidden">
               <div className="relative z-10 space-y-4">
-                 <div className="flex justify-between items-center text-xs font-bold uppercase tracking-widest text-emerald-400">
+                 <div className="flex justify-between items-center text-xs font-bold uppercase tracking-widest text-primary/80">
                     <span>Registry Handshake</span>
                     <span>94% Success</span>
                  </div>

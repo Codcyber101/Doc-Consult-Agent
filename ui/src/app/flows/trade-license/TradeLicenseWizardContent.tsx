@@ -87,7 +87,7 @@ export default function TradeLicenseWizard() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-surface dark:bg-slate-950 flex items-center justify-center p-4">
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -175,7 +175,7 @@ export default function TradeLicenseWizard() {
                        <button 
                          key={r}
                          onClick={() => setFormData({...formData, region: r})}
-                         className={`p-4 rounded-xl border-2 text-left transition-all ${formData.region === r ? 'border-primary bg-primary/5 text-primary' : 'border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 text-slate-600 hover:border-slate-200'}`}
+                         className={`p-4 rounded-xl border-2 text-left transition-all ${formData.region === r ? 'border-primary bg-primary/5 text-primary' : 'border-border dark:border-slate-800 bg-surface dark:bg-slate-900 text-slate-600 hover:border-border'}`}
                        >
                           <MapPin className={`w-4 h-4 mb-2 ${formData.region === r ? 'text-primary' : 'text-slate-400'}`} />
                           <span className="font-bold text-sm">{r}</span>
@@ -193,7 +193,7 @@ export default function TradeLicenseWizard() {
                     >
                        <label className="text-sm font-bold text-slate-900 dark:text-white">Administrative Sub-City</label>
                        <select 
-                         className="w-full h-12 px-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
+                         className="w-full h-12 px-4 rounded-xl border border-border dark:border-slate-800 bg-surface dark:bg-slate-900 text-slate-900 dark:text-white"
                          value={formData.subCity}
                          onChange={(e) => setFormData({...formData, subCity: e.target.value})}
                        >
@@ -269,7 +269,7 @@ export default function TradeLicenseWizard() {
            <div className="p-6 bg-slate-900 rounded-3xl text-white relative overflow-hidden">
               <div className="relative z-10">
                  <div className="flex items-center gap-3 mb-4">
-                    <FileCheck className="w-5 h-5 text-emerald-400" />
+                    <FileCheck className="w-5 h-5 text-primary/80" />
                     <h3 className="font-display font-bold text-lg">Declaration</h3>
                  </div>
                  <p className="text-slate-400 text-sm leading-relaxed mb-6">
@@ -277,8 +277,8 @@ export default function TradeLicenseWizard() {
                     I understand that providing false information is a punishable offense under Ethiopian law.
                  </p>
                  <label className="flex items-center gap-3 cursor-pointer group">
-                    <div className="w-6 h-6 rounded-md border-2 border-slate-700 bg-slate-800 flex items-center justify-center group-hover:border-emerald-500 transition-colors">
-                       <div className="w-3 h-3 bg-emerald-500 rounded-sm"></div>
+                    <div className="w-6 h-6 rounded-md border-2 border-slate-700 bg-slate-800 flex items-center justify-center group-hover:border-primary transition-colors">
+                       <div className="w-3 h-3 bg-primary rounded-sm"></div>
                     </div>
                     <span className="text-sm font-medium">I agree to the terms and conditions</span>
                  </label>

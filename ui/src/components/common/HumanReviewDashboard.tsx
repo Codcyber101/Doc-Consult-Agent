@@ -100,7 +100,7 @@ export const HumanReviewDashboard = ({
                     </div>
                 </Card>
 
-                <Card className="p-6 border-l-4 border-l-emerald-500" hoverable>
+                <Card className="p-6 border-l-4 border-l-primary" hoverable>
                     <div className="flex items-start justify-between">
                         <div>
                             <p className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-1">
@@ -111,12 +111,12 @@ export const HumanReviewDashboard = ({
                                 className="text-4xl font-black text-slate-900"
                             />
                         </div>
-                        <div className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+                        <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
                             <FileCheck className="w-6 h-6" />
                         </div>
                     </div>
                     <div className="mt-4 text-xs font-medium text-slate-500">
-                        <span className="text-emerald-600 font-bold">On track</span> to meet daily goal
+                        <span className="text-primary font-bold">On track</span> to meet daily goal
                     </div>
                 </Card>
             </div>

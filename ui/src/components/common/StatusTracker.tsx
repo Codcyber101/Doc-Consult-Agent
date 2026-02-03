@@ -82,7 +82,7 @@ export const StatusTracker = ({
         draft: {
             icon: <FileCheck className="w-5 h-5" />,
             color: 'text-slate-500',
-            bgColor: 'bg-slate-100',
+            bgColor: 'bg-surface-muted',
             badge: 'neutral' as const,
             label: 'Draft',
         },
@@ -116,8 +116,8 @@ export const StatusTracker = ({
         },
         approved: {
             icon: <CheckCircle2 className="w-5 h-5" />,
-            color: 'text-emerald-600',
-            bgColor: 'bg-emerald-100',
+            color: 'text-primary',
+            bgColor: 'bg-primary/10',
             badge: 'success' as const,
             label: 'Approved',
         },
@@ -134,11 +134,11 @@ export const StatusTracker = ({
 
     return (
         <div className={cn(
-            "bg-white rounded-3xl border-2 border-slate-100 overflow-hidden",
+            "bg-surface rounded-3xl border-2 border-border overflow-hidden",
             className
         )}>
             {/* Header */}
-            <div className="p-6 border-b border-slate-100">
+            <div className="p-6 border-b border-border">
                 <div className="flex items-start justify-between gap-4">
                     <div className="flex items-center gap-4">
                         {/* Status icon */}
@@ -160,7 +160,7 @@ export const StatusTracker = ({
                                     <button
                                         onClick={onRefresh}
                                         disabled={isRefreshing}
-                                        className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors disabled:opacity-50"
+                                        className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-surface-muted transition-colors disabled:opacity-50"
                                     >
                                         <RefreshCw className={cn(
                                             "w-4 h-4",
@@ -240,7 +240,7 @@ export const StatusTracker = ({
 
                     <div className="relative">
                         {/* Vertical line */}
-                        <div className="absolute left-[11px] top-2 bottom-2 w-0.5 bg-slate-200" />
+                        <div className="absolute left-[11px] top-2 bottom-2 w-0.5 bg-border" />
 
                         <div className="space-y-4">
                             {timeline.map((step, index) => (
@@ -254,14 +254,14 @@ export const StatusTracker = ({
                                     {/* Step indicator */}
                                     <div className={cn(
                                         "w-6 h-6 rounded-full flex items-center justify-center shrink-0 z-10",
-                                        step.status === 'completed' && "bg-emerald-500",
-                                        step.status === 'current' && "bg-emerald-500 ring-4 ring-emerald-100",
-                                        step.status === 'pending' && "bg-slate-200"
+                                        step.status === 'completed' && "bg-primary",
+                                        step.status === 'current' && "bg-primary ring-4 ring-primary/20",
+                                        step.status === 'pending' && "bg-surface-muted"
                                     )}>
                                         {step.status === 'completed' ? (
                                             <CheckCircle2 className="w-4 h-4 text-white" />
                                         ) : step.status === 'current' ? (
-                                            <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                                            <div className="w-2 h-2 bg-surface rounded-full animate-pulse" />
                                         ) : (
                                             <div className="w-2 h-2 bg-slate-400 rounded-full" />
                                         )}
