@@ -1,3 +1,6 @@
+# Implements: /specs/001-govassist-ethiopia/spec.md#requirements
+# Generated-by: Codex prompt-id: prod-ready-2026-02-04
+# Generated-at: 2026-02-04T00:00:00Z
 FROM python:3.11-slim
 
 WORKDIR /app
@@ -15,5 +18,8 @@ COPY src/ .
 
 # Set PYTHONPATH to include the current directory so modules can be imported
 ENV PYTHONPATH=/app
+
+RUN addgroup --system app && adduser --system --ingroup app appuser
+USER appuser
 
 CMD ["python", "main.py"]
