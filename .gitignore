@@ -11,6 +11,7 @@ __pycache__/
 dist/
 build/
 .next/
+.next_temp/
 out/
 *.egg-info/
 
@@ -27,6 +28,7 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 .env*.local
+infra/backups/
 
 # OS
 .DS_Store

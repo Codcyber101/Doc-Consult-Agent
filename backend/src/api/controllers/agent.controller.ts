@@ -1,5 +1,11 @@
 import { Controller, Post, Body, Param, Logger } from "@nestjs/common";
 import { ApiTags, ApiOperation } from "@nestjs/swagger";
+import {
+  complianceEvaluationTotal,
+  mesobSubmissionTotal,
+  ocrJobTotal,
+  recordAgentExecution,
+} from "../../metrics/metrics";
 
 @ApiTags("Agents")
 @Controller("agents")
@@ -9,19 +15,33 @@ export class AgentController {
   @Post(":agentName/run")
   @ApiOperation({ summary: "Run a specific agent with payload" })
   async runAgent(@Param("agentName") agentName: string, @Body() payload: any) {
+    const start = Date.now();
     this.logger.log(
       `Running agent ${agentName} with payload: ${JSON.stringify(payload)}`,
     );
 
     // Simulated "Real" Agent Interaction Logic
     if (agentName === "compliance-agent") {
-      return this.handleCompliance(payload);
+      const result = this.handleCompliance(payload);
+      complianceEvaluationTotal.inc();
+      recordAgentExecution(agentName, "success", Date.now() - start);
+      return result;
     } else if (agentName === "policy-research-agent") {
-      return this.handleResearch(payload);
+      const result = this.handleResearch(payload);
+      recordAgentExecution(agentName, "success", Date.now() - start);
+      return result;
     } else if (agentName === "document-analyzer") {
-      return this.handleDocumentAnalysis(payload);
+      const result = this.handleDocumentAnalysis(payload);
+      ocrJobTotal.inc();
+      recordAgentExecution(agentName, "success", Date.now() - start);
+      return result;
+    } else if (agentName === "mesob-connector") {
+      mesobSubmissionTotal.inc();
+      recordAgentExecution(agentName, "success", Date.now() - start);
+      return { status: "submitted" };
     }
 
+    recordAgentExecution(agentName, "error", Date.now() - start);
     return {
       status: "error",
       message: `Agent ${agentName} not implemented in live backend yet.`,

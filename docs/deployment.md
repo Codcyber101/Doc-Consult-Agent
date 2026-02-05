@@ -19,6 +19,7 @@ This guide details the steps to deploy GovAssist Ethiopia (GAE) in a sovereign, 
 ## 2. Fast Track (Docker Compose)
 
 The entire ensemble can be started using the integrated compose file in the `infra/` directory.
+For production, use `docker-compose.prod.yml` with a locked-down `.env`.
 
 ```bash
 # Clone and enter directory
@@ -31,6 +32,13 @@ cp .env.example .env
 
 # Start services
 docker-compose up -d
+```
+
+### Production
+
+```bash
+cd gae-core/infra
+docker compose -f docker-compose.prod.yml up -d --build
 ```
 
 ## 3. Sovereign Zone Configuration

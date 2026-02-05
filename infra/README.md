@@ -43,6 +43,32 @@ If you change `package.json` or `Dockerfile`, you need to rebuild:
 make build
 ```
 
+## Production Compose
+
+Use the production compose file with an `.env` file in `infra/` that sets at least:
+
+- `POSTGRES_USER`, `POSTGRES_PASSWORD`, `POSTGRES_DB`
+- `MINIO_ROOT_USER`, `MINIO_ROOT_PASSWORD`
+- `WEAVIATE_API_KEYS`
+
+Example:
+
+```bash
+docker compose -f docker-compose.prod.yml up -d --build
+```
+
+## Backups
+
+Backup scripts live in `infra/scripts/`:
+
+- `backup_postgres.sh`
+- `restore_postgres.sh`
+- `backup_minio.sh`
+- `restore_minio.sh`
+- `backup_all.sh`
+- `install_backup_cron.sh`
+- `smoke_test.sh`
+
 ## Architecture
 
 - **Context**: The build context is set to the respective directories (`../backend`, `../ui`).

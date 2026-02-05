@@ -8,6 +8,16 @@ export class StorageService {
   private readonly bucketName = "govassist-docs";
 
   constructor() {
+    if (
+      process.env.NODE_ENV === "production" &&
+      (process.env.MINIO_ACCESS_KEY === "minioadmin" ||
+        process.env.MINIO_SECRET_KEY === "minioadmin")
+    ) {
+      throw new Error(
+        "MinIO credentials must not use default values in production.",
+      );
+    }
+
     this.minioClient = new Minio.Client({
       endPoint: process.env.MINIO_ENDPOINT || "localhost",
       port: parseInt(process.env.MINIO_PORT) || 9000,

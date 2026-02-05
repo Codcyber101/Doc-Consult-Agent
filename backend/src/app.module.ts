@@ -20,7 +20,9 @@ import { AgentController } from "./api/controllers/agent.controller";
       password: process.env.DB_PASSWORD || "password",
       database: process.env.DB_NAME || "govassist",
       entities: [__dirname + "/**/*.entity{.ts,.js}"],
-      synchronize: true, // Set to false in production
+      synchronize:
+        process.env.NODE_ENV !== "production" &&
+        process.env.DB_SYNCHRONIZE === "true",
     }),
     AuthModule,
     TemporalModule,

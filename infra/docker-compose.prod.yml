@@ -1,46 +1,48 @@
+# Implements: /specs/001-govassist-ethiopia/spec.md#requirements
+# Generated-by: Codex prompt-id: prod-ready-2026-02-04
+# Generated-at: 2026-02-04T00:00:00Z
 services:
   # Infrastructure
   postgres:
     image: postgres:15-alpine
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: govassist
-    ports:
-      - "5432:5432"
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U user -d govassist"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
       timeout: 10s
       retries: 10
       start_period: 20s
+    restart: unless-stopped
 
   redis:
     image: redis:7-alpine
-    ports:
-      - "6379:6379"
+    restart: unless-stopped
 
   minio:
     image: minio/minio
     environment:
-      MINIO_ROOT_USER: minioadmin
-      MINIO_ROOT_PASSWORD: minioadmin
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     ports:
       - "9000:9000"
       - "9001:9001"
     command: server /data --console-address ":9001"
     volumes:
       - minio_data:/data
+    restart: unless-stopped
 
   temporal:
     image: temporalio/auto-setup:1.22
     environment:
       - DB=postgresql
       - DB_PORT=5432
-      - POSTGRES_USER=user
-      - POSTGRES_PWD=password
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PWD=${POSTGRES_PASSWORD}
       - POSTGRES_SEEDS=postgres
     ports:
       - "7233:7233"
@@ -48,6 +50,7 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    restart: unless-stopped
 
   weaviate:
     image: semitechnologies/weaviate:1.23.7
@@ -55,34 +58,39 @@ services:
       - "8080:8080"
     environment:
       QUERY_DEFAULTS_LIMIT: 25
-      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
-      PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
-      DEFAULT_VECTORIZER_MODULE: 'none'
-      CLUSTER_HOSTNAME: 'node1'
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: "false"
+      AUTHENTICATION_APIKEY_ENABLED: "true"
+      AUTHENTICATION_APIKEY_ALLOWED_KEYS: ${WEAVIATE_API_KEYS}
+      PERSISTENCE_DATA_PATH: "/var/lib/weaviate"
+      DEFAULT_VECTORIZER_MODULE: "none"
+      CLUSTER_HOSTNAME: "node1"
     volumes:
       - weaviate_data:/var/lib/weaviate
+    restart: unless-stopped
 
   # Applications
   backend:
-    image: govassist-backend:dev
+    image: govassist-backend:prod
     build:
       context: ../backend
-    command: sh -c "npm install && npx nest build && npx nest start"
     ports:
       - "3001:3000"
     environment:
-      NODE_ENV: development
+      NODE_ENV: production
+      PORT: 3000
+      RATE_LIMIT_MAX: ${RATE_LIMIT_MAX:-300}
+      CORS_ORIGIN: ${CORS_ORIGIN:-}
       DB_HOST: postgres
       DB_PORT: 5432
-      DB_USER: user
-      DB_PASSWORD: password
-      DB_NAME: govassist
-      DB_SYNCHRONIZE: "true"
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_NAME: ${POSTGRES_DB}
+      DB_SYNCHRONIZE: "false"
       TEMPORAL_HOST: temporal:7233
       MINIO_ENDPOINT: minio
       MINIO_PORT: 9000
-      MINIO_ACCESS_KEY: minioadmin
-      MINIO_SECRET_KEY: minioadmin
+      MINIO_ACCESS_KEY: ${MINIO_ROOT_USER}
+      MINIO_SECRET_KEY: ${MINIO_ROOT_PASSWORD}
     depends_on:
       postgres:
         condition: service_healthy
@@ -92,10 +100,6 @@ services:
         condition: service_started
       temporal:
         condition: service_started
-    volumes:
-      - ../backend:/app
-      - /app/node_modules
-      - ../policy-registry:/policy-registry
     healthcheck:
       test:
         [
@@ -106,21 +110,18 @@ services:
       timeout: 5s
       retries: 10
       start_period: 20s
+    restart: unless-stopped
 
   ui:
-    image: govassist-ui:dev
+    image: govassist-ui:prod
     build:
       context: ../ui
-    command: npm run dev
     ports:
       - "3000:3000"
     environment:
-      NODE_ENV: development
+      NODE_ENV: production
     depends_on:
       - backend
-    volumes:
-      - ../ui:/app
-      - /app/node_modules
     healthcheck:
       test:
         [
@@ -131,20 +132,18 @@ services:
       timeout: 5s
       retries: 10
       start_period: 20s
+    restart: unless-stopped
 
   agents:
-    image: govassist-agents:dev
+    image: govassist-agents:prod
     build:
       context: ../agents
-    command: python agents/src/main.py
     environment:
-      NODE_ENV: development
+      NODE_ENV: production
       TEMPORAL_HOST: temporal:7233
       PYTHONPATH: /app
     depends_on:
       - temporal
-    volumes:
-      - ../agents:/app/agents
     healthcheck:
       test:
         [
@@ -155,6 +154,7 @@ services:
       timeout: 5s
       retries: 10
       start_period: 20s
+    restart: unless-stopped
 
 volumes:
   postgres_data:
