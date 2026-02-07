@@ -136,7 +136,7 @@ services:
     image: govassist-agents:dev
     build:
       context: ../agents
-    command: python agents/src/main.py
+    command: sh -c "pip install -r agents/requirements.txt && python agents/src/main.py"
     environment:
       NODE_ENV: development
       TEMPORAL_HOST: temporal:7233
@@ -146,11 +146,7 @@ services:
     volumes:
       - ../agents:/app/agents
     healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "ps -o comm= 1 | grep -q python",
-        ]
+      test: ["CMD-SHELL", "pidof python || pidof python3"]
       interval: 15s
       timeout: 5s
       retries: 10
