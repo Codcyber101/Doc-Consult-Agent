@@ -2,6 +2,24 @@ import yaml
 from typing import Dict, List
 from agents.src.common.llm import get_llm
 from langchain_core.prompts import ChatPromptTemplate
+from temporalio import workflow
+
+with workflow.unsafe.imports_passed_through():
+    from policy_research_agent.graph import build_research_graph
+
+@workflow.defn(name="PolicyResearchWorkflow")
+class ResearchWorkflow:
+    @workflow.run
+    async def run(self, data: Dict) -> str:
+        # data contains 'query' and 'jurisdiction' from backend
+        query = data.get("query")
+        jurisdiction = data.get("jurisdiction", "Federal")
+        
+        graph = build_research_graph()
+        result = await graph.ainvoke({"query": query, "iterations": 0})
+        
+        # For now, just return the raw text extracted or some summary
+        return result.get("raw_text", "No research findings found.")
 
 class PolicyDraftGenerator:
     def __init__(self):
