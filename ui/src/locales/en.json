@@ -1,0 +1,102 @@
+{
+  "common": {
+    "welcome": "Welcome back",
+    "services": "Services",
+    "trackStatus": "Track Status",
+    "support": "Support",
+    "dashboard": "Dashboard",
+    "myQueue": "My Queue",
+    "system": "System",
+    "mainMenu": "Main Menu",
+    "logout": "Logout",
+    "search": "Search",
+    "notifications": "Notifications"
+  },
+  "dashboard": {
+    "welcomeSub": "Start a service, finish your checklist, and track submissions in one place.",
+    "securityLevel": "Security Level",
+    "nationalIdBanner": "Secure your digital identity with the new National ID",
+    "applyNow": "Apply Now",
+    "learnMore": "Learn More",
+    "commonServices": "Common Services",
+    "viewCatalog": "View Catalog",
+    "needAssistance": "Need Assistance?",
+    "supportSub": "Our support team is available 24/7 to help you navigate through government services.",
+    "contactSupport": "Contact Support"
+  },
+  "services": {
+    "tradeLicense": {
+      "title": "Trade License Renewal",
+      "description": "Annual renewal of business operation permits for commercial entities. This process synchronizes your data with the National Trade Registry."
+    },
+    "tinRegistration": {
+      "title": "TIN Registration",
+      "description": "Get your Tax Identification Number instantly for new businesses."
+    },
+    "passport": {
+      "title": "Passport Services",
+      "description": "New issuance and renewal of Ethiopian passports."
+    },
+    "vitalEvents": {
+      "title": "Vital Events",
+      "description": "Register births, marriages, and other vital life events."
+    },
+    "badges": {
+      "online": "Online",
+      "inPerson": "In-Person",
+      "instant": "Instant"
+    },
+    "estimates": {
+      "days": "Est. {{count}} Days",
+      "weeks": "Est. {{count}} Weeks",
+      "instant": "Instant"
+    },
+    "start": "Start"
+  },
+  "readiness": {
+    "title": "Readiness Overview",
+    "subtitle": "Track your active applications",
+    "status": {
+      "approved": "Approved",
+      "pending": "Pending",
+      "rejected": "Rejected"
+    },
+    "viewAll": "View All Applications"
+  },
+  "catalog": {
+    "title": "Find Government Services",
+    "subtitle": "Transparent, efficient, and digital-first public services.",
+    "searchPlaceholder": "Search for licenses, passports, permits...",
+    "categories": {
+      "title": "Categories",
+      "subtitle": "Browse by sector",
+      "all": "All Services",
+      "business": "Business",
+      "personal": "Personal",
+      "legal": "Legal",
+      "immigration": "Immigration"
+    },
+    "popular": {
+      "title": "Popular Services",
+      "subtitle": "Most requested this week"
+    },
+    "readiness": "Digital Readiness",
+    "fee": "Fee",
+    "viewDetails": "View Details",
+    "loadMore": "Load More Services"
+  },
+  "details": {
+    "back": "Back to Directory",
+    "sovereignVerified": "Sovereign Verified",
+    "requiredArchives": "Required Archives",
+    "faqs": "FAQs",
+    "readyToStart": "Ready to Start?",
+    "wizardDescription": "Our automated agents will assist you in mapping your documents to compliance standards.",
+    "initializeWizard": "Initialize Wizard",
+    "duration": "Est. Duration",
+    "processingFee": "Processing Fee",
+    "dataPrivacy": "Data Privacy",
+    "dataPrivacySub": "This process uses end-to-end HSM encryption. Your documents are never stored in unmasked cleartext on cloud servers.",
+    "officialFlow": "Official Flow"
+  }
+}

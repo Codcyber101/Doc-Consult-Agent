@@ -1,18 +1,21 @@
 import React from "react";
 import { ArrowRight, Clock, Zap, Calendar, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 interface ServiceCardProps {
   title: string;
   description: string;
   icon: React.ReactNode;
-  badge?: "Online" | "In-Person" | "Instant";
+  badge?: "online" | "inPerson" | "instant";
   estimate: string;
   color?: "primary" | "blue" | "amber" | "purple";
   href?: string;
 }
 
-export function ServiceCard({ title, description, icon, badge = "Online", estimate, color = "primary", href = "#" }: ServiceCardProps) {
+export function ServiceCard({ title, description, icon, badge = "online", estimate, color = "primary", href = "#" }: ServiceCardProps) {
+  const { t } = useTranslation();
+  
   const colorStyles = {
     primary: "bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white",
     blue: "bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white",
@@ -21,9 +24,9 @@ export function ServiceCard({ title, description, icon, badge = "Online", estima
   };
 
   const badgeStyles = {
-    "Online": "bg-primary/10 text-primary border-primary/20 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800",
-    "In-Person": "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-900/30 dark:text-amber-300 dark:border-amber-800",
-    "Instant": "bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-900/30 dark:text-indigo-300 dark:border-indigo-800",
+    "online": "bg-primary/10 text-primary border-primary/20 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800",
+    "inPerson": "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-900/30 dark:text-amber-300 dark:border-amber-800",
+    "instant": "bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-900/30 dark:text-indigo-300 dark:border-indigo-800",
   };
 
   return (
@@ -42,7 +45,7 @@ export function ServiceCard({ title, description, icon, badge = "Online", estima
             {React.cloneElement(icon as any, { className: "w-6 h-6" })}
           </div>
           <span className={cn("px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border", badgeStyles[badge])}>
-            {badge}
+            {t(`services.badges.${badge}`)}
           </span>
         </div>
         
@@ -65,7 +68,7 @@ export function ServiceCard({ title, description, icon, badge = "Online", estima
            color === 'amber' && "text-amber-600",
            color === 'purple' && "text-indigo-600",
         )}>
-          Start <ArrowRight className="w-3.5 h-3.5" />
+          {t('services.start')} <ArrowRight className="w-3.5 h-3.5" />
         </div>
       </div>
     </a>

@@ -1,0 +1,4 @@
+.next_temp/
+.next_gemini/
+.next_test/
+cypress/screenshots/

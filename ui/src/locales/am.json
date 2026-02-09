@@ -1,0 +1,102 @@
+{
+  "common": {
+    "welcome": "እንኳን ደህና መጡ",
+    "services": "አገልግሎቶች",
+    "trackStatus": "ሁኔታውን ይከታተሉ",
+    "support": "ድጋፍ",
+    "dashboard": "ዳሽቦርድ",
+    "myQueue": "የኔ ተራ",
+    "system": "ሲስተም",
+    "mainMenu": "ዋናው ዝርዝር",
+    "logout": "ውጣ",
+    "search": "ፈልግ",
+    "notifications": "ማሳወቂያዎች"
+  },
+  "dashboard": {
+    "welcomeSub": "አገልግሎት ይጀምሩ፣ የማረጋገጫ ዝርዝርዎን ያጠናቅቁ እና ማስገቢያዎችን በአንድ ቦታ ይከታተሉ።",
+    "securityLevel": "የደህንነት ደረጃ",
+    "nationalIdBanner": "በአዲሱ ብሔራዊ መታወቂያ ዲጂታል ማንነትዎን ይጠብቁ",
+    "applyNow": "አሁን ያመልክቱ",
+    "learnMore": "የበለጠ ይረዱ",
+    "commonServices": "የተለመዱ አገልግሎቶች",
+    "viewCatalog": "ካታሎግ ይመልከቱ",
+    "needAssistance": "እርዳታ ይፈልጋሉ?",
+    "supportSub": "የድጋፍ ቡድናችን በመንግስት አገልግሎቶች ውስጥ እንዲጓዙ ለመርዳት በቀን 24 ሰዓት በሳምንት 7 ቀናት ይገኛል።",
+    "contactSupport": "ድጋፍ ያግኙ"
+  },
+  "services": {
+    "tradeLicense": {
+      "title": "የንግድ ፈቃድ እድሳት",
+      "description": "ለንግድ ድርጅቶች ዓመታዊ የንግድ ሥራ ፈቃድ እድሳት። ይህ ሂደት የእርስዎን ውሂብ ከአገር አቀፍ የንግድ መዝገብ ጋር ያመሳስላል።"
+    },
+    "tinRegistration": {
+      "title": "የቲን ምዝገባ",
+      "description": "ለአዳዲስ ንግዶች የግብር ከፋይ መለያ ቁጥርዎን ወዲያውኑ ያግኙ።"
+    },
+    "passport": {
+      "title": "የፓስፖርት አገልግሎቶች",
+      "description": "የኢትዮጵያ ፓስፖርት አዲስ መስጠትና ማደስ።"
+    },
+    "vitalEvents": {
+      "title": "ወሳኝ ኩነቶች",
+      "description": "ልደቶችን፣ ጋብቻዎችን እና ሌሎች ወሳኝ የሕይወት ኩነቶችን ይመዝግቡ።"
+    },
+    "badges": {
+      "online": "ኦንላይን",
+      "inPerson": "በአካል",
+      "instant": "ወዲያውኑ"
+    },
+    "estimates": {
+      "days": "ግምት {{count}} ቀናት",
+      "weeks": "ግምት {{count}} ሳምንታት",
+      "instant": "ወዲያውኑ"
+    },
+    "start": "ጀምር"
+  },
+  "readiness": {
+    "title": "የዝግጁነት አጠቃላይ እይታ",
+    "subtitle": "ንቁ ማመልከቻዎችዎን ይከታተሉ",
+    "status": {
+      "approved": "ጸድቋል",
+      "pending": "በጥበቃ ላይ",
+      "rejected": "ውድቅ ተደርጓል"
+    },
+    "viewAll": "ሁሉንም ማመልከቻዎች ይመልከቱ"
+  },
+  "catalog": {
+    "title": "የመንግስት አገልግሎቶችን ያግኙ",
+    "subtitle": "ግልጽ፣ ቀልጣፋ እና ዲጂታል-ቅድሚያ የህዝብ አገልግሎቶች።",
+    "searchPlaceholder": "ፈቃዶችን፣ ፓስፖርቶችን፣ ፈቃዶችን ይፈልጉ...",
+    "categories": {
+      "title": "ምድቦች",
+      "subtitle": "በዘርፍ ይፈልጉ",
+      "all": "ሁሉንም አገልግሎቶች",
+      "business": "ንግድ",
+      "personal": "የግል",
+      "legal": "ህጋዊ",
+      "immigration": "ኢሚግሬሽን"
+    },
+    "popular": {
+      "title": "ታዋቂ አገልግሎቶች",
+      "subtitle": "በዚህ ሳምንት በብዛት የተጠየቁ"
+    },
+    "readiness": "የዲጂታል ዝግጁነት",
+    "fee": "ክፍያ",
+    "viewDetails": "ዝርዝሮችን ይመልከቱ",
+    "loadMore": "ተጨማሪ አገልግሎቶችን ጫን"
+  },
+  "details": {
+    "back": "ወደ ማውጫው ተመለስ",
+    "sovereignVerified": "በሉዓላዊነት የተረጋገጠ",
+    "requiredArchives": "አስፈላጊ ሰነዶች",
+    "faqs": "ተደጋግሞ የሚነሱ ጥያቄዎች",
+    "readyToStart": "ለመጀመር ተዘጋጅተዋል?",
+    "wizardDescription": "የእኛ አውቶማቲክ ወኪሎች ሰነዶችዎን ከማክበሪያ ደረጃዎች ጋር ለማቀናጀት ይረዱዎታል።",
+    "initializeWizard": "ጠንቋዩን ያስጀምሩ",
+    "duration": "ግምት የሚፈጅ ጊዜ",
+    "processingFee": "የአገልግሎት ክፍያ",
+    "dataPrivacy": "የውሂብ ግላዊነት",
+    "dataPrivacySub": "ይህ ሂደት ከጫፍ እስከ ጫፍ የ HSM ምስጠራን ይጠቀማል። የእርስዎ ሰነዶች በደመና አገልጋዮች ላይ በማይታወቅ ግልጽ ጽሑፍ ውስጥ በጭራሽ አይቀመጡም።",
+    "officialFlow": "ይፋዊ ፍሰት"
+  }
+}

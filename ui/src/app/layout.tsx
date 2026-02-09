@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { Public_Sans, Noto_Sans_Ethiopic } from "next/font/google";
 import "./globals.css";
 import { ToastProvider } from "@/components/common/Toast";
+import { I18nInitializer } from "@/components/common/I18nInitializer";
 
 const publicSans = Public_Sans({
   subsets: ["latin"],
@@ -31,9 +32,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${publicSans.variable} ${notoSansEthiopic.variable} font-sans antialiased min-h-screen bg-background text-foreground grain`}>
-        <ToastProvider>
-          {children}
-        </ToastProvider>
+        <I18nInitializer>
+          <ToastProvider>
+            {children}
+          </ToastProvider>
+        </I18nInitializer>
       </body>
     </html>
   );

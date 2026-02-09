@@ -16,9 +16,11 @@ import {
   Database
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 export function AppSidebar() {
   const pathname = usePathname();
+  const { t } = useTranslation();
 
   return (
     <aside className="hidden lg:flex w-72 flex-col bg-surface dark:bg-slate-950 border-r border-border dark:border-slate-800 h-screen fixed inset-y-0 z-40 transition-all duration-300">
@@ -37,32 +39,31 @@ export function AppSidebar() {
 
       {/* Navigation */}
       <nav className="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
-        <p className="px-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Main Menu</p>
+        <p className="px-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">{t('common.mainMenu')}</p>
         
         <NavItem 
           href="/" 
           icon={<LayoutDashboard className="w-5 h-5" />} 
-          label="Dashboard" 
+          label={t('common.dashboard')} 
           active={pathname === "/"} 
         />
         <NavItem 
           href="/services" 
           icon={<Files className="w-5 h-5" />} 
-          label="Services" 
+          label={t('common.services')} 
           active={pathname === "/services"} 
         />
         <NavItem 
           href="/queue" 
           icon={<History className="w-5 h-5" />} 
-          label="My Queue" 
-          subLabel="የኔ ተራ"
+          label={t('common.myQueue')} 
           active={pathname === "/queue"} 
           badge="3"
         />
         
         <div className="my-6 border-t border-border dark:border-slate-800" />
         
-        <p className="px-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">System</p>
+        <p className="px-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">{t('common.system')}</p>
         
         <div className="px-3 py-2">
           <div className="bg-surface-muted dark:bg-slate-900/50 rounded-xl p-4 border border-border dark:border-slate-800">

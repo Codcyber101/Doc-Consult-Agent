@@ -19,28 +19,52 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 
-const SERVICE_DATA: Record<string, any> = {
-  'trade-license': {
-    title: 'Trade License Renewal',
-    description: 'Annual renewal of business operation permits for commercial entities. This process synchronizes your data with the National Trade Registry.',
-    category: 'Business',
-    estimatedTime: '2-3 Days',
-    cost: '500 ETB',
-    requirements: [
-      { name: 'Resident ID / Passport', type: 'Primary Identification', icon: <FileText className="w-4 h-4" /> },
-      { name: 'TIN Certificate', type: 'Tax Identification', icon: <FileText className="w-4 h-4" /> },
-      { name: 'Previous License Scan', type: 'Record Verification', icon: <FileText className="w-4 h-4" /> },
-      { name: 'Lease Agreement', type: 'Physical Presence', icon: <FileText className="w-4 h-4" /> }
-    ],
-    faqs: [
-      { q: 'Can I renew if my lease has expired?', a: 'No, you must upload a valid or notarized extension of your lease agreement.' },
-      { q: 'Is physical presence required?', a: 'This is a digital-first process. Physical presence is only required if biometrics are outdated.' }
-    ]
-  }
-};
+"use client";
+
+import React from 'react';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { useTranslation } from "react-i18next";
+import { 
+  ArrowLeft, 
+  Clock, 
+  CheckCircle2, 
+  FileText, 
+  AlertCircle, 
+  ShieldCheck, 
+  Briefcase,
+  HelpCircle,
+  Play
+} from 'lucide-react';
+import { Navbar } from '@/components/domain/Navbar';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 
 export default function ServiceDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = React.use(params);
+  const { t } = useTranslation();
+
+  const SERVICE_DATA: Record<string, any> = {
+    'trade-license': {
+      title: t('services.tradeLicense.title'),
+      description: t('services.tradeLicense.description'),
+      category: t('catalog.categories.business'),
+      estimatedTime: t('services.estimates.days', { count: 3 }),
+      cost: '500 ETB',
+      requirements: [
+        { name: 'Resident ID / Passport', type: 'Primary Identification', icon: <FileText className="w-4 h-4" /> },
+        { name: 'TIN Certificate', type: 'Tax Identification', icon: <FileText className="w-4 h-4" /> },
+        { name: 'Previous License Scan', type: 'Record Verification', icon: <FileText className="w-4 h-4" /> },
+        { name: 'Lease Agreement', type: 'Physical Presence', icon: <FileText className="w-4 h-4" /> }
+      ],
+      faqs: [
+        { q: 'Can I renew if my lease has expired?', a: 'No, you must upload a valid or notarized extension of your lease agreement.' },
+        { q: 'Is physical presence required?', a: 'This is a digital-first process. Physical presence is only required if biometrics are outdated.' }
+      ]
+    }
+  };
+
   const service = SERVICE_DATA[id] || SERVICE_DATA['trade-license']; // Fallback for demo
 
   return (
@@ -51,7 +75,7 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ id: st
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
         <Link href="/services">
           <Button variant="ghost" className="mb-8 gap-2 text-slate-500 hover:text-slate-900">
-            <ArrowLeft className="w-4 h-4" /> Back to Directory
+            <ArrowLeft className="w-4 h-4" /> {t('details.back')}
           </Button>
         </Link>
 
@@ -67,7 +91,7 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ id: st
                    {service.category}
                  </span>
                  <div className="flex items-center gap-1 text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-4">
-                    <ShieldCheck className="w-3 h-3 text-primary" /> Sovereign Verified
+                    <ShieldCheck className="w-3 h-3 text-primary" /> {t('details.sovereignVerified')}
                  </div>
               </div>
               <h1 className="text-4xl md:text-5xl font-display font-bold text-slate-900 tracking-tight">
@@ -82,7 +106,7 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ id: st
 
             {/* Checklist */}
             <section className="space-y-6">
-               <h3 className="text-xl font-display font-bold text-slate-900">Required Archives</h3>
+               <h3 className="text-xl font-display font-bold text-slate-900">{t('details.requiredArchives')}</h3>
                <div className="grid gap-4">
                   {service.requirements.map((req: any, i: number) => (
                     <motion.div 
@@ -110,7 +134,7 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ id: st
             {/* FAQ */}
             <section className="space-y-6">
                <h3 className="text-xl font-display font-bold text-slate-900 flex items-center gap-2">
-                  <HelpCircle className="w-5 h-5 text-primary" /> FAQs
+                  <HelpCircle className="w-5 h-5 text-primary" /> {t('details.faqs')}
                </h3>
                <div className="space-y-4">
                   {service.faqs.map((faq: any, i: number) => (
@@ -129,24 +153,24 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ id: st
                 <CardHeader className="bg-primary text-white p-8">
                    <div className="flex justify-between items-center mb-4">
                       <Briefcase className="w-8 h-8 opacity-50" />
-                      <span className="text-[10px] font-black uppercase tracking-[0.2em] bg-white/20 px-3 py-1 rounded-full">Official Flow</span>
+                      <span className="text-[10px] font-black uppercase tracking-[0.2em] bg-white/20 px-3 py-1 rounded-full">{t('details.officialFlow')}</span>
                    </div>
-                   <CardTitle className="text-2xl text-white">Ready to Start?</CardTitle>
+                   <CardTitle className="text-2xl text-white">{t('details.readyToStart')}</CardTitle>
                    <CardDescription className="text-slate-200 font-medium opacity-90">
-                      Our automated agents will assist you in mapping your documents to compliance standards.
+                      {t('details.wizardDescription')}
                    </CardDescription>
                 </CardHeader>
                 <CardContent className="p-8 space-y-8 bg-surface">
                    <div className="grid grid-cols-2 gap-6">
                       <div className="space-y-1">
-                         <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Est. Duration</p>
+                         <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{t('details.duration')}</p>
                          <div className="flex items-center gap-2 text-slate-900">
                             <Clock className="w-4 h-4 text-primary" />
                             <span className="font-bold">{service.estimatedTime}</span>
                          </div>
                       </div>
                       <div className="space-y-1">
-                         <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Processing Fee</p>
+                         <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">{t('details.processingFee')}</p>
                          <div className="flex items-center gap-2 text-slate-900">
                             <span className="font-black text-lg">{service.cost}</span>
                          </div>
@@ -156,13 +180,13 @@ export default function ServiceDetailPage({ params }: { params: Promise<{ id: st
                    <div className="p-4 bg-primary/10 rounded-xl flex items-start gap-3">
                       <AlertCircle className="w-5 h-5 text-primary mt-0.5 shrink-0" />
                       <p className="text-xs text-slate-800 leading-relaxed">
-                         <strong>Data Privacy:</strong> This process uses end-to-end HSM encryption. Your documents are never stored in unmasked cleartext on cloud servers.
+                         <strong>{t('details.dataPrivacy')}:</strong> {t('details.dataPrivacySub')}
                       </p>
                    </div>
 
                    <Link href={`/flows/${id}`}>
                       <Button className="w-full h-16 rounded-2xl bg-slate-900 hover:bg-primary-dark text-white text-lg font-bold gap-3 shadow-xl">
-                         Initialize Wizard <Play className="w-5 h-5 text-gold-500 fill-gold-500" />
+                         {t('details.initializeWizard')} <Play className="w-5 h-5 text-gold-500 fill-gold-500" />
                       </Button>
                    </Link>
 
