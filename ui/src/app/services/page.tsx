@@ -2,28 +2,6 @@
 
 import React, { useState } from "react";
 import { AppSidebar } from "@/components/layout/AppSidebar";
-import { 
-  Search, 
-  Store, 
-  Briefcase, 
-  User, 
-  Gavel, 
-  Plane, 
-  ArrowRight,
-  Clock,
-  BadgeCheck,
-  Zap,
-  TrendingUp,
-  Baby,
-  Building,
-  Filter
-} from "lucide-react";
-import { cn } from "@/lib/utils";
-
-"use client";
-
-import React, { useState } from "react";
-import { AppSidebar } from "@/components/layout/AppSidebar";
 import { useTranslation } from "react-i18next";
 import { 
   Search, 
@@ -238,7 +216,7 @@ function CategoryItem({ icon, label, active }: { icon: React.ReactNode, label: s
   );
 }
 
-function PopularServiceItem({ title, sub, icon, color }: { title: string, sub: string, icon: React.ReactNode, color: "blue" | "amber" | "purple" }) {
+function PopularServiceItem({ title, sub, icon, color }: { title: string, sub?: string, icon: React.ReactNode, color: "blue" | "amber" | "purple" }) {
   const bgColors = {
     blue: "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400",
     amber: "bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400",
@@ -252,7 +230,7 @@ function PopularServiceItem({ title, sub, icon, color }: { title: string, sub: s
       </div>
       <div>
         <p className="text-sm font-bold text-slate-700 dark:text-slate-200 group-hover:text-primary transition-colors">{title}</p>
-        <p className="text-[10px] text-slate-400 font-ethiopic">{sub}</p>
+        {sub && <p className="text-[10px] text-slate-400 font-ethiopic">{sub}</p>}
       </div>
     </div>
   );

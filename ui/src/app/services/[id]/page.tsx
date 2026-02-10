@@ -1,24 +1,3 @@
-'use client';
-
-import React from 'react';
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { 
-  ArrowLeft, 
-  Clock, 
-  CheckCircle2, 
-  FileText, 
-  AlertCircle, 
-  ShieldCheck, 
-  Briefcase,
-  HelpCircle,
-  Play
-} from 'lucide-react';
-import { Navbar } from '@/components/domain/Navbar';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-
 "use client";
 
 import React from 'react';
@@ -41,8 +20,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 
-export default function ServiceDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = React.use(params);
+export default function ServiceDetailPage({ params }: { params: Promise<{ id: string }> }) {  const { id } = React.use(params);
   const { t } = useTranslation();
 
   const SERVICE_DATA: Record<string, any> = {
