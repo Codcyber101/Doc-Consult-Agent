@@ -4,6 +4,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Globe, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 const languages = [
   { code: 'en', name: 'English', native: 'English' },
@@ -11,13 +12,15 @@ const languages = [
 ];
 
 export const LanguageSwitcher = () => {
+  const { i18n } = useTranslation();
   const [isOpen, setIsOpen] = React.useState(false);
-  const [currentLang, setCurrentLang] = React.useState('en');
+  const currentLang = i18n.language || 'en';
 
   return (
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
+        data-testid="language-switcher"
         className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-surface-muted transition-colors text-slate-600 hover:text-slate-900 border border-transparent hover:border-border"
       >
         <Globe className="h-4 w-4" />
@@ -41,8 +44,9 @@ export const LanguageSwitcher = () => {
                 {languages.map((lang) => (
                   <button
                     key={lang.code}
+                    data-testid={`lang-option-${lang.code}`}
                     onClick={() => {
-                      setCurrentLang(lang.code);
+                      i18n.changeLanguage(lang.code);
                       setIsOpen(false);
                     }}
                     className={cn(

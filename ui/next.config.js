@@ -8,7 +8,7 @@ const withPWA = require('next-pwa')({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  distDir: '.next_temp',
+  distDir: process.env.NEXT_DIST_DIR || '.next_temp',
   // Ensure we can use images from potential external sources if needed
   images: {
     remotePatterns: [

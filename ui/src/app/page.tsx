@@ -1,8 +1,11 @@
+"use client";
+
 import React from "react";
 import { AppSidebar } from "@/components/layout/AppSidebar";
 import { Header } from "@/components/layout/Header";
 import { ServiceCard } from "@/components/dashboard/ServiceCard";
 import { ReadinessOverview } from "@/components/dashboard/ReadinessOverview";
+import { useTranslation } from "react-i18next";
 import { 
   BadgeCheck, 
   Store, 
@@ -17,6 +20,8 @@ import {
 } from "lucide-react";
 
 export default function DashboardPage() {
+  const { t } = useTranslation();
+
   return (
     <div className="flex min-h-screen bg-background text-foreground font-sans selection:bg-primary/20">
       <AppSidebar />
@@ -30,17 +35,17 @@ export default function DashboardPage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div className="space-y-2">
               <h1 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white font-display">
-                Welcome back, Abebe
+                {t('common.welcome')}, Abebe
               </h1>
               <p className="text-slate-500 dark:text-slate-400 font-medium">
-                Start a service, finish your checklist, and track submissions in one place.
+                {t('dashboard.welcomeSub')}
               </p>
             </div>
             
             <div className="hidden md:flex items-center gap-2 px-4 py-2 bg-primary/10 dark:bg-blue-900/20 border border-primary/20 dark:border-blue-800 rounded-full">
               <Fingerprint className="w-4 h-4 text-primary" />
               <div className="flex flex-col leading-none">
-                <span className="text-[10px] uppercase text-slate-500 font-bold tracking-wider">Security Level</span>
+                <span className="text-[10px] uppercase text-slate-500 font-bold tracking-wider">{t('dashboard.securityLevel')}</span>
                 <span className="text-xs font-bold text-primary">Level 2 - Biometric</span>
               </div>
             </div>
@@ -62,14 +67,14 @@ export default function DashboardPage() {
                    New Digital ID Available
                 </div>
                 <h2 className="text-3xl md:text-5xl font-bold text-white font-display leading-tight">
-                   Secure your digital identity with the new <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200">National ID</span>
+                   {t('dashboard.nationalIdBanner')}
                 </h2>
                 <div className="flex gap-4">
                    <button className="px-6 py-3 bg-surface text-blue-950 font-bold rounded-xl hover:bg-blue-50 transition-all shadow-lg shadow-black/20 hover:-translate-y-0.5">
-                      Apply Now
+                      {t('dashboard.applyNow')}
                    </button>
                    <button className="px-6 py-3 bg-white/10 text-white font-bold rounded-xl hover:bg-white/20 transition-colors backdrop-blur-md">
-                      Learn More
+                      {t('dashboard.learnMore')}
                    </button>
                 </div>
              </div>
@@ -83,45 +88,45 @@ export default function DashboardPage() {
                 <div className="flex items-center justify-between">
                    <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                       <Store className="w-5 h-5 text-slate-400" />
-                      Common Services
+                      {t('dashboard.commonServices')}
                    </h3>
                    <a href="/services" className="text-sm font-bold text-primary hover:text-primary-dark flex items-center gap-1">
-                      View Catalog <ChevronRight className="w-4 h-4" />
+                      {t('dashboard.viewCatalog')} <ChevronRight className="w-4 h-4" />
                    </a>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                    <ServiceCard 
-                      title="Trade License Renewal" 
-                      description="Renew your business operating license for the 2016 fiscal year."
+                      title={t('services.tradeLicense.title')} 
+                      description={t('services.tradeLicense.description')}
                       icon={<Store className="w-6 h-6" />}
-                      estimate="Est. 2 Days"
-                      badge="Online"
+                      estimate={t('services.estimates.days', { count: 2 })}
+                      badge="online"
                       color="blue"
                       href="/flows/trade-license"
                    />
                    <ServiceCard 
-                      title="TIN Registration" 
-                      description="Get your Tax Identification Number instantly for new businesses."
+                      title={t('services.tinRegistration.title')} 
+                      description={t('services.tinRegistration.description')}
                       icon={<BadgeCheck className="w-6 h-6" />}
-                      estimate="Instant"
-                      badge="Instant"
+                      estimate={t('services.estimates.instant')}
+                      badge="instant"
                       color="blue"
                    />
                    <ServiceCard 
-                      title="Passport Services" 
-                      description="New issuance and renewal of Ethiopian passports."
+                      title={t('services.passport.title')} 
+                      description={t('services.passport.description')}
                       icon={<Plane className="w-6 h-6" />}
-                      estimate="Est. 2 Weeks"
-                      badge="In-Person"
+                      estimate={t('services.estimates.weeks', { count: 2 })}
+                      badge="inPerson"
                       color="amber"
                    />
                    <ServiceCard 
-                      title="Vital Events" 
-                      description="Register births, marriages, and other vital life events."
+                      title={t('services.vitalEvents.title')} 
+                      description={t('services.vitalEvents.description')}
                       icon={<Baby className="w-6 h-6" />}
-                      estimate="Est. 1 Day"
-                      badge="Online"
+                      estimate={t('services.estimates.days', { count: 1 })}
+                      badge="online"
                       color="purple"
                    />
                 </div>
@@ -136,12 +141,12 @@ export default function DashboardPage() {
                    <div className="absolute top-0 right-0 p-8 opacity-10 transform translate-x-4 -translate-y-4 group-hover:scale-110 transition-transform duration-700">
                       <Gavel width="120" height="120" />
                    </div>
-                   <h3 className="font-display font-bold text-xl mb-2 relative z-10">Need Assistance?</h3>
+                   <h3 className="font-display font-bold text-xl mb-2 relative z-10">{t('dashboard.needAssistance')}</h3>
                    <p className="text-blue-100 text-sm mb-6 leading-relaxed relative z-10 max-w-[80%]">
-                      Our support team is available 24/7 to help you navigate through government services.
+                      {t('dashboard.supportSub')}
                    </p>
                    <button className="bg-surface text-blue-700 text-sm font-bold py-3 px-5 rounded-xl hover:bg-blue-50 transition-colors shadow-lg shadow-black/10 relative z-10 w-full sm:w-auto">
-                      Contact Support
+                      {t('dashboard.contactSupport')}
                    </button>
                 </div>
              </div>

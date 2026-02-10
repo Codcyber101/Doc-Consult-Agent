@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { AppSidebar } from "@/components/layout/AppSidebar";
+import { useTranslation } from "react-i18next";
 import { 
   Search, 
   Store, 
@@ -22,6 +23,7 @@ import { cn } from "@/lib/utils";
 
 export default function ServicesPage() {
   const [activeFilter, setActiveFilter] = useState("all");
+  const { t } = useTranslation();
 
   return (
     <div className="flex min-h-screen bg-background text-foreground font-sans selection:bg-primary/20">
@@ -40,32 +42,32 @@ export default function ServicesPage() {
             {/* Categories */}
             <div className="flex flex-col gap-4">
               <div className="flex flex-col pb-2 border-b border-border dark:border-slate-800">
-                <h1 className="text-base font-bold font-display">Categories</h1>
-                <p className="text-slate-500 dark:text-slate-400 text-xs font-medium">Browse by sector</p>
+                <h1 className="text-base font-bold font-display">{t('catalog.categories.title')}</h1>
+                <p className="text-slate-500 dark:text-slate-400 text-xs font-medium">{t('catalog.categories.subtitle')}</p>
               </div>
               <nav className="flex flex-col gap-1">
                 <CategoryItem 
                   icon={<div className="grid grid-cols-2 gap-0.5 size-4"><div className="bg-current rounded-[1px]"/><div className="bg-current rounded-[1px]"/><div className="bg-current rounded-[1px]"/><div className="bg-current rounded-[1px]"/></div>} 
-                  label="All Services" 
-                  active 
+                  label={t('catalog.categories.all')} 
+                  active={activeFilter === 'all'} 
                 />
-                <CategoryItem icon={<Briefcase className="w-4 h-4" />} label="Business (ንግድ)" />
-                <CategoryItem icon={<User className="w-4 h-4" />} label="Personal (የግል)" />
-                <CategoryItem icon={<Gavel className="w-4 h-4" />} label="Legal (ህጋዊ)" />
-                <CategoryItem icon={<Plane className="w-4 h-4" />} label="Immigration" />
+                <CategoryItem icon={<Briefcase className="w-4 h-4" />} label={t('catalog.categories.business')} active={activeFilter === 'business'} />
+                <CategoryItem icon={<User className="w-4 h-4" />} label={t('catalog.categories.personal')} active={activeFilter === 'personal'} />
+                <CategoryItem icon={<Gavel className="w-4 h-4" />} label={t('catalog.categories.legal')} active={activeFilter === 'legal'} />
+                <CategoryItem icon={<Plane className="w-4 h-4" />} label={t('catalog.categories.immigration')} active={activeFilter === 'immigration'} />
               </nav>
             </div>
 
             {/* Popular Services Widget */}
             <div className="flex flex-col gap-4">
               <div className="flex flex-col pb-2 border-b border-border dark:border-slate-800">
-                <h1 className="text-base font-bold font-display">Popular Services</h1>
-                <p className="text-slate-500 dark:text-slate-400 text-xs font-medium">Most requested this week</p>
+                <h1 className="text-base font-bold font-display">{t('catalog.popular.title')}</h1>
+                <p className="text-slate-500 dark:text-slate-400 text-xs font-medium">{t('catalog.popular.subtitle')}</p>
               </div>
               <div className="flex flex-col gap-2">
-                <PopularServiceItem title="Passport Renewal" sub="ፓስፖርት እድሳት" icon={<Plane className="w-3.5 h-3.5" />} color="blue" />
-                <PopularServiceItem title="Drivers License" sub="የመንጃ ፈቃድ" icon={<User className="w-3.5 h-3.5" />} color="amber" />
-                <PopularServiceItem title="Tax Clearance" sub="የግብር ክሊራንስ" icon={<Briefcase className="w-3.5 h-3.5" />} color="purple" />
+                <PopularServiceItem title={t('services.passport.title')} icon={<Plane className="w-3.5 h-3.5" />} color="blue" />
+                <PopularServiceItem title="Drivers License" icon={<User className="w-3.5 h-3.5" />} color="amber" />
+                <PopularServiceItem title="Tax Clearance" icon={<Briefcase className="w-3.5 h-3.5" />} color="purple" />
               </div>
             </div>
 
@@ -74,10 +76,10 @@ export default function ServicesPage() {
               <div className="absolute -right-4 -top-4 opacity-10">
                 <User className="w-24 h-24" />
               </div>
-              <h3 className="font-bold mb-2 text-primary/80 relative z-10 font-display">Need Help?</h3>
-              <p className="text-xs text-slate-300 mb-4 relative z-10 leading-relaxed">Our support center is available 24/7 to assist with your applications.</p>
+              <h3 className="font-bold mb-2 text-primary/80 relative z-10 font-display">{t('dashboard.needAssistance')}</h3>
+              <p className="text-xs text-slate-300 mb-4 relative z-10 leading-relaxed">{t('dashboard.supportSub')}</p>
               <button className="w-full py-2.5 bg-white/10 hover:bg-white/20 text-white text-xs font-bold rounded-xl border border-white/10 transition-colors relative z-10 backdrop-blur-sm">
-                Contact Support
+                {t('dashboard.contactSupport')}
               </button>
             </div>
           </aside>
@@ -87,9 +89,9 @@ export default function ServicesPage() {
             {/* Headlines */}
             <div className="mb-8">
               <h1 className="text-3xl font-black text-slate-900 dark:text-white leading-tight mb-2 font-display">
-                Find Government Services <span className="block text-xl md:inline md:text-2xl text-slate-400 font-ethiopic font-normal md:ml-2">/ የመንግስት አገልግሎቶችን ያግኙ</span>
+                {t('catalog.title')}
               </h1>
-              <p className="text-slate-500 dark:text-slate-400 font-medium">Transparent, efficient, and digital-first public services.</p>
+              <p className="text-slate-500 dark:text-slate-400 font-medium">{t('catalog.subtitle')}</p>
             </div>
 
             {/* Search Bar */}
@@ -102,13 +104,13 @@ export default function ServicesPage() {
                   <input 
                     type="text" 
                     className="block w-full pl-11 pr-4 py-3 bg-transparent border-none text-slate-900 dark:text-white placeholder-slate-400 focus:ring-0 sm:text-sm font-medium h-full" 
-                    placeholder="Search for licenses, passports, permits... (ለምሳሌ፦ ንግድ ፈቃድ)" 
+                    placeholder={t('catalog.searchPlaceholder')} 
                   />
                 </div>
                 <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 px-2 md:px-0 scrollbar-hide">
-                  <FilterButton label="All Services" active={activeFilter === "all"} onClick={() => setActiveFilter("all")} />
-                  <FilterButton label="Business (ንግድ)" active={activeFilter === "business"} onClick={() => setActiveFilter("business")} />
-                  <FilterButton label="Personal (የግል)" active={activeFilter === "personal"} onClick={() => setActiveFilter("personal")} />
+                  <FilterButton label={t('catalog.categories.all')} active={activeFilter === "all"} onClick={() => setActiveFilter("all")} />
+                  <FilterButton label={t('catalog.categories.business')} active={activeFilter === "business"} onClick={() => setActiveFilter("business")} />
+                  <FilterButton label={t('catalog.categories.personal')} active={activeFilter === "personal"} onClick={() => setActiveFilter("personal")} />
                 </div>
               </div>
             </div>
@@ -117,33 +119,43 @@ export default function ServicesPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               
               <CatalogCard 
-                title="New Business License"
-                subtitle="አዲስ የንግድ ፈቃድ"
+                title={t('services.tradeLicense.title')}
+                subtitle={t('services.tradeLicense.description')}
                 icon={<Store className="w-5 h-5" />}
                 color="primary"
-                time="3-5 Working Days"
+                time={t('services.estimates.days', { count: 3 })}
                 digitalReadiness={85}
                 fee="500 ETB"
               />
 
               <CatalogCard 
-                title="Passport Issuance"
-                subtitle="የፓስፖርት አገልግሎት"
+                title={t('services.passport.title')}
+                subtitle={t('services.passport.description')}
                 icon={<Plane className="w-5 h-5" />}
                 color="blue"
-                time="15-30 Days"
+                time={t('services.estimates.weeks', { count: 3 })}
                 digitalReadiness={40}
                 fee="2,000 ETB"
               />
 
               <CatalogCard 
-                title="VAT Registration"
-                subtitle="የተጨማሪ እሴት ታክስ ምዝገባ"
+                title={t('services.tinRegistration.title')}
+                subtitle={t('services.tinRegistration.description')}
                 icon={<BadgeCheck className="w-5 h-5" />}
                 color="purple"
-                time="1 Day Instant"
+                time={t('services.estimates.instant')}
                 digitalReadiness={100}
                 fee="Free"
+              />
+
+              <CatalogCard 
+                title={t('services.vitalEvents.title')}
+                subtitle={t('services.vitalEvents.description')}
+                icon={<Baby className="w-5 h-5" />}
+                color="pink"
+                time={t('services.estimates.days', { count: 1 })}
+                digitalReadiness={95}
+                fee="50 ETB"
               />
 
               <CatalogCard 
@@ -154,16 +166,6 @@ export default function ServicesPage() {
                 time="5-7 Working Days"
                 digitalReadiness={60}
                 fee="3,500 ETB"
-              />
-
-              <CatalogCard 
-                title="Birth Certificate"
-                subtitle="የልደት የምስክር ወረቀት"
-                icon={<Baby className="w-5 h-5" />}
-                color="pink"
-                time="Same Day"
-                digitalReadiness={95}
-                fee="50 ETB"
               />
 
               <CatalogCard 
@@ -181,7 +183,7 @@ export default function ServicesPage() {
             {/* Pagination */}
             <div className="mt-12 flex justify-center">
               <button className="flex items-center gap-2 px-6 py-3 border border-border dark:border-slate-800 rounded-xl hover:border-primary/50 hover:text-primary bg-surface dark:bg-slate-900 transition-all font-bold text-sm shadow-sm hover:shadow-md">
-                Load More Services
+                {t('catalog.loadMore')}
                 <div className="grid grid-cols-2 gap-0.5 size-3.5 opacity-50">
                    <div className="bg-current rounded-[0.5px]"/>
                    <div className="bg-current rounded-[0.5px]"/>
@@ -214,7 +216,7 @@ function CategoryItem({ icon, label, active }: { icon: React.ReactNode, label: s
   );
 }
 
-function PopularServiceItem({ title, sub, icon, color }: { title: string, sub: string, icon: React.ReactNode, color: "blue" | "amber" | "purple" }) {
+function PopularServiceItem({ title, sub, icon, color }: { title: string, sub?: string, icon: React.ReactNode, color: "blue" | "amber" | "purple" }) {
   const bgColors = {
     blue: "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400",
     amber: "bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400",
@@ -228,7 +230,7 @@ function PopularServiceItem({ title, sub, icon, color }: { title: string, sub: s
       </div>
       <div>
         <p className="text-sm font-bold text-slate-700 dark:text-slate-200 group-hover:text-primary transition-colors">{title}</p>
-        <p className="text-[10px] text-slate-400 font-ethiopic">{sub}</p>
+        {sub && <p className="text-[10px] text-slate-400 font-ethiopic">{sub}</p>}
       </div>
     </div>
   );
