@@ -9,6 +9,7 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
+ENV NEXT_DIST_DIR=.next
 RUN npm run build
 
 FROM node:20-slim

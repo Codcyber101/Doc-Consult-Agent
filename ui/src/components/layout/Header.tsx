@@ -15,8 +15,7 @@ export function Header() {
           <div className="flex items-center justify-center size-8 rounded bg-primary/10 text-primary">
             <span className="font-bold text-lg">G</span>
           </div>
-          <h2 className="text-lg font-bold leading-tight tracking-tight hidden sm:block">GovAssist Ethiopia</h2>
-          <h2 className="text-lg font-bold leading-tight tracking-tight block sm:hidden">GovAssist</h2>
+          <h2 className="text-lg font-bold leading-tight tracking-tight">GovAssist Ethiopia</h2>
         </div>
 
         <div className="flex items-center gap-4 md:gap-8">
