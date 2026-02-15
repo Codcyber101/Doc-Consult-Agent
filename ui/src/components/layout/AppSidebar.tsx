@@ -23,7 +23,7 @@ export function AppSidebar() {
   const { t } = useTranslation();
 
   return (
-    <aside className="hidden lg:flex w-72 flex-col bg-surface dark:bg-slate-950 border-r border-border dark:border-slate-800 h-screen fixed inset-y-0 z-40 transition-all duration-300">
+    <aside className="flex w-72 flex-col bg-surface dark:bg-slate-950 border-r border-border dark:border-slate-800 h-screen fixed inset-y-0 z-40 transition-all duration-300">
       {/* Logo Area */}
       <div className="p-6 pb-2">
         <Link href="/" className="flex items-center gap-3 group">

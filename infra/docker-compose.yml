@@ -67,7 +67,7 @@ services:
     image: govassist-backend:dev
     build:
       context: ../backend
-    command: sh -c "npm install && npx nest build && npx nest start"
+    command: npm run start:dev
     ports:
       - "3001:3000"
     environment:
@@ -111,16 +111,12 @@ services:
     image: govassist-ui:dev
     build:
       context: ../ui
-    command: npm run dev
+    command: npm run start
     ports:
       - "3000:3000"
-    environment:
-      NODE_ENV: development
     depends_on:
       - backend
-    volumes:
-      - ../ui:/app
-      - /app/node_modules
+    # Removed volume mount to use build in image
     healthcheck:
       test:
         [

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState } from "react";
 import { AppSidebar } from "@/components/layout/AppSidebar";
@@ -29,7 +29,7 @@ export default function ServicesPage() {
     <div className="flex min-h-screen bg-background text-foreground font-sans selection:bg-primary/20">
       <AppSidebar />
       
-      <main className="flex-1 lg:pl-72 flex flex-col min-w-0">
+      <main className="flex-1 pl-72 flex flex-col min-w-0">
         {/* Mobile Header */}
         <div className="lg:hidden h-16 border-b border-border dark:border-slate-800 flex items-center px-4 sticky top-0 bg-surface/80 dark:bg-slate-950/80 backdrop-blur-md z-30">
            <span className="font-bold text-lg font-display">GovAssist</span>
@@ -38,7 +38,7 @@ export default function ServicesPage() {
         <div className="flex-1 container mx-auto max-w-7xl px-4 md:px-6 pt-6 pb-12 gap-8 flex flex-col lg:flex-row">
           
           {/* Left Sidebar (Filters) */}
-          <aside className="hidden lg:flex w-64 flex-col gap-8 shrink-0 sticky top-6 self-start">
+          <aside className="flex w-64 flex-col gap-8 shrink-0 sticky top-6 self-start">
             {/* Categories */}
             <div className="flex flex-col gap-4">
               <div className="flex flex-col pb-2 border-b border-border dark:border-slate-800">

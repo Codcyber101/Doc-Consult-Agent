@@ -161,6 +161,7 @@ export default function TradeLicenseWizard() {
                 Ensure you have your <strong>Original ID</strong> and <strong>TIN Certificate</strong> scans ready before proceeding.
               </p>
            </div>
+           <Input label="Document ID Number" placeholder="e.g. 123456789" />
         </div>
       )}
 

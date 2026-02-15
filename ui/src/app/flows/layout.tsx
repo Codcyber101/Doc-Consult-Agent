@@ -36,8 +36,8 @@ export default function WizardLayout({
               <Link href="/" className="p-2 hover:bg-surface-muted rounded-xl transition-colors text-slate-400 hover:text-slate-900">
                 <X className="h-5 w-5" />
               </Link>
-              <div className="h-6 w-[1px] bg-border hidden sm:block"></div>
-              <div className="hidden sm:block">
+              <div className="h-6 w-[1px] bg-border"></div>
+              <div>
                 <p className="text-[10px] font-black text-primary uppercase tracking-[0.2em] leading-none mb-1">Application</p>
                 <h2 className="text-sm font-black text-slate-900 leading-none">Trade License Renewal</h2>
               </div>
@@ -48,7 +48,7 @@ export default function WizardLayout({
             </div>
 
             <div className="flex items-center gap-2">
-               <Button variant="ghost" size="sm" className="hidden sm:flex text-slate-500 font-bold gap-2">
+               <Button variant="ghost" size="sm" className="flex text-slate-500 font-bold gap-2">
                   <Save className="h-4 w-4" />
                   Save & Exit
                </Button>

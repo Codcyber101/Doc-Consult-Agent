@@ -26,7 +26,7 @@ export default function DashboardPage() {
     <div className="flex min-h-screen bg-background text-foreground font-sans selection:bg-primary/20">
       <AppSidebar />
       
-      <main className="flex-1 lg:pl-72 flex flex-col min-w-0">
+      <main className="flex-1 pl-72 flex flex-col min-w-0">
         <Header />
 
         <div className="flex-1 p-4 md:p-8 lg:p-10 max-w-7xl mx-auto w-full space-y-10">
