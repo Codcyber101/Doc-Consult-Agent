@@ -37,6 +37,7 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+.gemini/skills/
 
 # Testing
 coverage/
