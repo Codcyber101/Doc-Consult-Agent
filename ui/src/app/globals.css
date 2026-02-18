@@ -1,7 +1,11 @@
+/* Implements: /specs/001-govassist-ethiopia/spec.md#requirements */
+/* Generated-by: Codex prompt-id: civic-editorial-ui-20260218 */
+/* Generated-at: 2026-02-18T00:00:00Z */
+
 /* ==========================================================================
    GOVASSIST ETHIOPIA — GLOBAL STYLES
-   Design System: Sovereign Utility (Ethiopian Emerald)
-   Typography: Outfit (display) + DM Sans (body) + Noto Sans Ethiopic (Amharic)
+   Design System: Civic Editorial
+   Typography: Newsreader (display) + Hanken Grotesk (body) + Noto Sans Ethiopic
    ========================================================================== */
 
 @tailwind base;
@@ -14,42 +18,40 @@
 
 :root {
   /* Core Colors */
-  --background: #f8f9fc;
-  --foreground: #0d121b;
-  --surface: #ffffff;
-  --surface-muted: #f1f5f9;
+  --background: #f6f1e8; /* paper */
+  --foreground: #14161b; /* ink */
+  --surface: #fbf8f1;
+  --surface-muted: #f0e9dd;
   --surface-elevated: #ffffff;
-  --border: #e2e8f0;
-  --border-strong: #cbd5e1;
-  --muted: #64748b;
-  --muted-foreground: #94a3b8;
+  --border: #e4dccf;
+  --border-strong: #d4c8b8;
+  --muted: #6f6b63;
+  --muted-foreground: #9b948a;
 
-  /* Blue Palette */
-  --primary: #1152d4;
-  --primary-dark: #0d3a94;
-  --primary-light: #eef4ff;
+  /* Civic Accents */
+  --primary: #0b5b43; /* emerald */
+  --primary-dark: #084433;
+  --primary-light: #e7f3ef;
 
-  /* Sovereign Accents */
-  --accent-primary: #006b3f;
-  --accent-primary-light: #ecfdf5;
-  --accent-gold: #fdb813;
-  --danger: #d94e41;
+  --accent-primary: #0b5b43;
+  --accent-primary-light: #e7f3ef;
+  --accent-gold: #c8a03a;
+  --danger: #c24b3a;
 
   /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #1152d4 0%, #0d3a94 100%);
-  --gradient-mesh: radial-gradient(at 40% 20%, hsla(220, 100%, 45%, 0.1) 0px, transparent 50%),
-    radial-gradient(at 80% 0%, hsla(210, 100%, 50%, 0.08) 0px, transparent 50%),
-    radial-gradient(at 0% 50%, hsla(220, 64%, 43%, 0.05) 0px, transparent 50%);
+  --gradient-primary: linear-gradient(135deg, #0b5b43 0%, #0f7a58 100%);
+  --gradient-mesh: radial-gradient(at 20% 10%, rgba(11, 91, 67, 0.08) 0px, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(200, 160, 58, 0.08) 0px, transparent 50%),
+    radial-gradient(at 0% 60%, rgba(20, 22, 27, 0.04) 0px, transparent 45%);
 
-  /* Glass-morphism */
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(226, 232, 240, 0.5);
+  /* Glass-morphism (subtle) */
+  --glass-bg: rgba(251, 248, 241, 0.75);
+  --glass-border: rgba(228, 220, 207, 0.7);
   --glass-blur: 12px;
 
   /* Shadows */
-  --shadow-glow-primary: 0 0 20px rgba(17, 82, 212, 0.15);
-  --shadow-glow-primary: 0 0 20px rgba(0, 107, 63, 0.15);
-  --shadow-glow-gold: 0 0 20px rgba(253, 184, 19, 0.2);
+  --shadow-glow-primary: 0 0 18px rgba(11, 91, 67, 0.16);
+  --shadow-glow-gold: 0 0 18px rgba(200, 160, 58, 0.2);
 
   /* Animation Timing */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -62,18 +64,17 @@
 /* Dark Mode */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #101622;
-    --foreground: #f8fafc;
-    --glass-bg: rgba(26, 34, 52, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --primary: #1152d4;
-    --surface: #0f172a;
-    --surface-muted: #111827;
-    --surface-elevated: #131c2b;
-    --border: #1f2937;
-    --border-strong: #334155;
-    --muted: #94a3b8;
-    --muted-foreground: #64748b;
+    --background: #0f1114;
+    --foreground: #f7f4ee;
+    --surface: #15171b;
+    --surface-muted: #1a1d22;
+    --surface-elevated: #1c2026;
+    --border: #262b33;
+    --border-strong: #323944;
+    --muted: #a09a90;
+    --muted-foreground: #7f786f;
+    --glass-bg: rgba(21, 23, 27, 0.7);
+    --glass-border: rgba(50, 57, 68, 0.6);
   }
 }
 
@@ -83,18 +84,18 @@
 
 body {
   color: var(--foreground);
-  background: var(--background);
-  font-family: 'Public Sans', 'Noto Sans Ethiopic', system-ui, sans-serif;
+  background-color: var(--background);
+  background-image: var(--gradient-mesh);
+  font-family: var(--font-body, 'Hanken Grotesk'), 'Noto Sans Ethiopic', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Display headings use Public Sans */
 h1,
 h2,
 h3,
 .font-display {
-  font-family: 'Public Sans', 'Noto Sans Ethiopic', system-ui, sans-serif;
+  font-family: var(--font-display, 'Newsreader'), 'Noto Sans Ethiopic', system-ui, serif;
 }
 
 /* ==========================================================================
@@ -106,6 +107,37 @@ h3,
   background-image: var(--gradient-mesh);
 }
 
+/* Paper Grain */
+.paper-grain {
+  position: relative;
+}
+
+.paper-grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Map Line Background */
+.maplines {
+  position: relative;
+}
+
+.maplines::after {
+  content: '';
+  position: absolute;
+  inset: -10% -10% auto -10%;
+  height: 60%;
+  background-image: url("data:image/svg+xml,%3Csvg width='640' height='220' viewBox='0 0 640 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4c8b8' stroke-width='1'%3E%3Cpath d='M0 30C120 40 200 10 320 30s180 20 320 10'/%3E%3Cpath d='M0 90C120 100 200 70 320 90s180 20 320 10'/%3E%3Cpath d='M0 150C120 160 200 130 320 150s180 20 320 10'/%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* Glass-morphism */
 .glass {
   background: var(--glass-bg);
@@ -115,25 +147,19 @@ h3,
 }
 
 .glass-strong {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(251, 248, 241, 0.9);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(228, 220, 207, 0.6);
 }
 
-/* Grain/Noise Texture Overlay */
-.grain {
-  position: relative;
-}
-
-.grain::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.03;
-  pointer-events: none;
-  z-index: 1;
+/* Stamp/Seal */
+.stamp {
+  border: 2px solid var(--accent-gold);
+  color: var(--accent-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 800;
 }
 
 /* Glow Effects */
@@ -167,7 +193,6 @@ h3,
 
 /* Pulse Animation */
 @keyframes pulse-soft {
-
   0%,
   100% {
     opacity: 1;
@@ -181,6 +206,37 @@ h3,
 .pulse-soft {
   animation: pulse-soft 2s ease-in-out infinite;
 }
+
+/* Page Load Stagger */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  animation: fadeInUp 0.6s var(--ease-out-expo) both;
+}
+
+.reveal-delay-1 { animation-delay: 80ms; }
+.reveal-delay-2 { animation-delay: 160ms; }
+.reveal-delay-3 { animation-delay: 240ms; }
+.reveal-delay-4 { animation-delay: 320ms; }
+.reveal-delay-5 { animation-delay: 400ms; }
+
+/* Stamp Press */
+@keyframes stampPress {
+  0% { transform: translateY(-2px) scale(0.98); opacity: 0; }
+  40% { transform: translateY(0) scale(1.02); opacity: 1; }
+  100% { transform: translateY(0) scale(1); }
+}
+
+.stamp-press { animation: stampPress 0.6s var(--ease-out-back) both; }
 
 /* ==========================================================================
    SCROLLBAR (Modern, minimal)
@@ -196,28 +252,6 @@ h3,
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #cdbfae;
   border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-
-/* ==========================================================================
-   FOCUS STYLES (Accessibility)
-   ========================================================================== */
-
-:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
-}
-
-/* ==========================================================================
-   SELECTION STYLES
-   ========================================================================== */
-
-::selection {
-  background: rgba(17, 82, 212, 0.18);
-  color: var(--foreground);
 }
