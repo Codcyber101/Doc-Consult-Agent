@@ -21,6 +21,12 @@ services:
     image: redis:7-alpine
     ports:
       - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
 
   minio:
     image: minio/minio
@@ -33,6 +39,12 @@ services:
     command: server /data --console-address ":9001"
     volumes:
       - minio_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
 
   temporal:
     image: temporalio/auto-setup:1.22
@@ -48,6 +60,12 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z $(hostname -i) 7233"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
 
   weaviate:
     image: semitechnologies/weaviate:1.23.7
@@ -61,13 +79,19 @@ services:
       CLUSTER_HOSTNAME: 'node1'
     volumes:
       - weaviate_data:/var/lib/weaviate
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/v1/.well-known/ready >/dev/null 2>&1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
 
   # Applications
   backend:
     image: govassist-backend:dev
     build:
       context: ../backend
-    command: npm run start:dev
+    command: node dist/src/main
     ports:
       - "3001:3000"
     environment:
@@ -93,8 +117,6 @@ services:
       temporal:
         condition: service_started
     volumes:
-      - ../backend:/app
-      - /app/node_modules
       - ../policy-registry:/policy-registry
     healthcheck:
       test:
