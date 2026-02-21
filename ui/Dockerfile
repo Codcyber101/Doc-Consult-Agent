@@ -6,6 +6,7 @@ FROM node:20-slim AS builder
 WORKDIR /app
 
 COPY package*.json ./
+ENV CYPRESS_INSTALL_BINARY=0
 RUN npm install
 
 COPY . .
