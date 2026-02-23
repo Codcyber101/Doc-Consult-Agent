@@ -21,6 +21,7 @@ import { ProcedureChecklistCard } from '@/components/domain/ProcedureChecklistCa
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/common/Input';
 import { saveWizardProgress, getWizardProgress } from '@/lib/offline/db';
+import { apiClient } from '@/lib/api/client';
 
 const STEPS = [
   { title: 'Information', description: 'Review requirements and eligibility' },
@@ -34,6 +35,11 @@ export default function TradeLicenseWizard() {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [analysisId, setAnalysisId] = useState<string | null>(null);
+  const [analysisStatus, setAnalysisStatus] = useState<string | null>(null);
+  const [complianceReport, setComplianceReport] = useState<any | null>(null);
+  const [analysisError, setAnalysisError] = useState<string | null>(null);
+  const [uploadedDocs, setUploadedDocs] = useState<Record<string, { label: string; documentId: string }>>({});
   const [formData, setFormData] = useState({
     region: '',
     subCity: '',
@@ -43,9 +49,9 @@ export default function TradeLicenseWizard() {
   });
 
   const [readinessItems, setReadinessItems] = useState<ReadinessItem[]>([
-    { id: 'id-scan', label: 'Resident ID / Passport', status: 'missing', fixActionLabel: 'Upload' },
+    { id: 'trade-license', label: 'Original Trade License', status: 'missing', fixActionLabel: 'Upload' },
     { id: 'tin-cert', label: 'TIN Certificate', status: 'missing', fixActionLabel: 'Upload' },
-    { id: 'lease-doc', label: 'Lease Agreement', status: 'ready' },
+    { id: 'lease-doc', label: 'Lease Agreement (valid)', status: 'missing', fixActionLabel: 'Upload' },
   ]);
 
   useEffect(() => {
@@ -84,6 +90,85 @@ export default function TradeLicenseWizard() {
     setIsLoading(false);
     setIsSubmitted(true);
   };
+
+  // When entering review step, trigger backend analysis and poll results
+  useEffect(() => {
+    if (currentStep !== 5) return;
+    if (analysisId) return;
+
+    const uploaded = Object.values(uploadedDocs);
+    if (uploaded.length === 0) return;
+
+    const start = async () => {
+      setIsLoading(true);
+      setAnalysisError(null);
+      try {
+        const primaryDocId = uploaded[0].documentId;
+        const docLabels = uploaded.map((d) => d.label);
+        const resp = await apiClient.post(`/documents/${primaryDocId}/analyze`, {
+          jurisdiction_key: 'addis-ababa',
+          process_id: 'trade-license',
+          documents: docLabels,
+        });
+        const aId = resp.data?.analysis_id as string;
+        if (!aId) throw new Error('No analysis_id returned from backend');
+        setAnalysisId(aId);
+        setAnalysisStatus(resp.data?.status || 'PROCESSING');
+
+        // Poll analysis status
+        const poll = async () => {
+          const r = await apiClient.get(`/documents/analysis/${aId}`);
+          const status = r.data?.status as string;
+          setAnalysisStatus(status);
+          if (status === 'PROCESSING') return false;
+          setComplianceReport(r.data?.results || null);
+          return true;
+        };
+
+        const interval = setInterval(async () => {
+          try {
+            const done = await poll();
+            if (done) {
+              clearInterval(interval);
+              setIsLoading(false);
+            }
+          } catch (e: any) {
+            clearInterval(interval);
+            setIsLoading(false);
+            setAnalysisError(e?.message || 'Failed to fetch analysis');
+          }
+        }, 2000);
+
+        return () => clearInterval(interval);
+      } catch (e: any) {
+        setIsLoading(false);
+        setAnalysisError(e?.message || 'Failed to start analysis');
+      }
+    };
+
+    start();
+  }, [currentStep, analysisId, uploadedDocs]);
+
+  // When we get a compliance report, map missing-doc issues back to readiness items
+  useEffect(() => {
+    if (!complianceReport) return;
+    const issues: any[] = complianceReport.issues || [];
+    const missingLabels = new Set<string>();
+    for (const i of issues) {
+      if (i.code === 'MISSING_DOCUMENT' && typeof i.message === 'string') {
+        const parts = i.message.split(':');
+        const label = parts.length > 1 ? parts.slice(1).join(':').trim() : '';
+        if (label) missingLabels.add(label);
+      }
+    }
+
+    setReadinessItems((items) =>
+      items.map((it) => {
+        const isMissing = Array.from(missingLabels).some((m) => it.label.includes(m) || m.includes(it.label));
+        return { ...it, status: isMissing ? 'missing' : 'ready' };
+      }),
+    );
+  }, [complianceReport]);
 
   if (isSubmitted) {
     return (
@@ -240,17 +325,27 @@ export default function TradeLicenseWizard() {
       {currentStep === 4 && (
         <div className="space-y-8">
            <DocumentUploadWidget 
-              label="Resident ID / Passport Scan"
-              description="Ensure all four corners are visible and text is legible."
-              onUpload={async () => {
-                 setReadinessItems(items => items.map(i => i.id === 'id-scan' ? {...i, status: 'ready'} : i));
+              label="Original Trade License"
+              description="Upload a clear scan or photo of your current trade license."
+              onUploaded={async ({ documentId }) => {
+                 setUploadedDocs((prev) => ({ ...prev, "Original Trade License": { label: "Original Trade License", documentId } }));
+                 setReadinessItems(items => items.map(i => i.id === 'trade-license' ? {...i, status: 'ready'} : i));
               }}
            />
            <DocumentUploadWidget 
               label="TIN Certificate"
               description="Upload the latest digital or scanned copy."
-              onUpload={async () => {
+              onUploaded={async ({ documentId }) => {
+                 setUploadedDocs((prev) => ({ ...prev, "TIN Certificate": { label: "TIN Certificate", documentId } }));
                  setReadinessItems(items => items.map(i => i.id === 'tin-cert' ? {...i, status: 'ready'} : i));
+              }}
+           />
+           <DocumentUploadWidget 
+              label="Lease Agreement (valid)"
+              description="Upload your current, valid lease agreement."
+              onUploaded={async ({ documentId }) => {
+                 setUploadedDocs((prev) => ({ ...prev, "Lease Agreement (valid)": { label: "Lease Agreement (valid)", documentId } }));
+                 setReadinessItems(items => items.map(i => i.id === 'lease-doc' ? {...i, status: 'ready'} : i));
               }}
            />
         </div>
@@ -259,11 +354,18 @@ export default function TradeLicenseWizard() {
       {/* Step 5: Review */}
       {currentStep === 5 && (
         <div className="space-y-8">
+           {analysisError && (
+             <div className="p-4 bg-red-50 border border-red-100 rounded-xl text-sm text-red-800">
+               {analysisError}
+             </div>
+           )}
            <ReadinessPanel 
-              score={readinessItems.every(i => i.status === 'ready') ? 100 : 66} 
+              score={typeof complianceReport?.readiness_score === 'number'
+                ? complianceReport.readiness_score
+                : readinessItems.every(i => i.status === 'ready') ? 100 : 66} 
               items={readinessItems}
               onFixItem={(id) => {
-                 if (id === 'id-scan' || id === 'tin-cert') setCurrentStep(4);
+                 if (id === 'trade-license' || id === 'tin-cert' || id === 'lease-doc') setCurrentStep(4);
               }}
            />
            

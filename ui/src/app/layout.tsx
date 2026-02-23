@@ -7,6 +7,7 @@ import { Newsreader, Hanken_Grotesk, Noto_Sans_Ethiopic } from "next/font/google
 import "./globals.css";
 import { ToastProvider } from "@/components/common/Toast";
 import { I18nInitializer } from "@/components/common/I18nInitializer";
+import { OfflineSyncInitializer } from "@/components/common/OfflineSyncInitializer";
 
 const newsreader = Newsreader({
   subsets: ["latin"],
@@ -42,7 +43,10 @@ export default function RootLayout({
         className={`${newsreader.variable} ${hankenGrotesk.variable} ${notoSansEthiopic.variable} font-sans antialiased min-h-screen bg-background text-foreground paper-grain`}
       >
         <I18nInitializer>
-          <ToastProvider>{children}</ToastProvider>
+          <ToastProvider>
+            <OfflineSyncInitializer />
+            {children}
+          </ToastProvider>
         </I18nInitializer>
       </body>
     </html>

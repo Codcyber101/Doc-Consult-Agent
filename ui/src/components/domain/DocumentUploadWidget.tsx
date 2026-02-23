@@ -5,6 +5,12 @@ import { UploadCloud, Camera, X, FileCheck, AlertCircle, RefreshCw, FileText } f
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
+import { apiClient } from "@/lib/api/client"
+
+export interface DocumentUploadResult {
+  documentId: string
+  storagePath?: string
+}
 
 export interface DocumentUploadWidgetProps {
   label: string
@@ -12,6 +18,7 @@ export interface DocumentUploadWidgetProps {
   accept?: string
   maxSizeMB?: number
   onUpload?: (file: File) => Promise<void>
+  onUploaded?: (result: DocumentUploadResult) => Promise<void>
 }
 
 export function DocumentUploadWidget({
@@ -20,12 +27,15 @@ export function DocumentUploadWidget({
   accept = "image/*,application/pdf",
   maxSizeMB = 5,
   onUpload,
+  onUploaded,
 }: DocumentUploadWidgetProps) {
   const [dragActive, setDragActive] = React.useState(false)
   const [file, setFile] = React.useState<File | null>(null)
   const [preview, setPreview] = React.useState<string | null>(null)
   const [status, setStatus] = React.useState<'idle' | 'analyzing' | 'ready' | 'error'>('idle')
   const [qualityScore, setQualityScore] = React.useState(0)
+  const [documentId, setDocumentId] = React.useState<string | null>(null)
+  const [errorMessage, setErrorMessage] = React.useState<string | null>(null)
 
   const handleDrag = (e: React.DragEvent) => {
     e.preventDefault()
@@ -54,9 +64,11 @@ export function DocumentUploadWidget({
   }
 
   const handleFile = async (uploadedFile: File) => {
+    setErrorMessage(null)
     setFile(uploadedFile)
     setStatus('analyzing')
     setQualityScore(0)
+    setDocumentId(null)
 
     // Simulate preview generation
     if (uploadedFile.type.startsWith('image/')) {
@@ -67,11 +79,40 @@ export function DocumentUploadWidget({
         setPreview(null)
     }
 
-    // Simulate analysis (Quality Check, Blur detection, etc.)
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    setQualityScore(85) // Mock score
-    setStatus('ready')
-    onUpload?.(uploadedFile)
+    // Basic size check
+    const maxBytes = maxSizeMB * 1024 * 1024
+    if (uploadedFile.size > maxBytes) {
+      setStatus("error")
+      setErrorMessage(`File too large. Max ${maxSizeMB}MB.`)
+      return
+    }
+
+    try {
+      const form = new FormData()
+      form.append("file", uploadedFile)
+
+      const resp = await apiClient.post("/documents/upload", form, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+
+      const id = resp.data?.document_id as string | undefined
+      const storagePath = resp.data?.storage_path as string | undefined
+      if (!id) {
+        throw new Error("Upload succeeded but no document_id returned.")
+      }
+
+      // MVP quality: use simple heuristic until backend returns OCR quality metrics.
+      const mockQuality = uploadedFile.type.startsWith("image/") ? 85 : 80
+      setQualityScore(mockQuality)
+      setDocumentId(id)
+      setStatus("ready")
+
+      await onUpload?.(uploadedFile)
+      await onUploaded?.({ documentId: id, storagePath })
+    } catch (err: any) {
+      setStatus("error")
+      setErrorMessage(err?.message || "Upload failed")
+    }
   }
 
   const clearFile = () => {
@@ -79,6 +120,8 @@ export function DocumentUploadWidget({
     setPreview(null)
     setStatus('idle')
     setQualityScore(0)
+    setDocumentId(null)
+    setErrorMessage(null)
   }
 
   return (
@@ -91,6 +134,13 @@ export function DocumentUploadWidget({
              </span>
           )}
        </div>
+
+       {status === "error" && errorMessage && (
+         <div className="flex items-start gap-2 p-3 rounded-xl border border-red-200 bg-red-50 text-red-800">
+           <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
+           <p className="text-xs font-semibold leading-relaxed">{errorMessage}</p>
+         </div>
+       )}
        
        <AnimatePresence mode="wait">
          {!file ? (
@@ -163,6 +213,11 @@ export function DocumentUploadWidget({
                   <div className="flex-1 min-w-0 flex flex-col justify-center">
                      <p className="text-sm font-bold font-display text-ink truncate">{file.name}</p>
                      <p className="text-xs text-slate-500 mb-2 font-mono">{(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                     {documentId && (
+                       <p className="text-[10px] text-slate-500 font-mono mb-2 truncate">
+                         Doc ID: {documentId}
+                       </p>
+                     )}
                      
                      {status === 'analyzing' ? (
                        <div className="space-y-1">

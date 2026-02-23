@@ -7,10 +7,20 @@ export class DocumentWorkflowService {
 
   constructor(private readonly temporalService: TemporalService) {}
 
-  async startAnalysis(documentId: string): Promise<string> {
-    this.logger.log(`Starting analysis for document ${documentId}`);
+  async startAnalysis(options: {
+    documentId: string;
+    analysisId: string;
+    jurisdictionKey?: string;
+    processId?: string;
+    documents?: string[];
+  }): Promise<string> {
+    this.logger.log(`Starting analysis for document ${options.documentId}`);
     return this.temporalService.startWorkflow("DocumentAnalysisWorkflow", {
-      documentId,
+      document_id: options.documentId,
+      analysis_id: options.analysisId,
+      jurisdiction_key: options.jurisdictionKey ?? "addis-ababa",
+      process_id: options.processId ?? "trade-license",
+      documents: options.documents ?? [],
     });
   }
 }
