@@ -9,6 +9,7 @@ import { DocumentModule } from "./modules/document/document.module";
 import { PolicyModule } from "./modules/policy/policy.module";
 import { SubmissionModule } from "./modules/submission/submission.module";
 import { AgentController } from "./api/controllers/agent.controller";
+import { InternalDocumentController } from "./api/controllers/internal-document.controller";
 
 @Module({
   imports: [
@@ -33,6 +34,6 @@ import { AgentController } from "./api/controllers/agent.controller";
     PolicyModule,
     SubmissionModule,
   ],
-  controllers: [AgentController],
+  controllers: [AgentController, InternalDocumentController],
 })
 export class AppModule {}

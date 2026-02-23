@@ -7,13 +7,14 @@ from agents.src.regulation_expert.retrieval import get_regulation_expert
 from agents.src.compliance_agent.evaluator import compliance_agent
 from agents.src.human_review_agent.queue import human_review_agent
 from agents.src.audit_agent.activity import audit_logger
+from agents.src.procedural_guide.guide import procedural_guide
 
 async def vision_router_node(state: AgentState) -> Dict[str, Any]:
     print("--- NODE: VISION ROUTER ---")
     result = await vision_router.process_document(state["file_path"])
     await audit_logger.log_event("ocr_extraction", "vision_router", result)
     return {
-        "extracted_data": result, 
+        "extracted_data": {**state.get("extracted_data", {}), **result},
         "confidence": {"ocr": result.get("confidence", 0)},
         "status": "MANUAL_REVIEW" if result.get("needs_escalation") else "PROCESSING"
     }
@@ -26,10 +27,29 @@ def safety_agent_node(state: AgentState) -> Dict[str, Any]:
 async def compliance_evaluator_node(state: AgentState) -> Dict[str, Any]:
     print("--- NODE: COMPLIANCE EVALUATOR ---")
     expert = get_regulation_expert()
-    regs = await expert.get_relevant_regulations("Passport", "renewal")
-    result = await compliance_agent.evaluate(state["extracted_data"], regs)
+    service = state.get("service", "Trade License")
+    action = state.get("action", "renewal")
+    regs = await expert.get_relevant_regulations(service, action)
+
+    jurisdiction_key = state.get("jurisdiction_key", "addis-ababa")
+    process_id = state.get("process_id", "trade-license")
+    playbook = procedural_guide.get_playbook(jurisdiction_key, process_id)
+
+    result = await compliance_agent.evaluate(
+        state["extracted_data"],
+        regs,
+        playbook=playbook,
+    )
     await audit_logger.log_event("compliance_check", "compliance_agent", result)
-    return {"status": result["status"], "findings": result["findings"]}
+    return {
+        "status": result["status"],
+        "findings": result.get("findings", []),
+        "compliance_report": {
+            "status": result["status"],
+            "readiness_score": result["readiness_score"],
+            "issues": result.get("issues", []),
+        },
+    }
 
 async def human_review_node(state: AgentState) -> Dict[str, Any]:
     print("--- NODE: HUMAN REVIEW ESCALATION ---")

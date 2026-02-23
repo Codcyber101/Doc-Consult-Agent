@@ -57,4 +57,21 @@ export class StorageService {
     );
     return `${this.bucketName}/${objectName}`;
   }
+
+  async downloadFile(storagePath: string): Promise<Buffer> {
+    const [bucket, ...rest] = storagePath.split("/");
+    const objectName = rest.join("/");
+    if (!bucket || !objectName) {
+      throw new Error(`Invalid storage path: ${storagePath}`);
+    }
+
+    const stream = await this.minioClient.getObject(bucket, objectName);
+    const chunks: Buffer[] = [];
+    await new Promise<void>((resolve, reject) => {
+      stream.on("data", (chunk) => chunks.push(Buffer.from(chunk)));
+      stream.on("end", () => resolve());
+      stream.on("error", (err) => reject(err));
+    });
+    return Buffer.concat(chunks);
+  }
 }

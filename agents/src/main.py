@@ -3,6 +3,7 @@ import os
 from temporalio.client import Client
 from temporalio.worker import Worker, UnsandboxedWorkflowRunner
 from policy_research_agent.workflows import ResearchWorkflow
+from orchestrator.document_analysis_workflow import DocumentAnalysisWorkflow, run_document_analysis
 
 async def main():
     # Connect to Temporal
@@ -14,9 +15,9 @@ async def main():
     # Run the worker with unsandboxed runner for complex agentic workflows
     worker = Worker(
         client,
-        task_queue="policy-research-tasks",
-        workflows=[ResearchWorkflow],
-        activities=[],
+        task_queue=os.getenv("TEMPORAL_TASK_QUEUE", "govassist-tasks"),
+        workflows=[ResearchWorkflow, DocumentAnalysisWorkflow],
+        activities=[run_document_analysis],
         workflow_runner=UnsandboxedWorkflowRunner(),
     )
     print("Worker started...")

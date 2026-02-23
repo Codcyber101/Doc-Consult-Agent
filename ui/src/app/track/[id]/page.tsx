@@ -26,6 +26,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
+import { apiClient } from "@/lib/api/client";
 
 const TRACKING_DATA: Record<string, any> = {
   'ET-TL-2026-B812': {
@@ -51,8 +52,31 @@ const TRACKING_DATA: Record<string, any> = {
 
 export default function TrackingDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = React.use(params);
+  const [remoteStatus, setRemoteStatus] = useState<any | null>(null);
+  const [remoteError, setRemoteError] = useState<string | null>(null);
+
   const app = TRACKING_DATA[id] || TRACKING_DATA['ET-TL-2026-B812'];
   const [message, setMessage] = useState('');
+
+  React.useEffect(() => {
+    let mounted = true;
+    const load = async () => {
+      try {
+        const resp = await apiClient.get(`/submissions/${id}/status`);
+        if (!mounted) return;
+        setRemoteStatus(resp.data);
+      } catch (e: any) {
+        if (!mounted) return;
+        setRemoteError(e?.message || "Failed to load status");
+      }
+    };
+    load();
+    const interval = setInterval(load, 5000);
+    return () => {
+      mounted = false;
+      clearInterval(interval);
+    };
+  }, [id]);
 
   return (
     <div className="min-h-screen bg-background selection:bg-primary/20 selection:text-foreground font-sans">
@@ -60,6 +84,11 @@ export default function TrackingDetailPage({ params }: { params: Promise<{ id: s
       <Navbar user={{ name: 'Abebe Bikila' }} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
+        {remoteError && (
+          <div className="mb-6 p-4 rounded-xl border border-red-100 bg-red-50 text-sm text-red-800">
+            {remoteError}
+          </div>
+        )}
         <div className="flex items-center justify-between mb-8">
           <Link href="/track">
             <Button variant="ghost" className="gap-2 text-muted hover:text-foreground">
@@ -91,7 +120,7 @@ export default function TrackingDetailPage({ params }: { params: Promise<{ id: s
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs font-black uppercase tracking-widest text-primary">
                     <span>Sovereign Transmission Status</span>
-                    <span>{app.progress}% Complete</span>
+                    <span>{remoteStatus?.status || app.status}</span>
                   </div>
                   <Progress value={app.progress} className="h-3" />
                 </div>
