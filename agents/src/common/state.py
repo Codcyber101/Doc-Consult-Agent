@@ -2,12 +2,14 @@ from typing import Annotated, Sequence, TypedDict, List, Dict, Any, Optional
 from pydantic import BaseModel, Field
 import operator
 
+
 class Artifact(BaseModel):
     id: str
     type: str  # e.g., "document", "report", "extraction"
     content: Any
     metadata: Dict[str, Any] = Field(default_factory=dict)
     signed_hash: Optional[str] = None
+
 
 class AgentState(TypedDict):
     # The list of messages in the conversation

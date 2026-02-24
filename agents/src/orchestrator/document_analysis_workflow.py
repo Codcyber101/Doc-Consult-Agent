@@ -1,12 +1,12 @@
 import os
 import base64
 import tempfile
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 import httpx
 from temporalio import workflow, activity
 
-from agents.src.orchestrator.graph import orchestrator
+from orchestrator.graph import orchestrator
 
 
 @activity.defn
@@ -17,7 +17,9 @@ async def run_document_analysis(payload: Dict[str, Any]) -> Dict[str, Any]:
     backend_url = os.getenv("BACKEND_API_URL", "http://localhost:3000")
     internal_token = os.getenv("INTERNAL_API_TOKEN", "")
     if not internal_token:
-        raise RuntimeError("INTERNAL_API_TOKEN must be set for document analysis activity.")
+        raise RuntimeError(
+            "INTERNAL_API_TOKEN must be set for document analysis activity."
+        )
 
     document_id: str = payload["document_id"]
     analysis_id: str = payload["analysis_id"]
@@ -36,7 +38,9 @@ async def run_document_analysis(payload: Dict[str, Any]) -> Dict[str, Any]:
         mime_type = body.get("mime_type")
         bytes_base64 = body.get("bytes_base64")
         if not bytes_base64:
-            raise RuntimeError("Backend did not return bytes_base64 for document download.")
+            raise RuntimeError(
+                "Backend did not return bytes_base64 for document download."
+            )
         file_bytes = base64.b64decode(bytes_base64)
 
     # Write to temp file for OCR stack that expects a file path
@@ -115,4 +119,3 @@ class DocumentAnalysisWorkflow:
                         json={"error": str(e)},
                     )
             raise
-

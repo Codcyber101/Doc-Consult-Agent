@@ -2,18 +2,19 @@ import os
 from typing import List
 from firecrawl import FirecrawlApp
 
+
 class PolicyCrawlTool:
     def __init__(self, allowlist: List[str] = None):
         self.allowlist = allowlist or [
             "nbe.gov.et",
             "ethiopian-law.com",
             "chilot.me",
-            "addisababa.gov.et"
+            "addisababa.gov.et",
         ]
         self.api_key = os.getenv("FIRECRAWL_API_KEY")
         if not self.api_key:
-             # Fallback or warning? For now, we assume it's set or we handle the error at runtime.
-             pass
+            # Fallback or warning? For now, we assume it's set or we handle the error at runtime.
+            pass
 
     def is_allowed(self, url: str) -> bool:
         """Checks if the URL is in the allowlist."""
@@ -30,9 +31,9 @@ class PolicyCrawlTool:
         try:
             app = FirecrawlApp(api_key=self.api_key)
             # Scrape the URL
-            scrape_result = app.scrape_url(url, params={'formats': ['markdown']})
-            if 'markdown' in scrape_result:
-                return scrape_result['markdown']
+            scrape_result = app.scrape_url(url, params={"formats": ["markdown"]})
+            if "markdown" in scrape_result:
+                return scrape_result["markdown"]
             return str(scrape_result)
         except Exception as e:
             return f"Error crawling {url}: {str(e)}"
@@ -45,5 +46,5 @@ class PolicyCrawlTool:
         # Improved mock: restricted to allowlist domains
         return [
             f"https://ethiopian-law.com/search?q={topic.replace(' ', '+')}",
-            f"https://chilot.me/?s={topic.replace(' ', '+')}"
+            f"https://chilot.me/?s={topic.replace(' ', '+')}",
         ]

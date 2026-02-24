@@ -1,8 +1,8 @@
 from typing import Dict, Any, List
-from agents.src.common.llm import get_llm
+from common.llm import get_llm
 from langchain_core.prompts import ChatPromptTemplate
 import json
-from agents.src.compliance_agent.engine import deterministic_engine
+from compliance_agent.engine import deterministic_engine
 
 
 class ComplianceAgent:
@@ -108,4 +108,11 @@ class ComplianceAgent:
         }
 
 
-compliance_agent = ComplianceAgent()
+_compliance_agent: "ComplianceAgent | None" = None
+
+
+def get_compliance_agent() -> ComplianceAgent:
+    global _compliance_agent
+    if _compliance_agent is None:
+        _compliance_agent = ComplianceAgent()
+    return _compliance_agent

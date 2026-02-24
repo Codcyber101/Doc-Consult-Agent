@@ -9,7 +9,9 @@ export class ResearchController {
   @UseGuards(AuthGuard)
   @ApiOperation({ summary: "Start a new policy research job" })
   @ApiResponse({ status: 202, description: "Research job accepted" })
-  async startResearch(@Body() body: { query: string; jurisdiction?: string }) {
+  async startResearch(
+    @Body() _body: { query: string; jurisdiction?: string },
+  ) {
     // This would start a Temporal workflow (T015)
     return {
       job_id: Math.random().toString(36).substring(7),

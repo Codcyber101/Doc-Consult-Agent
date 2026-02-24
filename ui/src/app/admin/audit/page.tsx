@@ -20,6 +20,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { apiClient } from "@/lib/api/client";
 
 const AUDIT_LOGS = [
   {
@@ -57,6 +58,38 @@ const AUDIT_LOGS = [
 ];
 
 export default function AuditLogPage() {
+  const [remoteLogs, setRemoteLogs] = React.useState<any[] | null>(null);
+  const [remoteError, setRemoteError] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    let mounted = true;
+    const load = async () => {
+      try {
+        const resp = await apiClient.get("/audit/events?limit=50&offset=0");
+        if (!mounted) return;
+        setRemoteLogs(resp.data?.items || []);
+      } catch (e: any) {
+        if (!mounted) return;
+        setRemoteError(e?.message || "Failed to load audit events");
+      }
+    };
+    void load();
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const rows = remoteLogs
+    ? remoteLogs.map((e) => ({
+        id: e.id,
+        event: e.event_type,
+        entity: e.actor,
+        hash: typeof e.signature === "string" ? e.signature.slice(0, 14) + "..." : "-",
+        timestamp: e.timestamp,
+        status: "Success",
+      }))
+    : AUDIT_LOGS;
+
   return (
     <div className="space-y-10">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -111,6 +144,11 @@ export default function AuditLogPage() {
             </div>
          </CardHeader>
          <CardContent className="p-0">
+            {remoteError && (
+              <div className="p-4 text-sm text-amber-700 bg-amber-50 border-b border-amber-100">
+                {remoteError} (showing demo data)
+              </div>
+            )}
             <div className="overflow-x-auto">
                <table className="w-full">
                   <thead>
@@ -124,7 +162,7 @@ export default function AuditLogPage() {
                      </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-50">
-                     {AUDIT_LOGS.map((log) => (
+                     {rows.map((log) => (
                         <tr key={log.id} className="hover:bg-surface/50 transition-colors group">
                            <td className="px-8 py-6 font-mono text-xs font-bold text-slate-900">{log.id}</td>
                            <td className="px-8 py-6">

@@ -3,6 +3,7 @@ import { ApiTags, ApiOperation, ApiParam } from "@nestjs/swagger";
 import { InternalTokenGuard } from "../../modules/auth/internal-token.guard";
 import { DocumentService } from "../../modules/document/document.service";
 import { StorageService } from "../../modules/storage/storage.service";
+import { complianceEvaluationTotal } from "../../metrics/metrics";
 
 @ApiTags("Internal")
 @Controller("internal")
@@ -54,6 +55,7 @@ export class InternalDocumentController {
       analysisId,
       results: body.results,
     });
+    complianceEvaluationTotal.inc();
     return { id: analysis.id, status: analysis.status };
   }
 

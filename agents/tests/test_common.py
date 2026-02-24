@@ -1,4 +1,5 @@
-from src.common.safety import SafetyAgent
+from common.safety import SafetyAgent
+
 
 def test_safety_agent_masking():
     agent = SafetyAgent()
@@ -10,12 +11,14 @@ def test_safety_agent_masking():
     assert "<TIN_REDACTED>" in masked
     assert "<PHONE_REDACTED>" in masked
 
+
 def test_safety_agent_email_masking():
     agent = SafetyAgent()
     text = "Contact me at test@example.com"
     masked = agent.mask(text)
     assert "test@example.com" not in masked
     assert "<EMAIL_REDACTED>" in masked
+
 
 def test_safety_agent_passport_masking():
     agent = SafetyAgent()

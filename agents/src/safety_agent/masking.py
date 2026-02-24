@@ -1,19 +1,20 @@
 import re
 from typing import Dict, Any
 
+
 class SafetyAgent:
     """
-    Identifies and masks PII (Personally Identifiable Information) 
+    Identifies and masks PII (Personally Identifiable Information)
     to ensure cloud-compliance and privacy.
     """
-    
+
     # Simple regex patterns for PII
     PATTERNS = {
-        "email": r'[\w\.-]+@[\w\.-]+\.\w+',
-        "phone_et": r'(\+251|0)9\d{8}',
-        "passport": r'[A-Z]\d{7}[A-Z]',
+        "email": r"[\w\.-]+@[\w\.-]+\.\w+",
+        "phone_et": r"(\+251|0)9\d{8}",
+        "passport": r"[A-Z]\d{7}[A-Z]",
         # Mock Amharic name detection (very simplified)
-        "amharic_name_indicator": r'(አቶ|ወ/ሮ|ወ/ሪት)\s+[\u1200-\u137F]+'
+        "amharic_name_indicator": r"(አቶ|ወ/ሮ|ወ/ሪት)\s+[\u1200-\u137F]+",
     }
 
     def mask_pii(self, text: str) -> str:
@@ -27,11 +28,12 @@ class SafetyAgent:
         """Processes raw extraction data for safety."""
         raw_text = raw_data.get("raw_text", "")
         masked_text = self.mask_pii(raw_text)
-        
+
         return {
             "masked_text": masked_text,
             "pii_detected": masked_text != raw_text,
-            "safety_status": "CLEAN"
+            "safety_status": "CLEAN",
         }
+
 
 safety_agent = SafetyAgent()

@@ -10,7 +10,7 @@ describe("DocumentController", () => {
   let controller: DocumentController;
   let storageService: StorageService;
   let documentService: DocumentService;
-  let documentWorkflowService: DocumentWorkflowService;
+  let _documentWorkflowService: DocumentWorkflowService;
 
   const mockStorageService = {
     uploadFile: jest.fn().mockResolvedValue("govassist-docs/test-file.pdf"),
@@ -75,7 +75,7 @@ describe("DocumentController", () => {
     controller = module.get<DocumentController>(DocumentController);
     storageService = module.get<StorageService>(StorageService);
     documentService = module.get<DocumentService>(DocumentService);
-    documentWorkflowService = module.get<DocumentWorkflowService>(
+    _documentWorkflowService = module.get<DocumentWorkflowService>(
       DocumentWorkflowService,
     );
   });

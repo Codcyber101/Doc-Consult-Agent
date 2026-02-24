@@ -3,7 +3,11 @@ import os
 from temporalio.client import Client
 from temporalio.worker import Worker, UnsandboxedWorkflowRunner
 from policy_research_agent.workflows import ResearchWorkflow
-from orchestrator.document_analysis_workflow import DocumentAnalysisWorkflow, run_document_analysis
+from orchestrator.document_analysis_workflow import (
+    DocumentAnalysisWorkflow,
+    run_document_analysis,
+)
+
 
 async def main():
     # Connect to Temporal
@@ -22,6 +26,7 @@ async def main():
     )
     print("Worker started...")
     await worker.run()
+
 
 if __name__ == "__main__":
     asyncio.run(main())
