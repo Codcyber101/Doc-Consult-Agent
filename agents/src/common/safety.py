@@ -1,5 +1,6 @@
 import re
 
+
 class SafetyAgent:
     def __init__(self):
         # Basic patterns for common PII
@@ -11,7 +12,7 @@ class SafetyAgent:
             "EMAIL": r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b",
             "PASSPORT": r"\b[A-Z]\d{7}\b",
         }
-        
+
     def mask(self, text: str) -> str:
         """Masks PII in the given text."""
         masked_text = text
@@ -25,6 +26,7 @@ class SafetyAgent:
         with open("pii_audit.log", "a") as f:
             f.write(f"Masked: {masked_text}\n")
         print("PII masking audited and logged.")
+
 
 if __name__ == "__main__":
     agent = SafetyAgent()

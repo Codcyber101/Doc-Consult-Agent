@@ -1,4 +1,5 @@
 import { Injectable, Logger } from "@nestjs/common";
+import { mesobSubmissionTotal } from "../../metrics/metrics";
 
 @Injectable()
 export class MesobConnectorService {
@@ -14,6 +15,7 @@ export class MesobConnectorService {
       this.logger.log(
         `[MOCK MESOB] Submitting application package. Assigned ID: ${submissionId}`,
       );
+      mesobSubmissionTotal.inc();
       return submissionId;
     }
 
@@ -46,6 +48,7 @@ export class MesobConnectorService {
       throw new Error("MESOB response did not include a submission id.");
     }
 
+    mesobSubmissionTotal.inc();
     return submissionId;
   }
 

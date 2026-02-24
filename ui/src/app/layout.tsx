@@ -3,29 +3,10 @@
 // Generated-at: 2026-02-18T00:00:00Z
 
 import type { Metadata } from "next";
-import { Newsreader, Hanken_Grotesk, Noto_Sans_Ethiopic } from "next/font/google";
 import "./globals.css";
 import { ToastProvider } from "@/components/common/Toast";
 import { I18nInitializer } from "@/components/common/I18nInitializer";
 import { OfflineSyncInitializer } from "@/components/common/OfflineSyncInitializer";
-
-const newsreader = Newsreader({
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const hankenGrotesk = Hanken_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-body",
-  display: "swap",
-});
-
-const notoSansEthiopic = Noto_Sans_Ethiopic({
-  subsets: ["ethiopic", "latin"],
-  variable: "--font-noto-sans-ethiopic",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "GovAssist Ethiopia",
@@ -40,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${newsreader.variable} ${hankenGrotesk.variable} ${notoSansEthiopic.variable} font-sans antialiased min-h-screen bg-background text-foreground paper-grain`}
+        className="font-sans antialiased min-h-screen bg-background text-foreground paper-grain"
       >
         <I18nInitializer>
           <ToastProvider>

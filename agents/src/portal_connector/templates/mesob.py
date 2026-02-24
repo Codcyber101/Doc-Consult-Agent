@@ -1,11 +1,12 @@
 from typing import Dict, Any
 
+
 class MesobTemplate:
     """
     Handles data mapping for the MESOB (Ethiopian Government Portal) API.
     Transforms internal AgentState data into portal-specific schemas.
     """
-    
+
     @staticmethod
     def map_passport_renewal(data: Dict[str, Any]) -> Dict[str, Any]:
         """Maps internal extraction data to MESOB Passport Renewal schema."""
@@ -20,13 +21,14 @@ class MesobTemplate:
                 {
                     "type": "PASSPORT_SCAN",
                     "hash": data.get("file_hash"),
-                    "uri": data.get("file_path")
+                    "uri": data.get("file_path"),
                 }
             ],
             "metadata": {
                 "source": "GAE_AGENT_ENSEMBLE",
-                "compliance_status": data.get("status")
-            }
+                "compliance_status": data.get("status"),
+            },
         }
+
 
 mesob_template = MesobTemplate()

@@ -17,6 +17,11 @@
    ========================================================================== */
 
 :root {
+  /* Typography (local stacks to avoid network font fetch) */
+  --font-display: "Georgia", "Times New Roman", serif;
+  --font-body: "Segoe UI", "Helvetica Neue", Arial, "Noto Sans Ethiopic", sans-serif;
+  --font-noto-sans-ethiopic: "Noto Sans Ethiopic", "Abyssinica SIL", "Noto Sans", sans-serif;
+
   /* Core Colors */
   --background: #f6f1e8; /* paper */
   --foreground: #14161b; /* ink */

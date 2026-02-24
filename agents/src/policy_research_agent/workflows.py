@@ -1,11 +1,12 @@
 import yaml
 from typing import Dict, List
-from agents.src.common.llm import get_llm
+from common.llm import get_llm
 from langchain_core.prompts import ChatPromptTemplate
 from temporalio import workflow
 
 with workflow.unsafe.imports_passed_through():
     from policy_research_agent.graph import build_research_graph
+
 
 @workflow.defn(name="PolicyResearchWorkflow")
 class ResearchWorkflow:
@@ -13,13 +14,14 @@ class ResearchWorkflow:
     async def run(self, data: Dict) -> str:
         # data contains 'query' and 'jurisdiction' from backend
         query = data.get("query")
-        jurisdiction = data.get("jurisdiction", "Federal")
-        
+        _jurisdiction = data.get("jurisdiction", "Federal")
+
         graph = build_research_graph()
         result = await graph.ainvoke({"query": query, "iterations": 0})
-        
+
         # For now, just return the raw text extracted or some summary
         return result.get("raw_text", "No research findings found.")
+
 
 class PolicyDraftGenerator:
     def __init__(self):
@@ -29,27 +31,37 @@ class PolicyDraftGenerator:
 
     async def draft_policy_from_research(self, topic: str, research_text: str) -> str:
         """Uses LLM to draft a Policy YAML based on research findings."""
-        prompt = ChatPromptTemplate.from_messages([
-            ("system", "You are a Legal Policy Expert for GovAssist Ethiopia. "
-                       "Based on the research provided, draft a Policy YAML. "
-                       "The YAML should include: title, jurisdiction, effective_date, and a list of rules. "
-                       "Each rule should have: id, title, type (Proclamation, Regulation, etc.), and content."),
-            ("human", "Research Findings on {topic}:\n{research}")
-        ])
-        
+        prompt = ChatPromptTemplate.from_messages(
+            [
+                (
+                    "system",
+                    "You are a Legal Policy Expert for GovAssist Ethiopia. "
+                    "Based on the research provided, draft a Policy YAML. "
+                    "The YAML should include: title, jurisdiction, effective_date, and a list of rules. "
+                    "Each rule should have: id, title, type (Proclamation, Regulation, etc.), and content.",
+                ),
+                ("human", "Research Findings on {topic}:\n{research}"),
+            ]
+        )
+
         chain = prompt | self.llm
         response = await chain.ainvoke({"topic": topic, "research": research_text})
-        
-        # We assume the LLM returns valid YAML or YAML-ish text. 
+
+        # We assume the LLM returns valid YAML or YAML-ish text.
         # In production, we'd add a parser/validator.
         return response.content
 
     def prioritize_rules(self, rules: List[Dict]) -> List[Dict]:
         """Sorts rules based on legal hierarchy."""
+
         def get_rank(rule):
             source_type = rule.get("type", "Guideline")
-            return self.hierarchy.index(source_type) if source_type in self.hierarchy else 0
-        
+            return (
+                self.hierarchy.index(source_type)
+                if source_type in self.hierarchy
+                else 0
+            )
+
         return sorted(rules, key=get_rank, reverse=True)
 
     def generate_yaml(self, title: str, jurisdiction: str, rules: List[Dict]) -> str:
@@ -60,7 +72,7 @@ class PolicyDraftGenerator:
             "jurisdiction": jurisdiction,
             "effective_date": "2026-01-16",
             "rules": sorted_rules,
-            "status": "DRAFT"
+            "status": "DRAFT",
         }
         return yaml.dump(data, allow_unicode=True)
 
