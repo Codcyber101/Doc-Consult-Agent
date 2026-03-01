@@ -136,7 +136,7 @@ export function DocumentUploadWidget({
        </div>
 
        {status === "error" && errorMessage && (
-         <div className="flex items-start gap-2 p-3 rounded-xl border border-red-200 bg-red-50 text-red-800">
+         <div className="flex items-start gap-2 p-3 rounded-xl border border-red-200 bg-red-50 text-red-800" role="alert" aria-live="assertive">
            <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
            <p className="text-xs font-semibold leading-relaxed">{errorMessage}</p>
          </div>
@@ -164,9 +164,10 @@ export function DocumentUploadWidget({
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" 
                 accept={accept}
                 onChange={handleChange}
+                aria-label={`Upload ${label}`}
               />
               
-              <div className="flex flex-col items-center gap-3 text-slate-500 pointer-events-none">
+              <div className="flex flex-col items-center gap-3 text-slate-500 pointer-events-none" aria-hidden="true">
                 <div className="p-4 bg-surface rounded-full shadow-md border border-border">
                    <UploadCloud className="w-6 h-6 text-primary" />
                 </div>
@@ -220,12 +221,12 @@ export function DocumentUploadWidget({
                      )}
                      
                      {status === 'analyzing' ? (
-                       <div className="space-y-1">
+                       <div className="space-y-1" role="status" aria-live="polite">
                           <div className="flex justify-between text-[10px] text-slate-500 font-bold uppercase tracking-wide">
                             <span>Verifying...</span>
                             <span>45%</span>
                           </div>
-                          <Progress value={45} className="h-1.5 bg-surface-muted" />
+                          <Progress value={45} className="h-1.5 bg-surface-muted" aria-label="Analysis progress" />
                        </div>
                      ) : (
                         <motion.div 

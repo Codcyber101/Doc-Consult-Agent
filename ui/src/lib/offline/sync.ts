@@ -1,31 +1,55 @@
-import PouchDB from 'pouchdb';
+let pouchdbModule: { default: any } | null = null;
+
+const loadPouchDB = async () => {
+  if (typeof window === 'undefined') {
+    throw new Error('PouchDB can only be initialized in the browser.');
+  }
+  if (!pouchdbModule) {
+    pouchdbModule = await import('pouchdb-browser');
+  }
+  return pouchdbModule.default;
+};
 
 export class OfflineSync {
-  private localDB: PouchDB.Database;
-  private remoteDB: PouchDB.Database | null = null;
-  private syncHandler: PouchDB.Replication.Sync<{}> | null = null;
+  private dbName: string;
+  private localDB: any | null = null;
+  private remoteDB: any | null = null;
+  private syncHandler: any | null = null;
 
   constructor(dbName: string) {
-    this.localDB = new PouchDB(dbName);
+    this.dbName = dbName;
   }
 
-  setupSync(remoteUrl: string) {
+  private async ensureLocalDB() {
+    if (!this.localDB) {
+      const PouchDB = await loadPouchDB();
+      this.localDB = new PouchDB(this.dbName);
+    }
+    return this.localDB;
+  }
+
+  async setupSync(remoteUrl: string) {
+    const localDB = await this.ensureLocalDB();
+    const PouchDB = await loadPouchDB();
     this.remoteDB = new PouchDB(remoteUrl);
-    this.syncHandler = this.localDB.sync(this.remoteDB, {
-      live: true,
-      retry: true,
-    }).on('change', (info) => {
-      console.log('Sync change:', info);
-      // Best-effort conflict resolution on changed docs
-      const docs = (info as any)?.change?.docs || [];
-      for (const d of docs) {
-        if (d?._id) {
-          void this.resolveConflicts(d._id);
+    this.syncHandler = localDB
+      .sync(this.remoteDB, {
+        live: true,
+        retry: true,
+      })
+      .on('change', (info: any) => {
+        console.log('Sync change:', info);
+        // Best-effort conflict resolution on changed docs
+        const docs = (info as any)?.change?.docs || [];
+        for (const d of docs) {
+          if (d?._id) {
+            void this.resolveConflicts(d._id);
+          }
         }
-      }
-    }).on('error', (err) => {
-      console.error('Sync error:', err);
-    });
+      })
+      .on('error', (err: unknown) => {
+        console.error('Sync error:', err);
+      });
   }
 
   cancelSync() {
@@ -35,22 +59,25 @@ export class OfflineSync {
   }
 
   async put(doc: any) {
-    return this.localDB.put(doc);
+    const db = await this.ensureLocalDB();
+    return db.put(doc);
   }
 
   async get(id: string) {
-    return this.localDB.get(id);
+    const db = await this.ensureLocalDB();
+    return db.get(id);
   }
 
   private async resolveConflicts(id: string) {
     try {
-      const doc: any = await this.localDB.get(id, { conflicts: true });
+      const db = await this.ensureLocalDB();
+      const doc: any = await db.get(id, { conflicts: true });
       const conflicts: string[] = doc?._conflicts || [];
       if (!conflicts.length) return;
 
       const candidates: any[] = [doc];
       for (const rev of conflicts) {
-        const other = await this.localDB.get(id, { rev });
+        const other = await db.get(id, { rev });
         candidates.push(other);
       }
 
@@ -67,7 +94,7 @@ export class OfflineSync {
       const winnersRev = pick._rev;
       for (const c of candidates) {
         if (c._rev !== winnersRev) {
-          await this.localDB.put({ _id: id, _rev: c._rev, _deleted: true });
+          await db.put({ _id: id, _rev: c._rev, _deleted: true });
         }
       }
     } catch {

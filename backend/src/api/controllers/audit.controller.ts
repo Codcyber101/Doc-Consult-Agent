@@ -1,4 +1,4 @@
-import { Controller, Get, Query, UseGuards } from "@nestjs/common";
+import { Controller, Get, Param, Post, Query, UseGuards, NotFoundException } from "@nestjs/common";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { AuthGuard } from "../../modules/auth/auth.guard";
 import { AuditIngestService } from "../../modules/audit/audit-ingest.service";
@@ -37,6 +37,17 @@ export class AuditController {
         created_at: i.created_at,
       })),
     };
+  }
+
+  @Post(":id/verify")
+  @ApiOperation({ summary: "Verify audit event signature" })
+  async verify(@Param("id") id: string) {
+    const event = await this.auditIngestService.findOne(id);
+    if (!event) {
+      throw new NotFoundException(`Audit event ${id} not found`);
+    }
+
+    return this.auditIngestService.verifySignature(event);
   }
 }
 
