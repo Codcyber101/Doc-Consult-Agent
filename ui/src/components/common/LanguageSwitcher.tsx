@@ -24,7 +24,7 @@ export const LanguageSwitcher = () => {
         className="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-surface-muted transition-colors text-slate-600 hover:text-slate-900 border border-transparent hover:border-border"
       >
         <Globe className="h-4 w-4" />
-        <span className="text-sm font-bold uppercase tracking-wider">{currentLang}</span>
+        <span className="text-sm font-bold uppercase tracking-wider">{currentLang.toUpperCase()}</span>
       </button>
 
       <AnimatePresence>

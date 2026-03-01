@@ -1,61 +1,19 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { 
-  ShieldCheck, 
   Search, 
   Download, 
-  ExternalLink, 
   Lock, 
   Server, 
-  Hash, 
-  CheckCircle2, 
-  AlertTriangle,
-  Fingerprint,
-  Cpu,
+  Globe,
   Key,
-  Globe
+  Cpu
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 import { apiClient } from "@/lib/api/client";
-
-const AUDIT_LOGS = [
-  {
-    id: 'TX-88219',
-    event: 'HSM Signature Generated',
-    entity: 'MESOB-GW-01',
-    hash: '0x82fa1192...8821',
-    timestamp: '2026-01-20 10:24:12',
-    status: 'Success'
-  },
-  {
-    id: 'TX-88218',
-    event: 'Policy Handshake (Addis Ababa)',
-    entity: 'REG-NODE-BOLE',
-    hash: '0x1192ba00...4412',
-    timestamp: '2026-01-20 10:22:05',
-    status: 'Success'
-  },
-  {
-    id: 'TX-88217',
-    event: 'PII Scrubbing Event',
-    entity: 'AGENT-DOC-02',
-    hash: '0xac2211ff...3321',
-    timestamp: '2026-01-20 10:15:44',
-    status: 'Success'
-  },
-  {
-    id: 'TX-88216',
-    event: 'Transmission Rejected',
-    entity: 'NAT-GATEWAY-X',
-    hash: '0xdd229981...0012',
-    timestamp: '2026-01-20 09:55:12',
-    status: 'Warning'
-  }
-];
+import { AuditTable } from '@/components/admin/AuditTable';
 
 export default function AuditLogPage() {
   const [remoteLogs, setRemoteLogs] = React.useState<any[] | null>(null);
@@ -78,17 +36,6 @@ export default function AuditLogPage() {
       mounted = false;
     };
   }, []);
-
-  const rows = remoteLogs
-    ? remoteLogs.map((e) => ({
-        id: e.id,
-        event: e.event_type,
-        entity: e.actor,
-        hash: typeof e.signature === "string" ? e.signature.slice(0, 14) + "..." : "-",
-        timestamp: e.timestamp,
-        status: "Success",
-      }))
-    : AUDIT_LOGS;
 
   return (
     <div className="space-y-10">
@@ -146,55 +93,11 @@ export default function AuditLogPage() {
          <CardContent className="p-0">
             {remoteError && (
               <div className="p-4 text-sm text-amber-700 bg-amber-50 border-b border-amber-100">
-                {remoteError} (showing demo data)
+                {remoteError} (showing demo data placeholder)
               </div>
             )}
-            <div className="overflow-x-auto">
-               <table className="w-full">
-                  <thead>
-                     <tr className="bg-surface text-left border-b border-border">
-                        <th className="px-8 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Transaction ID</th>
-                        <th className="px-8 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Event Nature</th>
-                        <th className="px-8 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Entity Source</th>
-                        <th className="px-8 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Digital Hash</th>
-                        <th className="px-8 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest">Timestamp</th>
-                        <th className="px-8 py-4 text-[10px] font-black uppercase text-slate-400 tracking-widest text-right">Verification</th>
-                     </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-50">
-                     {rows.map((log) => (
-                        <tr key={log.id} className="hover:bg-surface/50 transition-colors group">
-                           <td className="px-8 py-6 font-mono text-xs font-bold text-slate-900">{log.id}</td>
-                           <td className="px-8 py-6">
-                              <div className="flex items-center gap-2">
-                                 <div className={cn(
-                                   "w-2 h-2 rounded-full",
-                                   log.status === 'Success' ? "bg-primary" : "bg-amber-500"
-                                 )} />
-                                 <span className="text-xs font-bold text-slate-700">{log.event}</span>
-                              </div>
-                           </td>
-                           <td className="px-8 py-6">
-                              <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
-                                 <Cpu className="w-3 h-3" /> {log.entity}
-                              </div>
-                           </td>
-                           <td className="px-8 py-6">
-                              <div className="flex items-center gap-2 font-mono text-[10px] text-slate-400 bg-surface-muted/50 px-2 py-1 rounded w-fit">
-                                 {log.hash} <Fingerprint className="w-3 h-3 opacity-50" />
-                              </div>
-                           </td>
-                           <td className="px-8 py-6 text-xs font-medium text-slate-500">{log.timestamp}</td>
-                           <td className="px-8 py-6 text-right">
-                              <Button variant="ghost" size="icon" className="text-slate-300 hover:text-primary">
-                                 <ExternalLink className="w-4 h-4" />
-                              </Button>
-                           </td>
-                        </tr>
-                     ))}
-                  </tbody>
-               </table>
-            </div>
+            
+            <AuditTable logs={remoteLogs || []} />
          </CardContent>
          <div className="absolute inset-0 grain opacity-[0.02] pointer-events-none" />
       </Card>

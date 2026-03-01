@@ -263,6 +263,7 @@ interface CatalogCardProps {
 }
 
 function CatalogCard({ title, subtitle, icon, color, time, digitalReadiness, fee }: CatalogCardProps) {
+  const { t } = useTranslation();
   const colors = {
     primary: "bg-primary/10 text-primary",
     gold: "bg-accent/20 text-accent",
@@ -303,7 +304,7 @@ function CatalogCard({ title, subtitle, icon, color, time, digitalReadiness, fee
 
           <div>
             <div className="flex justify-between text-[10px] font-bold uppercase tracking-wider mb-1.5">
-              <span className="text-muted">Digital Readiness</span>
+              <span className="text-muted">{t('catalog.readiness')}</span>
               <span className={textColors[color]}>{digitalReadiness}% Online</span>
             </div>
             <div className="w-full bg-surface-muted rounded-full h-1.5">
@@ -315,11 +316,11 @@ function CatalogCard({ title, subtitle, icon, color, time, digitalReadiness, fee
 
       <div className="px-6 py-4 border-t border-border flex justify-between items-center bg-surface/50 group-hover:bg-surface transition-colors">
         <div>
-          <p className="text-[10px] text-muted uppercase font-black tracking-widest">Fee</p>
+          <p className="text-[10px] text-muted uppercase font-black tracking-widest">{t('catalog.fee')}</p>
           <p className="text-sm font-bold text-foreground">{fee}</p>
         </div>
         <button className="text-xs font-bold uppercase tracking-[0.25em] text-primary flex items-center gap-1 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300">
-          View Details <ArrowRight className="w-4 h-4" />
+          {t('catalog.viewDetails')} <ArrowRight className="w-4 h-4" />
         </button>
       </div>
     </div>

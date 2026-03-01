@@ -13,6 +13,8 @@ export const metadata: Metadata = {
   description: "Official Document Assistance Platform",
 };
 
+export const dynamic = "force-dynamic";
+
 export default function RootLayout({
   children,
 }: Readonly<{

@@ -1,12 +1,19 @@
 import { OfflineSync } from './sync';
 
-export const playbookSync = new OfflineSync('playbooks');
+let playbookSync: OfflineSync | null = null;
+
+const getPlaybookSync = () => {
+  if (playbookSync) return playbookSync;
+  playbookSync = new OfflineSync('playbooks');
+  return playbookSync;
+};
 
 export const syncPlaybooks = async () => {
+  if (typeof window === 'undefined') return;
   try {
     const remoteUrl = process.env.NEXT_PUBLIC_PLAYBOOKS_REMOTE_URL;
     if (remoteUrl) {
-      playbookSync.setupSync(remoteUrl);
+      await getPlaybookSync().setupSync(remoteUrl);
       console.log('Playbook sync initialized:', remoteUrl);
     } else {
       console.log('Playbook sync skipped (no NEXT_PUBLIC_PLAYBOOKS_REMOTE_URL).');

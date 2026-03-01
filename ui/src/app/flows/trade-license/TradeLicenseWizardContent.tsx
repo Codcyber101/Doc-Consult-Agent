@@ -56,11 +56,11 @@ export default function TradeLicenseWizard() {
 
   useEffect(() => {
     const loadProgress = async () => {
-      const saved = await getWizardProgress('trade-license-draft');
+      const saved = (await getWizardProgress('trade-license-draft')) as
+        | { currentStep?: number; formData?: typeof formData }
+        | null;
       if (saved) {
-        // @ts-expect-error - saved has data
         if (saved.currentStep) setCurrentStep(saved.currentStep);
-        // @ts-expect-error - saved has data
         if (saved.formData) setFormData(saved.formData);
       }
     };

@@ -1,17 +1,27 @@
-import PouchDB from 'pouchdb-browser';
+let pouchdbModule: { default: any } | null = null;
+let localDB: any | null = null;
 
-// Initialize local database for offline persistence only on client side
-let localDB: PouchDB.Database | null = null;
+const loadPouchDB = async () => {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+  if (!pouchdbModule) {
+    pouchdbModule = await import('pouchdb-browser');
+  }
+  return pouchdbModule.default;
+};
 
-const getDB = () => {
-  if (!localDB && typeof window !== 'undefined') {
+const getDB = async () => {
+  if (!localDB) {
+    const PouchDB = await loadPouchDB();
+    if (!PouchDB) return null;
     localDB = new PouchDB('gae_public_portal');
   }
   return localDB;
 };
 
 export const saveWizardProgress = async (docId: string, data: any) => {
-  const db = getDB();
+  const db = await getDB();
   if (!db) return;
   
   try {
@@ -36,7 +46,7 @@ export const saveWizardProgress = async (docId: string, data: any) => {
 };
 
 export const getWizardProgress = async (docId: string) => {
-  const db = getDB();
+  const db = await getDB();
   if (!db) return null;
   
   try {

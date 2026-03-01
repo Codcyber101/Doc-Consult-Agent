@@ -82,15 +82,15 @@ export default function DashboardPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="reveal reveal-delay-1">
-                  <ServiceCard
-                    title={t("services.tradeLicense.title")}
-                    description={t("services.tradeLicense.description")}
-                    icon={<Store className="w-6 h-6" />}
-                    estimate={t("services.estimates.days", { count: 2 })}
-                    badge="online"
-                    color="emerald"
-                    href="/flows/trade-license"
-                  />
+                <ServiceCard
+                  title={t("services.tradeLicense.title")}
+                  description={t("services.tradeLicense.description")}
+                  icon={<Store className="w-6 h-6" />}
+                  estimate={t("services.estimates.days", { count: 2 })}
+                  badge="online"
+                  color="emerald"
+                  href="/services/trade-license"
+                />
                 </div>
                 <div className="reveal reveal-delay-2">
                   <ServiceCard
