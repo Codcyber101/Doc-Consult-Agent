@@ -3,7 +3,8 @@
 // Generated-at: 2026-02-18T00:00:00Z
 
 import React from "react";
-import { CheckCircle2, ChevronRight } from "lucide-react";
+import Link from "next/link";
+import { CheckCircle2, ChevronRight, Database } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export function ReadinessOverview() {
@@ -13,7 +14,7 @@ export function ReadinessOverview() {
     <div className="bg-surface border border-border rounded-3xl shadow-sm overflow-hidden">
       <div className="p-6 border-b border-border bg-surface-muted flex justify-between items-center">
         <div>
-          <p className="text-[10px] uppercase tracking-[0.35em] text-muted">Readiness Ledger</p>
+          <p className="text-[10px] uppercase tracking-[0.35em] text-muted">{t("readiness.readinessLedger")}</p>
           <h3 className="font-display font-bold text-lg text-foreground mt-1">{t("readiness.title")}</h3>
           <p className="text-xs text-muted mt-1">{t("readiness.subtitle")}</p>
         </div>
@@ -41,11 +42,20 @@ export function ReadinessOverview() {
         </div>
       </div>
 
-      <div className="p-4 bg-surface-muted border-t border-border">
-        <button className="w-full py-2.5 text-xs font-bold text-foreground/70 hover:text-primary hover:bg-surface rounded-xl border border-transparent hover:border-border transition-all flex items-center justify-center gap-2 group">
-          {t("readiness.viewAll")}
-          <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-        </button>
+      <div className="p-4 space-y-3 bg-surface-muted border-t border-border">
+        <Link href="/vault">
+          <button className="w-full py-2.5 mb-2 text-xs font-bold text-white bg-slate-900 hover:bg-primary rounded-xl transition-all flex items-center justify-center gap-2 group shadow-lg shadow-black/10">
+            <Database className="w-3.5 h-3.5" />
+            {t("common.myVault")}
+          </button>
+        </Link>
+        
+        <Link href="/queue">
+          <button className="w-full py-2.5 text-xs font-bold text-foreground/70 hover:text-primary hover:bg-surface rounded-xl border border-transparent hover:border-border transition-all flex items-center justify-center gap-2 group">
+            {t("readiness.viewAll")}
+            <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+          </button>
+        </Link>
       </div>
     </div>
   );

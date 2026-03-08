@@ -1,7 +1,9 @@
 import axios from "axios";
 
+// In production/docker, the backend is usually at :3001 or proxied.
+// For development/browser access to backend, use :3001.
 export const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3000",
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3001",
   timeout: 60_000,
 });
 
@@ -14,4 +16,3 @@ apiClient.interceptors.request.use((config) => {
   }
   return config;
 });
-

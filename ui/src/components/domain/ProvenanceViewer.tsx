@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Shield, Check, Lock, X, Copy } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { useTranslation } from "react-i18next"
+
 
 // Since I haven't implemented Dialog or ScrollArea in this session, 
 // I will build a custom Modal for ProvenanceViewer to ensure it works without missing dependencies.
@@ -22,6 +24,7 @@ interface ProvenanceViewerProps {
 
 export function ProvenanceViewer({ isOpen, onClose, data }: ProvenanceViewerProps) {
   const [copied, setCopied] = React.useState(false)
+  const { t } = useTranslation();
 
   const handleCopy = () => {
     navigator.clipboard.writeText(JSON.stringify(data, null, 2))
@@ -54,9 +57,9 @@ export function ProvenanceViewer({ isOpen, onClose, data }: ProvenanceViewerProp
                      <Shield className="w-5 h-5" />
                    </div>
                    <div>
-                     <h3 className="text-lg font-display font-bold text-slate-900">Digital Provenance</h3>
+                     <h3 className="text-lg font-display font-bold text-slate-900">{t('provenance.title')}</h3>
                      <p className="text-xs text-primary font-medium flex items-center gap-1">
-                       <Lock className="w-3 h-3" /> Cryptographically Signed
+                       <Lock className="w-3 h-3" /> {t('provenance.subtitle')}
                      </p>
                    </div>
                 </div>
@@ -69,11 +72,11 @@ export function ProvenanceViewer({ isOpen, onClose, data }: ProvenanceViewerProp
               <div className="flex-1 overflow-y-auto p-6 space-y-6">
                  <div className="grid grid-cols-2 gap-4">
                     <div className="p-4 bg-surface-muted rounded-xl border border-border">
-                       <p className="text-xs text-slate-500 uppercase tracking-wider font-bold mb-1">Issuer</p>
+                       <p className="text-xs text-slate-500 uppercase tracking-wider font-bold mb-1">{t('provenance.issuer')}</p>
                        <p className="text-sm font-medium text-slate-900">{data.issuer}</p>
                     </div>
                     <div className="p-4 bg-surface-muted rounded-xl border border-border">
-                       <p className="text-xs text-slate-500 uppercase tracking-wider font-bold mb-1">Timestamp</p>
+                       <p className="text-xs text-slate-500 uppercase tracking-wider font-bold mb-1">{t('provenance.timestamp')}</p>
                        <p className="text-sm font-medium text-slate-900">{new Date(data.issuedAt).toLocaleString()}</p>
                     </div>
                  </div>
@@ -82,7 +85,7 @@ export function ProvenanceViewer({ isOpen, onClose, data }: ProvenanceViewerProp
                     <div className="absolute right-2 top-2">
                        <Button size="sm" variant="outline" className="h-8 gap-2 bg-slate-900 text-white border-none hover:bg-slate-800" onClick={handleCopy}>
                           {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-                          {copied ? "Copied" : "Copy JSON"}
+                          {copied ? t('provenance.copied') : t('provenance.copyJson')}
                        </Button>
                     </div>
                     <pre className="bg-slate-900 text-slate-50 p-6 rounded-xl text-xs font-mono overflow-x-auto border border-slate-800 shadow-inner">
@@ -92,7 +95,7 @@ export function ProvenanceViewer({ isOpen, onClose, data }: ProvenanceViewerProp
 
                  <div className="flex items-center gap-3 p-4 bg-primary/10 text-slate-800 rounded-xl text-sm border border-primary/20">
                     <Check className="w-5 h-5 flex-shrink-0" />
-                    <p>This document contains a valid digital signature anchored to the Ethiopian National Trust Chain.</p>
+                    <p>{t('provenance.verificationMsg')}</p>
                  </div>
               </div>
             </div>

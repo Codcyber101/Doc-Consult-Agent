@@ -26,10 +26,10 @@ test_route() {
 }
 
 # Run tests
-test_route "/" "Selam"
-test_route "/services" "Directory"
+test_route "/" "Welcome back"
+test_route "/services" "Find Government Services"
 test_route "/services/trade-license" "Trade License Renewal"
-test_route "/flows/trade-license" "Step 1 of 5"
+test_route "/flows/trade-license" "Trade License Renewal"
 test_route "/vault" "Vault"
 test_route "/vault/doc-1" "Abebe Bikila"
 test_route "/track" "Tracking"

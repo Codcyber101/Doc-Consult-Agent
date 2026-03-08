@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { CheckCircle2, ChevronLeft, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 interface WizardShellProps {
   children: React.ReactNode;
@@ -27,9 +28,12 @@ export function WizardShell({
   onBack,
   onNext,
   isLoading,
-  nextLabel = "Continue",
+  nextLabel,
   nextDisabled
 }: WizardShellProps) {
+  const { t } = useTranslation();
+  const actualNextLabel = nextLabel || t('common.continue');
+
   return (
     <main className="flex-1 h-full overflow-y-auto bg-background p-6 md:p-12 lg:p-16 flex flex-col relative">
       {/* Background Pattern */}
@@ -50,6 +54,7 @@ export function WizardShell({
                   status={i + 1 < currentStep ? "completed" : i + 1 === currentStep ? "active" : "pending"} 
                   number={i + 1} 
                   active={i + 1 === currentStep}
+                  t={t}
                 />
                 {i < totalSteps - 1 && (
                   <div className={cn(
@@ -91,7 +96,7 @@ export function WizardShell({
                   className="flex items-center gap-2 px-4 py-2 text-slate-600 dark:text-slate-400 font-bold hover:bg-surface-muted dark:hover:bg-slate-800 rounded-xl transition-colors"
                 >
                   <ChevronLeft className="w-4 h-4" />
-                  Back
+                  {t('common.back')}
                 </button>
               )}
             </div>
@@ -102,7 +107,7 @@ export function WizardShell({
               className="flex items-center gap-2 px-8 py-3 bg-primary hover:bg-primary-dark disabled:opacity-50 disabled:hover:translate-y-0 text-white font-bold rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all"
             >
               {isLoading && <Loader2 className="w-4 h-4 animate-spin" />}
-              {nextLabel}
+              {actualNextLabel}
             </button>
         </div>
 
@@ -111,10 +116,10 @@ export function WizardShell({
   );
 }
 
-function StepIndicator({ status, number, active }: { status: "completed" | "active" | "pending", number: number, active?: boolean }) {
+function StepIndicator({ status, number, active, t }: { status: "completed" | "active" | "pending", number: number, active?: boolean, t: any }) {
   if (status === "completed") {
     return (
-      <div className="size-7 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0" aria-label={`Step ${number} completed`}>
+      <div className="size-7 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0" aria-label={`${t('wizard.step')} ${number} completed`}>
         <CheckCircle2 className="w-4 h-4" />
       </div>
     );
@@ -122,14 +127,14 @@ function StepIndicator({ status, number, active }: { status: "completed" | "acti
   
   if (status === "active") {
     return (
-      <div className="size-7 rounded-full bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/30 shrink-0" aria-current="step" aria-label={`Step ${number} active`}>
+      <div className="size-7 rounded-full bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/30 shrink-0" aria-current="step" aria-label={`${t('wizard.step')} ${number} active`}>
         <span className="text-xs font-bold font-mono">{number}</span>
       </div>
     );
   }
 
   return (
-    <div className="size-7 rounded-full border-2 border-border dark:border-slate-700 flex items-center justify-center text-slate-400 shrink-0" aria-label={`Step ${number}`}>
+    <div className="size-7 rounded-full border-2 border-border dark:border-slate-700 flex items-center justify-center text-slate-400 shrink-0" aria-label={`${t('wizard.step')} ${number}`}>
        <span className="text-xs font-bold font-mono">{number}</span>
     </div>
   );

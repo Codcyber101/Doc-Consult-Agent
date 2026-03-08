@@ -7,6 +7,7 @@ import "./globals.css";
 import { ToastProvider } from "@/components/common/Toast";
 import { I18nInitializer } from "@/components/common/I18nInitializer";
 import { OfflineSyncInitializer } from "@/components/common/OfflineSyncInitializer";
+import { SidebarProvider } from "@/lib/context/SidebarContext";
 
 export const metadata: Metadata = {
   title: "GovAssist Ethiopia",
@@ -27,8 +28,10 @@ export default function RootLayout({
       >
         <I18nInitializer>
           <ToastProvider>
-            <OfflineSyncInitializer />
-            {children}
+            <SidebarProvider>
+              <OfflineSyncInitializer />
+              {children}
+            </SidebarProvider>
           </ToastProvider>
         </I18nInitializer>
       </body>

@@ -13,8 +13,10 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 export function GuidanceSidebar() {
+  const { t } = useTranslation();
   const [openSection, setOpenSection] = useState<string | null>("plain-language");
 
   const toggleSection = (section: string) => {
@@ -33,11 +35,11 @@ export function GuidanceSidebar() {
             <Gavel className="w-4 h-4 text-primary dark:text-blue-400" />
           </div>
           <span className="text-xs font-bold uppercase tracking-wider text-primary dark:text-blue-400 font-display">
-            Step 3: Identification
+            {t('guidance.stepPrefix')} 3: Identification
           </span>
         </div>
         <h2 className="text-slate-900 dark:text-white text-2xl font-bold leading-tight tracking-tight font-display">
-          Guidance & Law
+          {t('guidance.title')}
         </h2>
       </div>
 
@@ -53,8 +55,8 @@ export function GuidanceSidebar() {
               className="w-full flex items-center justify-between px-5 py-4 hover:bg-surface-muted dark:hover:bg-slate-800/50 transition-colors"
             >
               <div className="flex flex-col items-start gap-1">
-                <span className="text-slate-900 dark:text-white text-sm font-bold font-display">Plain Language Guide</span>
-                <span className="text-slate-500 dark:text-slate-400 text-xs font-ethiopic">ማብራሪያ (Explanation)</span>
+                <span className="text-slate-900 dark:text-white text-sm font-bold font-display">{t('guidance.plainLanguage.title')}</span>
+                <span className="text-slate-500 dark:text-slate-400 text-xs font-ethiopic">{t('guidance.plainLanguage.explanationLabel')}</span>
               </div>
               <ChevronDown 
                 className={cn("w-5 h-5 text-slate-400 transition-transform duration-300", openSection === "plain-language" && "rotate-180")} 
@@ -70,16 +72,11 @@ export function GuidanceSidebar() {
                 >
                   <div className="px-5 pb-5 pt-1 border-t border-border/60 dark:border-slate-800/50">
                     <h4 className="text-primary dark:text-blue-400 font-bold text-sm mb-2 font-ethiopic">
-                      ይህ መረጃ ለምን አስፈለገ?
+                      {t('guidance.plainLanguage.q1')}
                     </h4>
-                    <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4 font-ethiopic">
-                      መንግስት ህጋዊ አገልግሎት ለመስጠት ማንነትዎን ማረጋገጥ አለበት። ይህ የማጭበርበር ወንጀልን ለመከላከል ይረዳል።
+                    <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed font-ethiopic">
+                      {t('guidance.plainLanguage.a1')}
                     </p>
-                    <div className="relative pl-3 border-l-2 border-primary/20">
-                      <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed italic">
-                        Identity verification is required to prevent fraud and ensure service delivery to the correct individual. We cross-reference this with the National ID database.
-                      </p>
-                    </div>
                   </div>
                 </motion.div>
               )}
@@ -93,8 +90,8 @@ export function GuidanceSidebar() {
               className="w-full flex items-center justify-between px-5 py-4 hover:bg-surface-muted dark:hover:bg-slate-800/50 transition-colors"
             >
               <div className="flex flex-col items-start gap-1">
-                <span className="text-slate-900 dark:text-white text-sm font-bold font-display">Legal Context</span>
-                <span className="text-slate-500 dark:text-slate-400 text-xs">Relevant Proclamations</span>
+                <span className="text-slate-900 dark:text-white text-sm font-bold font-display">{t('guidance.legalContext.title')}</span>
+                <span className="text-slate-500 dark:text-slate-400 text-xs">{t('guidance.legalContext.subtitle')}</span>
               </div>
               <ChevronDown 
                 className={cn("w-5 h-5 text-slate-400 transition-transform duration-300", openSection === "legal-context" && "rotate-180")} 
@@ -114,7 +111,7 @@ export function GuidanceSidebar() {
                         <span className="text-slate-900 dark:text-white text-sm font-medium">Proclamation No. 980/2016</span>
                         <span className="text-slate-500 dark:text-slate-400 text-xs">Article 14(2) - Authentication of Documents</span>
                         <a href="#" className="inline-flex items-center gap-1 text-primary hover:text-primary-dark text-xs font-bold mt-1 group/link">
-                          Read Full Text 
+                          {t('guidance.legalContext.readFull')} 
                           <ExternalLink className="w-3 h-3 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
                         </a>
                       </li>
@@ -123,7 +120,7 @@ export function GuidanceSidebar() {
                         <span className="text-slate-900 dark:text-white text-sm font-medium">Regulation No. 421/2018</span>
                         <span className="text-slate-500 dark:text-slate-400 text-xs">Section 5 - Digital Signatures</span>
                         <a href="#" className="inline-flex items-center gap-1 text-primary hover:text-primary-dark text-xs font-bold mt-1 group/link">
-                          Read Full Text 
+                          {t('guidance.legalContext.readFull')} 
                           <ExternalLink className="w-3 h-3 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
                         </a>
                       </li>
@@ -139,7 +136,7 @@ export function GuidanceSidebar() {
         <div>
           <h3 className="text-slate-900 dark:text-white text-xs font-bold uppercase tracking-wider mb-4 flex items-center gap-2 px-1">
             <ImageIcon className="w-4 h-4 text-slate-400" />
-            Document Examples
+            {t('guidance.documentExamples.title')}
           </h3>
           <div className="grid grid-cols-2 gap-4">
             <DocumentExampleCard 
@@ -165,9 +162,9 @@ export function GuidanceSidebar() {
           <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-primary/20 to-transparent -mr-4 -mt-4 rounded-full blur-xl" />
           <Lightbulb className="w-5 h-5 text-primary dark:text-blue-400 shrink-0 mt-0.5 relative z-10" />
           <div className="relative z-10">
-            <h5 className="text-slate-900 dark:text-blue-200 text-sm font-bold mb-1">Quick Tip</h5>
+            <h5 className="text-slate-900 dark:text-blue-200 text-sm font-bold mb-1">{t('guidance.quickTip.title')}</h5>
             <p className="text-slate-700/80 dark:text-blue-300/80 text-sm leading-relaxed">
-              Ensure all uploaded documents are scanned in color and edges are clearly visible.
+              {t('guidance.quickTip.body')}
             </p>
           </div>
         </div>
@@ -177,9 +174,9 @@ export function GuidanceSidebar() {
       <div className="p-6 border-t border-border/60 dark:border-slate-800/50 bg-surface/40 dark:bg-slate-900/40 backdrop-blur-md">
         <button className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-6 bg-slate-900 hover:bg-slate-800 dark:bg-surface dark:hover:bg-surface-muted text-white dark:text-slate-900 gap-2 shadow-lg shadow-slate-200/50 dark:shadow-black/20 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900">
           <MessageCircle className="w-5 h-5" />
-          <span className="truncate text-sm font-bold tracking-wide">Contact Support</span>
+          <span className="truncate text-sm font-bold tracking-wide">{t('dashboard.contactSupport')}</span>
         </button>
-        <p className="text-center text-[10px] uppercase tracking-widest text-slate-400 dark:text-slate-500 mt-4 font-medium">GovAssist Ethiopia © 2024</p>
+        <p className="text-center text-[10px] uppercase tracking-widest text-slate-400 dark:text-slate-500 mt-4 font-medium">{t('guidance.copyright')}</p>
       </div>
     </aside>
   );

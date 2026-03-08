@@ -2,6 +2,7 @@
 
 import React from "react";
 import { AppSidebar } from "@/components/layout/AppSidebar";
+import { useTranslation } from "react-i18next";
 import { 
   WifiOff, 
   History, 
@@ -19,16 +20,23 @@ import {
   Store
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useSidebar } from "@/lib/context/SidebarContext";
 
 export default function QueuePage() {
+  const { t } = useTranslation();
+  const { isCollapsed } = useSidebar();
+
   return (
-    <div className="flex min-h-screen bg-background text-foreground font-sans selection:bg-primary/20">
+    <div className="flex h-screen overflow-hidden bg-background text-foreground font-sans selection:bg-primary/20">
       <AppSidebar />
       
-      <main className="flex-1 lg:pl-72 flex flex-col min-w-0">
+      <main className={cn(
+        "flex-1 flex flex-col min-w-0 transition-all duration-300 h-screen overflow-y-auto",
+        isCollapsed ? "lg:pl-20" : "lg:pl-72"
+      )}>
         {/* Mobile Header */}
         <div className="lg:hidden h-16 border-b border-border dark:border-slate-800 flex items-center px-4 sticky top-0 bg-surface/80 dark:bg-slate-950/80 backdrop-blur-md z-30">
-           <span className="font-bold text-lg font-display">GovAssist</span>
+           <span className="font-bold text-lg font-display">{t("common.brandName")}</span>
         </div>
 
         <div className="flex-1 p-4 md:p-8 lg:p-10 max-w-5xl mx-auto w-full space-y-8">
@@ -38,22 +46,22 @@ export default function QueuePage() {
             <div>
               <div className="flex items-center gap-3">
                 <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-white font-display">
-                  My Queue
+                  {t("queue.title")}
                 </h1>
-                <span className="text-2xl font-normal text-slate-400 font-ethiopic opacity-60">/ የኔ ተራ</span>
+                <span className="text-2xl font-normal text-slate-400 font-ethiopic opacity-60">/ {t("queue.title")}</span>
               </div>
               <p className="mt-2 text-slate-500 dark:text-slate-400 font-medium">
-                Manage pending submissions and sync status.
+                {t("queue.subtitle")}
               </p>
             </div>
             <div className="flex gap-2">
               <button className="inline-flex items-center justify-center rounded-xl bg-surface dark:bg-slate-900 border border-border dark:border-slate-800 px-4 py-2.5 text-sm font-bold text-slate-700 dark:text-slate-200 shadow-sm hover:bg-surface dark:hover:bg-slate-800 transition-colors">
                 <History className="mr-2 w-4 h-4" />
-                History
+                {t("queue.history")}
               </button>
               <button className="inline-flex items-center justify-center rounded-xl bg-primary hover:bg-primary-dark px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5">
                 <RefreshCw className="mr-2 w-4 h-4 animate-spin-slow" style={{ animationDuration: '3s' }} />
-                Force Sync All
+                {t("queue.forceSync")}
               </button>
             </div>
           </div>
@@ -66,14 +74,14 @@ export default function QueuePage() {
               </div>
               <div className="flex-1 md:flex md:justify-between md:items-center">
                 <div>
-                  <h3 className="text-sm font-bold text-amber-900 dark:text-amber-100 font-display">You are currently offline</h3>
+                  <h3 className="text-sm font-bold text-amber-900 dark:text-amber-100 font-display">{t("queue.offlineTitle")}</h3>
                   <p className="mt-1 text-sm text-amber-700 dark:text-amber-300/80 leading-relaxed">
-                    Your data is saved locally in the secure browser vault and will sync automatically once you reconnect.
+                    {t("queue.offlineDesc")}
                   </p>
                 </div>
                 <div className="mt-3 md:mt-0 md:ml-4">
                   <button className="whitespace-nowrap rounded-lg bg-surface dark:bg-amber-900/20 px-4 py-2 text-xs font-bold text-amber-700 dark:text-amber-300 shadow-sm ring-1 ring-inset ring-amber-200 dark:ring-amber-800 hover:bg-amber-50 dark:hover:bg-amber-900/30 transition-colors">
-                    Retry Connection
+                    {t("queue.retryConnection")}
                   </button>
                 </div>
               </div>
@@ -84,19 +92,19 @@ export default function QueuePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <StatCard 
               icon={<Clock className="w-5 h-5" />} 
-              label="Pending Items" 
+              label={t("queue.pendingItems")} 
               value="3" 
               color="blue" 
             />
             <StatCard 
               icon={<CloudOff className="w-5 h-5" />} 
-              label="Unsynced Data" 
+              label={t("queue.unsyncedData")} 
               value="4.2 MB" 
               color="purple" 
             />
             <StatCard 
               icon={<CheckCircle2 className="w-5 h-5" />} 
-              label="Last Successful Sync" 
+              label={t("queue.lastSync")} 
               value="Yesterday, 4 PM" 
               color="primary" 
             />
@@ -105,8 +113,8 @@ export default function QueuePage() {
           {/* Queue List */}
           <div className="space-y-4">
             <div className="flex items-center justify-between px-1">
-              <h3 className="text-base font-bold text-slate-900 dark:text-white font-display">Pending Submissions</h3>
-              <span className="text-sm text-slate-500 dark:text-slate-400 font-medium">Sorted by: <span className="text-slate-900 dark:text-white">Newest First</span></span>
+              <h3 className="text-base font-bold text-slate-900 dark:text-white font-display">{t("queue.pendingSubmissions")}</h3>
+              <span className="text-sm text-slate-500 dark:text-slate-400 font-medium">{t("queue.sortBy")} <span className="text-slate-900 dark:text-white">{t("queue.newestFirst")}</span></span>
             </div>
 
             {/* Item 1: Waiting */}
@@ -142,11 +150,11 @@ export default function QueuePage() {
 
           {/* Footer */}
           <div className="flex items-center justify-center pt-8 pb-4 text-xs font-medium text-slate-400 gap-4 opacity-70">
-            <span>GovAssist Ethiopia v2.4.1 (Offline Capable)</span>
+            <span>{t("common.brandName")} {t("common.ethiopia")} v2.4.1 ({t("queue.offlineCapable")})</span>
             <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700"></span>
             <span className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-              PouchDB Storage: Active
+              {t("queue.pouchDbActive")}
             </span>
           </div>
 
@@ -188,6 +196,7 @@ interface QueueItemProps {
 }
 
 function QueueItem({ status, title, subtitle, id, time, progress, errorMsg, icon }: QueueItemProps) {
+  const { t } = useTranslation();
   return (
     <div className={cn(
       "group relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 rounded-2xl border bg-surface/60 dark:bg-slate-900/60 p-5 shadow-sm transition-all hover:shadow-md backdrop-blur-sm",
@@ -213,8 +222,8 @@ function QueueItem({ status, title, subtitle, id, time, progress, errorMsg, icon
           </div>
           <p className="text-sm text-slate-500 dark:text-slate-400 font-medium mt-0.5">
             ID: {id} • 
-            {status === "waiting" && " Saved locally"}
-            {status === "syncing" && " Uploading photos..."}
+            {status === "waiting" && ` ${t("queue.savedLocally")}`}
+            {status === "syncing" && ` ${t("queue.uploading")}`}
             {status === "error" && <span className="text-red-600 dark:text-red-400"> {errorMsg}</span>}
           </p>
           
@@ -223,13 +232,13 @@ function QueueItem({ status, title, subtitle, id, time, progress, errorMsg, icon
              {status === "waiting" && (
                 <span className="inline-flex items-center rounded-full bg-surface-muted px-2.5 py-0.5 text-xs font-bold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
                   <span className="mr-1.5 size-1.5 rounded-full bg-slate-500"></span>
-                  Waiting
+                  {t("queue.waiting")}
                 </span>
              )}
              {status === "error" && (
                 <span className="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-bold text-red-700 dark:bg-red-900/30 dark:text-red-300">
                   <AlertCircle className="mr-1.5 w-3 h-3" />
-                  Failed
+                  {t("queue.failed")}
                 </span>
              )}
           </div>
@@ -245,7 +254,7 @@ function QueueItem({ status, title, subtitle, id, time, progress, errorMsg, icon
             <>
               <span className="inline-flex items-center rounded-full bg-surface-muted px-2.5 py-0.5 text-xs font-bold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
                 <span className="mr-1.5 size-1.5 rounded-full bg-slate-500"></span>
-                Waiting for connection
+                {t("queue.waitingConnection")}
               </span>
               <span className="text-[10px] text-slate-400 font-medium">{time}</span>
             </>
@@ -255,7 +264,7 @@ function QueueItem({ status, title, subtitle, id, time, progress, errorMsg, icon
                <div className="flex justify-between text-xs mb-1">
                   <span className="font-bold text-blue-600 dark:text-blue-400 flex items-center gap-1">
                      <span className="block size-1.5 rounded-full bg-blue-500 animate-pulse"></span>
-                     Syncing
+                     {t("queue.syncing")}
                   </span>
                   <span className="font-bold text-slate-700 dark:text-white">{progress}%</span>
                </div>
@@ -270,10 +279,10 @@ function QueueItem({ status, title, subtitle, id, time, progress, errorMsg, icon
              <>
                 <span className="inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-bold text-red-700 dark:bg-red-900/30 dark:text-red-300 border border-red-100 dark:border-red-800/50">
                   <AlertCircle className="mr-1.5 w-3 h-3" />
-                  Sync Failed
+                  {t("queue.syncFailed")}
                 </span>
                 <button className="text-[10px] text-red-600 font-bold hover:underline decoration-dotted">
-                   View details
+                   {t("queue.viewDetails")}
                 </button>
              </>
           )}
@@ -287,7 +296,7 @@ function QueueItem({ status, title, subtitle, id, time, progress, errorMsg, icon
                    <Edit2 className="w-4 h-4" />
                 </button>
                 <button className="flex items-center gap-1.5 rounded-lg bg-surface dark:bg-slate-800 px-3 py-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 border border-border dark:border-slate-700 shadow-sm hover:bg-surface">
-                   Pause
+                   {t("queue.pause")}
                    <Pause className="w-3.5 h-3.5" />
                 </button>
              </>
@@ -301,13 +310,13 @@ function QueueItem({ status, title, subtitle, id, time, progress, errorMsg, icon
                 </button>
                 {status === "waiting" && (
                 <button className="flex items-center gap-1.5 rounded-lg bg-surface-muted dark:bg-slate-800 px-3 py-1.5 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-surface dark:hover:bg-slate-700 transition-colors">
-                      Sync
+                      {t("queue.sync")}
                       <ArrowUpCircle className="w-3.5 h-3.5" />
                    </button>
                 )}
                 {status === "error" && (
                    <button className="flex items-center gap-1.5 rounded-lg bg-red-50 dark:bg-red-900/20 px-3 py-1.5 text-xs font-bold text-red-700 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors border border-red-200 dark:border-red-800/50">
-                      Retry
+                      {t("queue.retry")}
                       <RefreshCw className="w-3.5 h-3.5" />
                    </button>
                 )}

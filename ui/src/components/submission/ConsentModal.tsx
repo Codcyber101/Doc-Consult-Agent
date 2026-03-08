@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, Lock, AlertCircle, X, FileSignature } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface ConsentModalProps {
   isOpen: boolean;
@@ -12,6 +13,7 @@ interface ConsentModalProps {
 
 export function ConsentModal({ isOpen, onClose, onConfirm }: ConsentModalProps) {
   const [agreed, setAgreed] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <AnimatePresence>
@@ -37,8 +39,8 @@ export function ConsentModal({ isOpen, onClose, onConfirm }: ConsentModalProps) 
                   <FileSignature className="w-6 h-6" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-black tracking-tight text-slate-900 uppercase">Sovereign Consent</h2>
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">Sovereign Data processing</p>
+                  <h2 className="text-2xl font-black tracking-tight text-slate-900 uppercase">{t('consent.title')}</h2>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">{t('consent.subtitle')}</p>
                 </div>
               </div>
               <button 
@@ -53,19 +55,18 @@ export function ConsentModal({ isOpen, onClose, onConfirm }: ConsentModalProps) 
               <div className="flex items-start gap-5 p-6 bg-primary/5 rounded-3xl border border-primary/10">
                 <Lock className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
                 <p className="text-sm text-slate-800 leading-relaxed font-semibold">
-                  Archive data is cryptographically anchored to Ethiopian sovereign infrastructure. 
-                  Zero-Knowledge protocols ensure your PII never exits authorized bureau boundaries.
+                  {t('consent.agreementInfo')}
                 </p>
               </div>
 
               <div className="space-y-5">
-                <p className="text-xs font-black text-slate-400 uppercase tracking-widest">Authorized Operations:</p>
+                <p className="text-xs font-black text-slate-400 uppercase tracking-widest">{t('consent.authorizedOps')}</p>
                 <ul className="space-y-4">
                   {[
-                    'Automated policy compliance verification',
-                    'PII extraction for official bureau submission',
-                    'Asynchronous transmission via MESOB Gateway',
-                    'Cryptographic audit trail anchoring'
+                    t('consent.op1'),
+                    t('consent.op2'),
+                    t('consent.op3'),
+                    t('consent.op4')
                   ].map((auth, i) => (
                     <li key={i} className="flex items-center gap-3 text-sm font-bold text-slate-700">
                       <ShieldCheck className="w-4 h-4 text-gold-500" />
@@ -86,7 +87,7 @@ export function ConsentModal({ isOpen, onClose, onConfirm }: ConsentModalProps) 
                   <ShieldCheck className="absolute h-4 w-4 text-white opacity-0 peer-checked:opacity-100 left-1 transition-opacity pointer-events-none" />
                 </div>
                 <span className="text-sm font-black text-slate-900 leading-tight uppercase tracking-tight group-hover:text-slate-900 transition-colors">
-                  I ratify the data processing agreement and authorize sovereign archival transmission.
+                  {t('consent.ratify')}
                 </span>
               </label>
             </div>
@@ -96,14 +97,14 @@ export function ConsentModal({ isOpen, onClose, onConfirm }: ConsentModalProps) 
                 onClick={onClose}
                 className="flex-1 px-8 py-5 bg-white/5 border border-white/10 rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] text-white hover:bg-white/10 transition-all"
               >
-                Retract
+                {t('consent.retract')}
               </button>
               <button 
                 disabled={!agreed}
                 onClick={onConfirm}
                 className="flex-[2] px-8 py-5 bg-primary text-white rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-primary-dark disabled:opacity-30 disabled:grayscale transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-2"
               >
-                Agree & Initialize Submission
+                {t('consent.agreeSubmit')}
               </button>
             </div>
           </motion.div>

@@ -1,10 +1,12 @@
 import * as React from "react"
 import { motion } from "framer-motion"
-import { AlertTriangle, CheckCircle, FileText, Upload } from "lucide-react"
+import { AlertTriangle, CheckCircle, FileText, Upload, Shield } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
+import { useTranslation } from "react-i18next"
+
 
 export interface ReadinessItem {
   id: string
@@ -17,10 +19,12 @@ export interface ReadinessPanelProps {
   score: number // 0 to 100
   items: ReadinessItem[]
   onFixItem?: (id: string) => void
+  onViewProvenance?: (id: string) => void
 }
 
-export function ReadinessPanel({ score, items, onFixItem }: ReadinessPanelProps) {
+export function ReadinessPanel({ score, items, onFixItem, onViewProvenance }: ReadinessPanelProps) {
   const isReady = score >= 100
+  const { t } = useTranslation();
   
   // Donut chart logic (simplified for SVG)
   const radius = 30
@@ -31,14 +35,14 @@ export function ReadinessPanel({ score, items, onFixItem }: ReadinessPanelProps)
     <Card className="bg-surface/70 backdrop-blur-sm border-border/60 shadow-lg-soft overflow-hidden">
        <CardHeader className="pb-2 border-b border-border/60">
          <CardTitle className="flex items-center justify-between font-display text-ink">
-            <span>Readiness Check</span>
+            <span>{t('wizard.readinessCheck')}</span>
             <span className={cn(
               "text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-sm border-2 transform -rotate-2",
               isReady 
                 ? "bg-blue-50 text-blue-700 border-blue-700/20" 
                 : "bg-amber-50 text-amber-700 border-amber-700/20"
             )}>
-               {isReady ? "Certified Ready" : "Incomplete"}
+               {isReady ? t('wizard.certifiedReady') : t('wizard.incomplete')}
             </span>
          </CardTitle>
        </CardHeader>
@@ -70,7 +74,7 @@ export function ReadinessPanel({ score, items, onFixItem }: ReadinessPanelProps)
                  </svg>
                  <div className="absolute inset-0 flex flex-col items-center justify-center">
                     <span className="text-4xl font-black font-display text-slate-900 tracking-tighter">{score}%</span>
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">Status</span>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">{t('wizard.status')}</span>
                  </div>
              </div>
 
@@ -106,19 +110,32 @@ export function ReadinessPanel({ score, items, onFixItem }: ReadinessPanelProps)
                         </span>
                      </div>
                      
-                     {item.status !== 'ready' && (
-                        <Button 
-                          size="sm" 
-                          variant={item.status === 'missing' ? "destructive" : "secondary"}
-                          className={cn(
-                             "h-8 text-xs font-semibold shadow-sm",
-                             item.status === 'missing' ? "bg-red-500 hover:bg-red-600" : "bg-amber-400 hover:bg-amber-500 text-black"
-                          )}
-                          onClick={() => onFixItem?.(item.id)}
-                        >
-                          {item.fixActionLabel || "Fix Issue"}
-                        </Button>
-                     )}
+                     <div className="flex items-center gap-2">
+                        {item.status === 'ready' && onViewProvenance && (
+                          <Button 
+                            size="sm" 
+                            variant="ghost"
+                            className="h-8 px-2 text-primary hover:bg-primary/10 flex items-center gap-1.5"
+                            onClick={() => onViewProvenance(item.id)}
+                          >
+                            <Shield className="h-3.5 w-3.5" />
+                            <span className="text-[10px] font-bold uppercase tracking-wider">{t('wizard.viewProof')}</span>
+                          </Button>
+                        )}
+                        {item.status !== 'ready' && (
+                           <Button 
+                             size="sm" 
+                             variant={item.status === 'missing' ? "destructive" : "secondary"}
+                             className={cn(
+                                "h-8 text-xs font-semibold shadow-sm",
+                                item.status === 'missing' ? "bg-red-500 hover:bg-red-600" : "bg-amber-400 hover:bg-amber-500 text-black"
+                             )}
+                             onClick={() => onFixItem?.(item.id)}
+                           >
+                             {item.fixActionLabel || t('wizard.fixIssue')}
+                           </Button>
+                        )}
+                     </div>
                   </motion.div>
                 ))}
              </div>

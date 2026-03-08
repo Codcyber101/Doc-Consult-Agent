@@ -11,6 +11,7 @@ import { WizardProgress } from '@/components/common/WizardProgress';
 import { X, Save, HelpCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 
 export default function WizardLayout({
   children,
@@ -18,6 +19,7 @@ export default function WizardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const { t } = useTranslation();
 
   const getProgress = () => {
     if (pathname.includes('step-1')) return 20;
@@ -26,6 +28,13 @@ export default function WizardLayout({
     if (pathname.includes('step-4')) return 80;
     if (pathname.includes('review')) return 95;
     return 10;
+  };
+
+  const getTitle = () => {
+    if (pathname.includes('trade-license')) return t("services.tradeLicense.title");
+    if (pathname.includes('kebele-id')) return t("services.kebeleId.title");
+    if (pathname.includes('vital-events')) return t("services.vitalEvents.title");
+    return t("wizard.application");
   };
 
   return (
@@ -40,8 +49,8 @@ export default function WizardLayout({
               </Link>
               <div className="h-6 w-[1px] bg-border"></div>
               <div>
-                <p className="text-[10px] font-black text-primary uppercase tracking-[0.3em] leading-none mb-1">Application</p>
-                <h2 className="text-sm font-black text-foreground leading-none">Trade License Renewal</h2>
+                <p className="text-[10px] font-black text-primary uppercase tracking-[0.3em] leading-none mb-1">{t("wizard.application")}</p>
+                <h2 className="text-sm font-black text-foreground leading-none">{getTitle()}</h2>
               </div>
             </div>
 
@@ -52,7 +61,7 @@ export default function WizardLayout({
             <div className="flex items-center gap-2">
               <Button variant="ghost" size="sm" className="flex text-muted font-bold gap-2">
                 <Save className="h-4 w-4" />
-                Save & Exit
+                {t("common.saveExit")}
               </Button>
               <div className="h-8 w-8 rounded-full bg-surface-muted flex items-center justify-center text-muted hover:text-primary cursor-pointer transition-colors">
                 <HelpCircle className="h-4 w-4" />

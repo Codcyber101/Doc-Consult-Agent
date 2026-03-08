@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
 import { apiClient } from "@/lib/api/client"
+import { useTranslation } from "react-i18next"
+
 
 export interface DocumentUploadResult {
   documentId: string
@@ -29,6 +31,7 @@ export function DocumentUploadWidget({
   onUpload,
   onUploaded,
 }: DocumentUploadWidgetProps) {
+  const { t } = useTranslation();
   const [dragActive, setDragActive] = React.useState(false)
   const [file, setFile] = React.useState<File | null>(null)
   const [preview, setPreview] = React.useState<string | null>(null)
@@ -130,7 +133,7 @@ export function DocumentUploadWidget({
           <label className="text-sm font-bold font-display text-ink uppercase tracking-wide">{label}</label>
           {status === 'ready' && (
              <span className="text-xs font-bold text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-sm">
-               Quality: {qualityScore}%
+               {t('wizard.status')}: {qualityScore}%
              </span>
           )}
        </div>
@@ -172,15 +175,15 @@ export function DocumentUploadWidget({
                    <UploadCloud className="w-6 h-6 text-primary" />
                 </div>
                 <div className="text-center">
-                   <p className="text-sm font-bold text-ink">Click to upload or drag and drop</p>
-                   <p className="text-xs mt-1 text-slate-500 font-medium">{description || "PDF, PNG or JPG (max 5MB)"}</p>
+                   <p className="text-sm font-bold text-ink">{t('wizard.clickToUpload')}</p>
+                   <p className="text-xs mt-1 text-slate-500 font-medium">{description || `PDF, PNG or JPG (${t('wizard.maxSize')})`}</p>
                 </div>
               </div>
               
               <div className="absolute bottom-4 right-4 z-20">
                  <Button size="sm" variant="outline" className="gap-2 bg-surface hover:bg-gold-50 border-border text-ink shadow-sm" onClick={(e) => { e.preventDefault(); /* Trigger camera logic */ }}>
                     <Camera className="w-4 h-4 text-primary" />
-                    Use Camera
+                    {t('wizard.useCamera')}
                  </Button>
               </div>
             </motion.div>
@@ -223,7 +226,7 @@ export function DocumentUploadWidget({
                      {status === 'analyzing' ? (
                        <div className="space-y-1" role="status" aria-live="polite">
                           <div className="flex justify-between text-[10px] text-slate-500 font-bold uppercase tracking-wide">
-                            <span>Verifying...</span>
+                            <span>{t('wizard.verifying')}</span>
                             <span>45%</span>
                           </div>
                           <Progress value={45} className="h-1.5 bg-surface-muted" aria-label="Analysis progress" />
@@ -235,7 +238,7 @@ export function DocumentUploadWidget({
                           className="flex items-center gap-2 text-xs font-bold text-primary bg-primary/10 w-fit px-2 py-1 rounded-sm border border-primary/20"
                         >
                            <FileCheck className="w-4 h-4" />
-                           <span>VERIFIED DOCUMENT</span>
+                           <span>{t('wizard.verifiedDocument')}</span>
                         </motion.div>
                      )}
                   </div>

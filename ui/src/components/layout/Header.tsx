@@ -21,8 +21,8 @@ export function Header() {
             <span className="font-display text-lg font-bold tracking-tight text-foreground">G</span>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.35em] text-muted">Federal Service</p>
-            <h2 className="text-lg font-bold tracking-tight text-foreground">GovAssist Ethiopia</h2>
+            <p className="text-xs uppercase tracking-[0.35em] text-muted">{t("common.federalService")}</p>
+            <h2 className="text-lg font-bold tracking-tight text-foreground">{t("common.brandName")} {t("common.ethiopia")}</h2>
           </div>
         </div>
 
