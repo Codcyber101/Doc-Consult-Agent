@@ -25,25 +25,30 @@ import {
   Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useSidebar } from "@/lib/context/SidebarContext";
 
 export default function ServicesPage() {
   const [activeFilter, setActiveFilter] = useState("all");
   const { t } = useTranslation();
+  const { isCollapsed } = useSidebar();
 
   return (
-    <div className="flex min-h-screen bg-background text-foreground font-sans selection:bg-primary/20">
+    <div className="flex h-screen overflow-hidden bg-background text-foreground font-sans selection:bg-primary/20">
       <AppSidebar />
 
-      <main className="flex-1 lg:pl-72 flex flex-col min-w-0">
+      <main className={cn(
+        "flex-1 flex flex-col min-w-0 transition-all duration-300 h-screen overflow-y-auto",
+        isCollapsed ? "lg:pl-20" : "lg:pl-72"
+      )}>
         <div className="lg:hidden h-16 border-b border-border flex items-center px-4 sticky top-0 bg-surface/90 backdrop-blur z-30">
-          <span className="font-bold text-lg font-display">GovAssist</span>
+          <span className="font-bold text-lg font-display">{t("common.brandName")}</span>
         </div>
 
         <div className="flex-1 container mx-auto max-w-7xl px-4 md:px-6 pt-6 pb-12 gap-8 flex flex-col lg:flex-row">
           <aside className="flex w-full lg:w-64 flex-col gap-8 shrink-0 lg:sticky lg:top-6 self-start">
             <div className="flex flex-col gap-4 bg-surface border border-border rounded-3xl p-5">
               <div className="flex flex-col pb-3 border-b border-border">
-                <p className="text-[10px] uppercase tracking-[0.35em] text-muted">Catalog</p>
+                <p className="text-[10px] uppercase tracking-[0.35em] text-muted">{t("catalog.categories.label")}</p>
                 <h1 className="text-base font-bold font-display">{t("catalog.categories.title")}</h1>
                 <p className="text-muted text-xs font-medium">{t("catalog.categories.subtitle")}</p>
               </div>
@@ -69,14 +74,14 @@ export default function ServicesPage() {
 
             <div className="flex flex-col gap-4 bg-surface border border-border rounded-3xl p-5">
               <div className="flex flex-col pb-3 border-b border-border">
-                <p className="text-[10px] uppercase tracking-[0.35em] text-muted">Highlights</p>
+                <p className="text-[10px] uppercase tracking-[0.35em] text-muted">{t("catalog.popular.label")}</p>
                 <h1 className="text-base font-bold font-display">{t("catalog.popular.title")}</h1>
                 <p className="text-muted text-xs font-medium">{t("catalog.popular.subtitle")}</p>
               </div>
               <div className="flex flex-col gap-2">
                 <PopularServiceItem title={t("services.passport.title")} icon={<Plane className="w-3.5 h-3.5" />} color="primary" />
-                <PopularServiceItem title="Drivers License" icon={<User className="w-3.5 h-3.5" />} color="gold" />
-                <PopularServiceItem title="Tax Clearance" icon={<Briefcase className="w-3.5 h-3.5" />} color="ink" />
+                <PopularServiceItem title={t("services.driversLicense.title")} icon={<User className="w-3.5 h-3.5" />} color="gold" />
+                <PopularServiceItem title={t("services.taxClearance.title")} icon={<Briefcase className="w-3.5 h-3.5" />} color="ink" />
               </div>
             </div>
 
@@ -84,7 +89,7 @@ export default function ServicesPage() {
               <div className="absolute -right-4 -top-4 opacity-10">
                 <User className="w-24 h-24" />
               </div>
-              <p className="text-[10px] uppercase tracking-[0.35em] text-surface/70">Support Desk</p>
+              <p className="text-[10px] uppercase tracking-[0.35em] text-surface/70">{t("common.supportDesk")}</p>
               <h3 className="font-bold mb-2 text-surface relative z-10 font-display">{t("dashboard.needAssistance")}</h3>
               <p className="text-xs text-surface/70 mb-4 relative z-10 leading-relaxed">{t("dashboard.supportSub")}</p>
               <button className="w-full py-2.5 bg-surface/10 hover:bg-surface/20 text-surface text-xs font-bold rounded-xl border border-surface/20 transition-colors relative z-10 backdrop-blur-sm">
@@ -97,7 +102,7 @@ export default function ServicesPage() {
             <div className="mb-8">
               <div className="flex items-center gap-2 mb-2 text-muted">
                 <Sparkles className="w-4 h-4 text-accent" />
-                <span className="text-[10px] font-black uppercase tracking-[0.3em]">Citizen Services Catalog</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.3em]">{t("catalog.citizenServices")}</span>
               </div>
               <h1 className="text-3xl font-black text-foreground leading-tight mb-2 font-display">{t("catalog.title")}</h1>
               <p className="text-muted font-medium">{t("catalog.subtitle")}</p>
@@ -145,6 +150,16 @@ export default function ServicesPage() {
               />
 
               <CatalogCard
+                title={t("services.kebeleId.title")}
+                subtitle={t("services.kebeleId.description")}
+                icon={<User className="w-5 h-5" />}
+                color="gold"
+                time={t("services.estimates.days", { count: 5 })}
+                digitalReadiness={70}
+                fee="50 ETB"
+              />
+
+              <CatalogCard
                 title={t("services.tinRegistration.title")}
                 subtitle={t("services.tinRegistration.description")}
                 icon={<BadgeCheck className="w-5 h-5" />}
@@ -165,21 +180,21 @@ export default function ServicesPage() {
               />
 
               <CatalogCard
-                title="Investment Permit"
-                subtitle="የኢንቨስትመንት ፈቃድ"
+                title={t("services.investmentPermit.title")}
+                subtitle={t("services.investmentPermit.description")}
                 icon={<TrendingUp className="w-5 h-5" />}
                 color="gold"
-                time="5-7 Working Days"
+                time={t("services.estimates.days", { count: 7 })}
                 digitalReadiness={60}
                 fee="3,500 ETB"
               />
 
               <CatalogCard
-                title="Construction Permit"
-                subtitle="የግንባታ ፈቃድ"
+                title={t("services.constructionPermit.title")}
+                subtitle={t("services.constructionPermit.description")}
                 icon={<Building className="w-5 h-5" />}
                 color="ink"
-                time="1-2 Months"
+                time={t("services.estimates.months", { count: 2 })}
                 digitalReadiness={15}
                 fee="Variable"
               />
@@ -289,10 +304,9 @@ function CatalogCard({ title, subtitle, icon, color, time, digitalReadiness, fee
           <div className={cn("p-2.5 rounded-xl", colors[color])}>{icon}</div>
           <div className="flex items-center gap-1.5 text-[10px] font-bold text-muted bg-surface-muted px-2 py-1 rounded-lg" title="MESOB Payment Integrated">
             <Zap className="w-3 h-3 text-primary fill-primary" />
-            <span>MESOB</span>
+            <span>{t("common.mesob")}</span>
           </div>
         </div>
-
         <h3 className="text-lg font-bold text-foreground mb-1 group-hover:text-primary transition-colors font-display">{title}</h3>
         <h4 className="text-sm text-muted font-ethiopic mb-6">{subtitle}</h4>
 

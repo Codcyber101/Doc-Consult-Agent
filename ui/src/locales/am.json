@@ -1,21 +1,58 @@
 {
   "common": {
-    "welcome": "እንኳን ደህና መጡ",
+    "welcome": "እንኳን ደህና መጡ፣ {{name}}",
     "services": "አገልግሎቶች",
     "trackStatus": "ሁኔታውን ይከታተሉ",
     "support": "ድጋፍ",
     "dashboard": "ዳሽቦርድ",
     "myQueue": "የኔ ተራ",
+    "myVault": "የኔ ቮልት",
     "system": "ሲስተም",
     "mainMenu": "ዋናው ዝርዝር",
     "logout": "ውጣ",
     "search": "ፈልግ",
-    "notifications": "ማሳወቂያዎች"
+    "notifications": "ማሳወቂያዎች",
+    "back": "ተመለስ",
+    "continue": "ቀጥል",
+    "saveExit": "አስቀምጥ እና ውጣ",
+    "ethiopia": "ኢትዮጵያ",
+    "federalService": "የፌዴራል አገልግሎት",
+    "localDb": "የአካባቢ መረጃ ቋት",
+    "syncActive": "ማመሳሰል ንቁ ነው",
+    "citizenId": "የዜጋ መታወቂያ",
+    "loading": "በመጫን ላይ...",
+    "error": "ስህተት",
+    "brandName": "ጎቭአሲስት",
+    "citizenName": "አበበ ቢቂላ",
+    "firstName": "አበበ",
+    "citizenIdNumber": "94822",
+    "supportDesk": "የድጋፍ መስጫ",
+    "mesob": "መሶብ"
+  },
+  "login": {
+    "title": "የአገር አቀፍ መግቢያ በር ማረጋገጫ ፖርታል",
+    "nationalId": "ብሔራዊ መታወቂያ",
+    "mobileId": "የሞባይል ኢ-መታወቂያ",
+    "digitalIdLabel": "የዲጂታል መታወቂያ ቁጥር",
+    "digitalIdPlaceholder": "ET-ID-XXXX-XXXX",
+    "passcodeLabel": "የመግቢያ የይለፍ ቃል",
+    "mobileLabel": "የተመዘገበ የሞባይል ቁጥር",
+    "mobilePlaceholder": "+251 ...",
+    "smsNotice": "ባለ 6 አሃዝ ደህንነቱ የተጠበቀ ቶከን በኤስኤምኤስ ይላካል።",
+    "enterGateway": "ወደ መግቢያ በር ይግቡ",
+    "forgotCredentials": "የመግቢያ መረጃ ረስተዋል?",
+    "newRegistration": "አዲስ ምዝገባ",
+    "isoCertified": "ISO 27001 የተረጋገጠ",
+    "hsmEncrypted": "HSM የተመሰጠረ"
   },
   "dashboard": {
     "welcomeSub": "አገልግሎት ይጀምሩ፣ የማረጋገጫ ዝርዝርዎን ያጠናቅቁ እና ማስገቢያዎችን በአንድ ቦታ ይከታተሉ።",
+    "citizenServicesDesk": "የዜጎች አገልግሎት መስጫ",
     "securityLevel": "የደህንነት ደረጃ",
+    "biometricLevel": "ደረጃ 2 - ባዮሜትሪክ",
+    "newDigitalId": "አዲስ ዲጂታል መታወቂያ ይገኛል",
     "nationalIdBanner": "በአዲሱ ብሔራዊ መታወቂያ ዲጂታል ማንነትዎን ይጠብቁ",
+    "nationalIdBannerSub": "ማመልከቻዎን በተሳለጠ የሲቪክ የስራ ፍሰት ይጠብቁ፣ ያረጋግጡ እና ያስገቡ። እያንዳንዱን እርምጃ ይከታተሉ እና የተገዢነት ግብረመልስ ወዲያውኑ ያግኙ።",
     "applyNow": "አሁን ያመልክቱ",
     "learnMore": "የበለጠ ይረዱ",
     "commonServices": "የተለመዱ አገልግሎቶች",
@@ -24,10 +61,120 @@
     "supportSub": "የድጋፍ ቡድናችን በመንግስት አገልግሎቶች ውስጥ እንዲጓዙ ለመርዳት በቀን 24 ሰዓት በሳምንት 7 ቀናት ይገኛል።",
     "contactSupport": "ድጋፍ ያግኙ"
   },
+  "wizard": {
+    "application": "ማመልከቻ",
+    "step": "ደረጃ",
+    "of": "ከ",
+    "completionProgress": "የማጠናቀቂያ ሂደት",
+    "declaration": "መግለጫ",
+    "declarationText": "በዚህ የተሰጠው መረጃ ሁሉ ትክክለኛ መሆኑን እና ሰነዶች ሁሉ ኦሪጅናል መሆናቸውን አረጋግጣለሁ። የተሳሳተ መረጃ መስጠት በኢትዮጵያ ሕግ የሚያስቀጣ መሆኑን እረዳለሁ።",
+    "agreeTerms": "በውሎች እና ሁኔታዎች እስማማለሁ",
+    "submitGateway": "ለአገር አቀፍ መግቢያ በር ያስገቡ",
+    "initializing": "ማስገቢያውን በማስጀመር ላይ...",
+    "success": "ማስተላለፍ ተሳክቷል",
+    "successSub": "ማመልከቻዎ ለአገር አቀፍ መግቢያ በር በደህንነት ተላልፏል።",
+    "confirmationId": "የማረጋገጫ መለያ",
+    "internalId": "የውስጥ መለያ",
+    "downloadReceipt": "ደረሰኝ ያውርዱ",
+    "trackSubmission": "ማስገቢያውን ይከታተሉ",
+    "returnDashboard": "ወደ ዳሽቦርድ ይመለሱ",
+    "registrySynced": "መዝገብ ተመሳስሏል",
+    "registrySyncedSub": "መዝገቡ በብሔራዊ የሲቪል መዝገብ ውስጥ በተሳካ ሁኔታ ተመዝግቧል።",
+    "downloadCertificate": "የምስክር ወረቀት ያውርዱ",
+    "initializeRegistrySync": "የመዝገብ ማመሳሰልን ያስጀምሩ",
+    "sovereignVerification": "ሉዓላዊ ማረጋገጫ",
+    "sovereignVerificationSub": "ወኪሎቻችን አሁን እነዚህን ዝርዝሮች ከብሔራዊ ጤና እና ሲቪል መዝገብ ስብስቦች ጋር እያመሳከሩ ነው።",
+    "registryHandshake": "የመዝገብ ሰላምታ",
+    "transmittingBlock": "የተመሰጠረ ብሎክ ወደ አዲስ አበባ ሲቪል ኖድ በማስተላለፍ ላይ...",
+    "viewProof": "ማረጋገጫ ይመልከቱ",
+    "fixIssue": "ችግሩን ያስተካክሉ",
+    "readyForTransmission": "ለማስተላለፍ ዝግጁ",
+    "nationalIdHandshake": "የብሔራዊ መታወቂያ ሰላምታ",
+    "readinessCheck": "የዝግጁነት ፍተሻ",
+    "certifiedReady": "ዝግጁ መሆኑ ተረጋግጧል",
+    "incomplete": "ያልተሟላ",
+    "status": "ሁኔታ",
+    "upload": "ጫን",
+    "useCamera": "ካሜራ ይጠቀሙ",
+    "clickToUpload": "ለመጫን ይጫኑ ወይም ይጎትቱ",
+    "maxSize": "ከፍተኛ 5 ሜባ",
+    "verifying": "በማረጋገጥ ላይ...",
+    "verifiedDocument": "የተረጋገጠ ሰነድ",
+    "beginProcess": "ሂደቱን ይጀምሩ",
+    "missingDocs": "{{count}} ሰነዶች ጎድለዋል",
+    "totalDocs": "{{count}} ሰነዶች",
+    "captureLive": "ቀጥታ ባዮሜትሪክ ይያዙ",
+    "retakePhoto": "ፎቶውን እንደገና ያንሱ",
+    "alignFace": "ፊትን በክበቡ ውስጥ ያስተካክሉ",
+    "livenessCheck": "የህይወት ፍተሻ",
+    "biometricNotice": "ይህ ምስል በሉዓላዊ የባዮሜትሪክ ኤፒአይ በኩል ከብሔራዊ ዲጂታል መታወቂያ መዝገብዎ ጋር ይነጻጸራል።",
+    "offlineCapable": "ከመስመር ውጭ የሚሰራ",
+    "docIdNumber": "የሰነድ መለያ ቁጥር"
+  },
+  "consent": {
+    "title": "ሉዓላዊ ስምምነት",
+    "subtitle": "ሉዓላዊ የውሂብ ሂደት",
+    "agreementInfo": "የመዝገብ ውሂብ ከኢትዮጵያ ሉዓላዊ መሠረተ ልማት ጋር በምስጠራ የተያያዘ ነው። ዜሮ-እውቀት ፕሮቶኮሎች የእርስዎ የግል መለያ መረጃ ከተፈቀደላቸው ቢሮዎች ወሰን ውጭ እንደማይወጣ ያረጋግጣሉ።",
+    "authorizedOps": "የተፈቀዱ ክዋኔዎች:",
+    "op1": "አውቶማቲክ የፖሊሲ ተገዢነት ማረጋገጫ",
+    "op2": "ለኦፊሴላዊ ቢሮ ማስገቢያ የግል መለያ መረጃ ማውጣት",
+    "op3": "በመሶብ መግቢያ በኩል ያልተመሳሰለ ማስተላለፍ",
+    "op4": "የምስጠራ ኦዲት መሄጃ መልሕቅ",
+    "ratify": "የውሂብ ማቀነባበሪያ ስምምነቱን አረጋግጣለሁ እና ሉዓላዊ የማህደር ማስተላለፍን እፈቅዳለሁ።",
+    "retract": "ሰርዝ",
+    "agreeSubmit": "ተስማማ እና ማስገቢያውን ጀምር"
+  },
+  "provenance": {
+    "title": "ዲጂታል ምንጭ",
+    "subtitle": "በምስጠራ የተፈረመ",
+    "issuer": "አውጪ",
+    "timestamp": "የጊዜ ማህተም",
+    "copyJson": "JSON ቅዳ",
+    "copied": "ተቀድቷል",
+    "verificationMsg": "ይህ ሰነድ ከኢትዮጵያ ብሔራዊ የታመነ ሰንሰለት ጋር የተያያዘ ትክክለኛ ዲጂታል ፊርማ ይዟል።"
+  },
   "services": {
+    "badges": {
+      "online": "ኦንላይን",
+      "inPerson": "በአካል",
+      "instant": "ወዲያውኑ"
+    },
+    "estimates": {
+      "days": "ግምት {{count}} ቀናት",
+      "weeks": "ግምት {{count}} ሳምንታት",
+      "months": "ግምት {{count}} ወራት",
+      "instant": "ወዲያውኑ"
+    },
+    "start": "ጀምር",
     "tradeLicense": {
       "title": "የንግድ ፈቃድ እድሳት",
-      "description": "ለንግድ ድርጅቶች ዓመታዊ የንግድ ሥራ ፈቃድ እድሳት። ይህ ሂደት የእርስዎን ውሂብ ከአገር አቀፍ የንግድ መዝገብ ጋር ያመሳስላል።"
+      "description": "ለንግድ ድርጅቶች ዓመታዊ የንግድ ሥራ ፈቃድ እድሳት። ይህ ሂደት የእርስዎን ውሂብ ከአገር አቀፍ የንግድ መዝገብ ጋር ያመሳስላል።",
+      "steps": {
+        "s1": "መረጃ",
+        "s1Desc": "መስፈርቶችን እና ብቁነትን ይገምግሙ",
+        "s2": "ዳኝነት",
+        "s2Desc": "የንግድ ቦታዎን ይምረጡ",
+        "s3": "የንግድ ዝርዝሮች",
+        "s3Desc": "የንግድ ስም እና ምድብ ያስገቡ",
+        "s4": "ሰነዶች",
+        "s4Desc": "አስገዳጅ መታወቂያዎችን ይጫኑ",
+        "s5": "ግምገማ",
+        "s5Desc": "የመጨረሻ ተገዢነት ኦዲት"
+      },
+      "readiness": {
+        "license": "ኦሪጅናል የንግድ ፈቃድ",
+        "tin": "የቲን ምስክር ወረቀት",
+        "lease": "የኪራይ ስምምነት (ተቀባይነት ያለው)"
+      },
+      "details": {
+        "businessName": "የንግድ ስም",
+        "businessCategory": "የንግድ ምድብ",
+        "tinNumber": "የቲን ቁጥር",
+        "region": "ክልል / የተጠቆመች ከተማ",
+        "subCity": "አስተዳደራዊ ክፍለ ከተማ",
+        "selectSubCity": "ክፍለ ከተማ ይምረጡ",
+        "tinNotice": "ከመቀጠልዎ በፊት ኦሪጅናል መታወቂያዎን and የቲን ምስክር ወረቀት ቅኝቶችዎን ማዘጋጀትዎን ያረጋግጡ።"
+      }
     },
     "tinRegistration": {
       "title": "የቲን ምዝገባ",
@@ -37,25 +184,97 @@
       "title": "የፓስፖርት አገልግሎቶች",
       "description": "የኢትዮጵያ ፓስፖርት አዲስ መስጠትና ማደስ።"
     },
+    "kebeleId": {
+      "title": "የቀበሌ መታወቂያ እድሳት",
+      "description": "የአካባቢዎን መታወቂያ ካርድ ያድሱ።",
+      "steps": {
+        "s1": "ማንነት",
+        "s1Desc": "መሠረታዊ የግል መረጃ",
+        "s2": "ባዮሜትሪክስ",
+        "s2Desc": "የፊት ለይቶ ማወቂያ ቀረጻ",
+        "s3": "መኖሪያ",
+        "s3Desc": "አድራሻ እና የወረዳ ካርታ",
+        "s4": "ግምገማ",
+        "s4Desc": "ብሔራዊ መዝገብ ማረጋገጫ"
+      },
+      "readiness": {
+        "bio": "ባዮሜትሪክ ህይወት",
+        "map": "የወረዳ አድራሻ ተዛማጅ",
+        "doc": "የማስረጃ ጥራት"
+      },
+      "details": {
+        "fullName": "ሙሉ ስም (በአካል መታወቂያ ላይ እንዳለው)",
+        "oldId": "የድሮ የቀበሌ መታወቂያ ቁጥር",
+        "dob": "የትውልድ ቀን",
+        "gender": "ጾታ",
+        "houseNumber": "የቤት ቁጥር",
+        "subCity": "ክፍለ ከተማ",
+        "woreda": "ወረዳ",
+        "residencyAddress": "የመኖሪያ አድራሻ",
+        "residencyEvidence": "የመኖሪያ ማስረጃ",
+        "residencyDesc": "የኪራይ ስምምነት ወይም የመገልገያ ክፍያ (ውሃ/ኤሌክትሪክ) ይጫኑ"
+      }
+    },
     "vitalEvents": {
       "title": "ወሳኝ ኩነቶች",
-      "description": "ልደቶችን፣ ጋብቻዎችን እና ሌሎች ወሳኝ የሕይወት ኩነቶችን ይመዝግቡ።"
+      "description": "ልደቶችን፣ ጋብቻዎችን እና ሌሎች ወሳኝ የሕይወት ኩነቶችን ይመዝግቡ።",
+      "types": {
+        "birth": "የልደት ምዝገባ",
+        "birthDesc": "አዲስ የተወለደ ዜጋ ይመዝግቡ",
+        "marriage": "የጋብቻ ምስክር ወረቀት",
+        "marriageDesc": "የሲቪል አጋርነትን ሕጋዊ ያድርጉ",
+        "death": "የሞት ምዝገባ",
+        "deathDesc": "ኦፊሴላዊ የህልፈት መዝገብ"
+      },
+      "steps": {
+        "s1": "የክስተት አይነት",
+        "s1Desc": "የመዝገቡን ተፈጥሮ ይምረጡ",
+        "s2": "የውሂብ ግቤት",
+        "s2Desc": "የወሳኝ ኩነቱ ዝርዝሮች",
+        "s3": "ግንኙነት",
+        "s3Desc": "የቤተሰብ እና የምስክር ትስስር",
+        "s4": "ማስተላለፍ",
+        "s4Desc": "የመጨረሻ መዝገብ ማመሳሰል"
+      },
+      "details": {
+        "primaryName": "የዋናው ሰው ሙሉ ስም",
+        "eventDate": "የክስተት ቀን",
+        "eventLocation": "የክስተት ቦታ",
+        "tinNationalId": "ቲን / ብሔራዊ መታወቂያ (አማራጭ)",
+        "nationalIdLinkage": "የብሔራዊ መታወቂያ ትስስር",
+        "fatherId": "የአባት ብሔራዊ መታወቂያ",
+        "motherId": "የእናት ብሔራዊ መታወቂያ",
+        "witnesses": "ኦፊሴላዊ ምስክሮች",
+        "witnessName": "የምስክር #{{count}} ሙሉ ስም",
+        "witnessId": "የምስክር መታወቂያ",
+        "namePlaceholder": "ምሳሌ፡ አበበ ቢቂላ",
+        "locationPlaceholder": "ምሳሌ፡ ጥቁር አንበሳ ሆስፒታል",
+        "witnessNamePlaceholder": "ስም",
+        "idPlaceholder": "የመለያ ቁጥር",
+        "registryMatch": "ብሔራዊ መዝገብ ተዛማጅ",
+        "witnessVerification": "የምስክር ማረጋገጫ",
+        "integrityHash": "የውሂብ ታማኝነት ሃሽ"
+      }
     },
-    "badges": {
-      "online": "ኦንላይን",
-      "inPerson": "በአካል",
-      "instant": "ወዲያውኑ"
+    "investmentPermit": {
+      "title": "የኢንቨስትመንት ፈቃድ",
+      "description": "ለአለም አቀፍ እና ለአገር ውስጥ ባለሀብቶች አዲስ የኢንቨስትመንት ፈቃድ።"
     },
-    "estimates": {
-      "days": "ግምት {{count}} ቀናት",
-      "weeks": "ግምት {{count}} ሳምንታት",
-      "instant": "ወዲያውኑ"
+    "constructionPermit": {
+      "title": "የግንባታ ፈቃድ",
+      "description": "የህንፃ እና የግንባታ ፈቃዶችን ያመልክቱ።"
     },
-    "start": "ጀምር"
+    "driversLicense": {
+      "title": "የመንጃ ፈቃድ"
+    },
+    "taxClearance": {
+      "title": "የግብር ማረጋገጫ"
+    }
   },
   "readiness": {
     "title": "የዝግጁነት አጠቃላይ እይታ",
     "subtitle": "ንቁ ማመልከቻዎችዎን ይከታተሉ",
+    "readinessLedger": "የዝግጁነት መዝገብ",
     "status": {
       "approved": "ጸድቋል",
       "pending": "በጥበቃ ላይ",
@@ -67,6 +286,7 @@
     "title": "የመንግስት አገልግሎቶችን ያግኙ",
     "subtitle": "ግልጽ፣ ቀልጣፋ እና ዲጂታል-ቅድሚያ የህዝብ አገልግሎቶች።",
     "searchPlaceholder": "ፈቃዶችን፣ ፓስፖርቶችን፣ ፈቃዶችን ይፈልጉ...",
+    "citizenServices": "የዜጋ አገልግሎቶች ካታሎግ",
     "categories": {
       "title": "ምድቦች",
       "subtitle": "በዘርፍ ይፈልጉ",
@@ -74,11 +294,13 @@
       "business": "ንግድ",
       "personal": "የግል",
       "legal": "ህጋዊ",
-      "immigration": "ኢሚግሬሽን"
+      "immigration": "ኢሚግሬሽን",
+      "label": "ካታሎግ"
     },
     "popular": {
       "title": "ታዋቂ አገልግሎቶች",
-      "subtitle": "በዚህ ሳምንት በብዛት የተጠየቁ"
+      "subtitle": "በዚህ ሳምንት በብዛት የተጠየቁ",
+      "label": "ዋና ዋና ነጥቦች"
     },
     "readiness": "የዲጂታል ዝግጁነት",
     "fee": "ክፍያ",
@@ -98,5 +320,99 @@
     "dataPrivacy": "የውሂብ ግላዊነት",
     "dataPrivacySub": "ይህ ሂደት ከጫፍ እስከ ጫፍ የ HSM ምስጠራን ይጠቀማል። የእርስዎ ሰነዶች በደመና አገልጋዮች ላይ በማይታወቅ ግልጽ ጽሑፍ ውስጥ በጭራሽ አይቀመጡም።",
     "officialFlow": "ይፋዊ ፍሰት"
+  },
+  "queue": {
+    "title": "የኔ ተራ",
+    "subtitle": "በጥበቃ ላይ ያሉ ማስገቢያዎችን እና የማመሳሰል ሁኔታን ያስተዳድሩ።",
+    "history": "ታሪክ",
+    "forceSync": "ሁሉንም አስገድዶ አመሳስል",
+    "offlineTitle": "አሁን ከመስመር ውጭ ነዎት",
+    "offlineDesc": "የእርስዎ ውሂብ በአስተማማኝ የአሳሽ ቮልት ውስጥ በአካባቢው ተቀምጧል እና እንደገና ሲገናኙ በራሱ ይመሳሰላል።",
+    "retryConnection": "ግንኙነቱን እንደገና ይሞክሩ",
+    "pendingItems": "በጥበቃ ላይ ያሉ እቃዎች",
+    "unsyncedData": "ያልተመሳሰለ ውሂብ",
+    "lastSync": "የመጨረሻው የተሳካ ማመሳሰል",
+    "pendingSubmissions": "በጥበቃ ላይ ያሉ ማስገቢያዎች",
+    "sortBy": "ተደርድረዋል በ:",
+    "newestFirst": "የቅርብ ጊዜ መጀመሪያ",
+    "savedLocally": "በአካባቢው ተቀምጧል",
+    "uploading": "ፎቶዎችን በመጫን ላይ...",
+    "waiting": "በጥበቃ ላይ",
+    "failed": "ተስኖታል",
+    "waitingConnection": "ግንኙነትን በመጠባበቅ ላይ",
+    "syncing": "በማመሳሰል ላይ",
+    "syncFailed": "ማመሳሰል ተስኖታል",
+    "viewDetails": "ዝርዝሮችን ይመልከቱ",
+    "pause": "አቁም",
+    "sync": "አመሳስል",
+    "retry": "እንደገና ሞክር",
+    "offlineCapable": "ከመስመር ውጭ መስራት የሚችል",
+    "pouchDbActive": "PouchDB ማከማቻ: ንቁ"
+  },
+  "vault": {
+    "title": "የሰነድ",
+    "titleAccent": "ቮልት",
+    "subtitle": "የተረጋገጡ ማስረጃዎችዎን እና በመንግስት የተሰጡ መዛግብትን ያግኙ።",
+    "encryptedStorage": "የተመሰጠረ ማከማቻ",
+    "documentsCount": "ሰነዶች",
+    "verified": "የተረጋገጠ",
+    "addNew": "አዲስ ሰነድ ጨምር",
+    "searchPlaceholder": "በስም ወይም በሰነድ ዓይነት ይፈልጉ...",
+    "view": "ይመልከቱ",
+    "verify": "ያረጋግጡ",
+    "issuedBy": "አውጪ",
+    "expires": "ያበቃል",
+    "shareSecurely": "በደህንነት ያጋሩ",
+    "encryptionNoticeTitle": "ሉዓላዊ የምስጠራ ማሳሰቢያ",
+    "encryptionNoticeDesc": "በእርስዎ ቮልት ውስጥ ያሉ ሁሉም ሰነዶች በግል HSM ቁልፍዎ የተመሰጠሩ ናቸው። እርስዎ እና የተፈቀደላቸው የመንግስት መኮንኖች (በእርስዎ ግልጽ ፈቃድ) ብቻ እነዚህን መዛግብት ማግኘት ይችላሉ።",
+    "securityAudit": "የደህንነት ኦዲት"
+  },
+  "track": {
+    "title": "የማመልከቻ",
+    "titleAccent": "ክትትል",
+    "subtitle": "በሁሉም ስልጣኖች ያሉ የመንግስት ማስገቢያዎችዎን የቀጥታ ሁኔታ ይቆጣጠሩ።",
+    "registryLabel": "ብሔራዊ የማስተላለፊያ መዝገብ",
+    "transmissionProgress": "የማስተላለፍ ሂደት",
+    "currentAction": "የአሁኑ እርምጃ",
+    "updated": "ተዘምኗል",
+    "fixNow": "አሁኑኑ ያስተካክሉ",
+    "details": "ዝርዝሮች",
+    "realTimePolling": "የእውነተኛ ጊዜ ፍተሻ",
+    "pollingDesc": "የእኛ መግቢያ ወኪሎች ለዝመናዎች ብሔራዊ መዝገቡን በየጊዜው እየፈተሹ ነው። አንድ መኮንን በማስገቢያዎ ላይ እርምጃ እንደወሰደ የሞባይል ማሳወቂያ ይደርሰዎታል።",
+    "manualSync": "በእጅ የማመሳሰል እድሳት",
+    "archiveSummary": "የማህደር ማጠቃለያ",
+    "inProgress": "በሂደት ላይ",
+    "actionRequired": "እርምጃ ያስፈልጋል",
+    "history": "ታሪክ (2025)",
+    "downloadLedger": "የኦዲት ደብተር አውርድ"
+  },
+  "apply": {
+    "title": "የማመልከቻ ጅምር",
+    "subtitle": "የመንግስት አገልግሎት ማመልከቻዎን ያስጀምሩ",
+    "welcome": "ወደ አገልግሎት ፖርታል እንኳን ደህና መጡ",
+    "instruction": "እባክዎን የማመልከቻ ፍሰትዎን ለመጀመር ከዳሽቦርዱ ላይ አገልግሎት ይምረጡ።"
+  },
+  "guidance": {
+    "title": "መመሪያ እና ሕግ",
+    "stepPrefix": "ደረጃ",
+    "plainLanguage": {
+      "title": "ቀላል ቋንቋ መመሪያ",
+      "explanationLabel": "ማብራሪያ",
+      "q1": "ይህ መረጃ ለምን አስፈለገ?",
+      "a1": "መንግስት ህጋዊ አገልግሎት ለመስጠት ማንነትዎን ማረጋገጥ አለበት። ይህ የማጭበርበር ወንጀልን ለመከላከላ ይረዳል። ይህንን ከብሔራዊ መታወቂያ መረጃ ቋት ጋር እናመሳክራለን።"
+    },
+    "legalContext": {
+      "title": "ህጋዊ ሁኔታ",
+      "subtitle": "ተዛማጅ አዋጆች",
+      "readFull": "ሙሉውን ጽሑፍ ያንብቡ"
+    },
+    "documentExamples": {
+      "title": "የሰነድ ምሳሌዎች"
+    },
+    "quickTip": {
+      "title": "ፈጣን ምክር",
+      "body": "ሁሉም የተጫኑ ሰነዶች በቀለም የተቀረጹ እና ጠርዞቻቸው በግልጽ የሚታዩ መሆናቸውን ያረጋግጡ።"
+    },
+    "copyright": "ጎቭአሲስት ኢትዮጵያ © 2026"
   }
 }

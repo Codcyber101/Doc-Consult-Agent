@@ -247,6 +247,32 @@ h3,
    SCROLLBAR (Modern, minimal)
    ========================================================================== */
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.custom-sidebar-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(11, 91, 67, 0.1);
+  border-radius: 10px;
+}
+
+.custom-sidebar-scroll:hover::-webkit-scrollbar-thumb {
+  background: rgba(11, 91, 67, 0.2);
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;

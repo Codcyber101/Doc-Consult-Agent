@@ -23,6 +23,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 const APPLICATIONS = [
   {
@@ -61,23 +62,24 @@ const APPLICATIONS = [
 ];
 
 export default function TrackPage() {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen bg-background selection:bg-primary/20 selection:text-foreground font-sans">
       <div className="fixed inset-0 bg-mesh pointer-events-none opacity-30" />
-      <Navbar user={{ name: 'Abebe Bikila' }} />
+      <Navbar user={{ name: t('common.citizenName') }} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
         <div className="mb-12">
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
             <div className="flex items-center gap-2 mb-2">
               <ShieldCheck className="w-4 h-4 text-primary" />
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted">National Transmission Registry</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted">{t('track.registryLabel')}</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-display font-bold text-foreground tracking-tight">
-              Application <span className="text-primary italic">Tracking</span>
+              {t('track.title')} <span className="text-primary italic">{t('track.titleAccent')}</span>
             </h1>
             <p className="mt-4 text-lg text-muted">
-              Monitor the live status of your government submissions across all jurisdictions.
+              {t('track.subtitle')}
             </p>
           </motion.div>
         </div>
@@ -115,7 +117,7 @@ export default function TrackPage() {
                     <div className="space-y-6">
                       <div className="space-y-2">
                         <div className="flex justify-between text-xs font-bold uppercase tracking-widest">
-                          <span className="text-muted">Transmission Progress</span>
+                          <span className="text-muted">{t('track.transmissionProgress')}</span>
                           <span className="text-foreground">{app.progress}%</span>
                         </div>
                         <Progress value={app.progress} className="h-2" />
@@ -129,17 +131,17 @@ export default function TrackPage() {
                             <Clock className="w-5 h-5 text-muted shrink-0" />
                           )}
                           <div>
-                            <p className="text-xs font-bold text-muted uppercase tracking-widest mb-1">Current Action</p>
+                            <p className="text-xs font-bold text-muted uppercase tracking-widest mb-1">{t('track.currentAction')}</p>
                             <p className={cn('text-sm font-medium', app.urgent ? 'text-danger' : 'text-foreground')}>{app.nextStep}</p>
                           </div>
                         </div>
                         <div className="flex items-center gap-3 md:border-l md:pl-6 md:border-border">
                           <div className="text-right">
-                            <p className="text-xs font-bold text-muted uppercase tracking-widest mb-1">Updated</p>
+                            <p className="text-xs font-bold text-muted uppercase tracking-widest mb-1">{t('track.updated')}</p>
                             <p className="text-sm font-medium text-foreground">{app.lastUpdate}</p>
                           </div>
                           <Button size="sm" variant={app.urgent ? 'destructive' : 'secondary'} className="h-10 rounded-xl gap-2">
-                            {app.urgent ? 'Fix Now' : 'Details'}
+                            {app.urgent ? t('track.fixNow') : t('track.details')}
                             <ArrowRight className="w-3 h-3" />
                           </Button>
                         </div>
@@ -157,12 +159,12 @@ export default function TrackPage() {
                 <div className="w-12 h-12 bg-surface/10 rounded-2xl flex items-center justify-center mb-6 shadow-glow-primary">
                   <RefreshCw className="w-6 h-6 text-surface" />
                 </div>
-                <h3 className="text-xl font-display font-bold mb-2">Real-time Polling</h3>
+                <h3 className="text-xl font-display font-bold mb-2">{t('track.realTimePolling')}</h3>
                 <p className="text-surface/70 text-sm leading-relaxed mb-8">
-                  Our gateway agents are constantly polling the national registry for updates. You will receive a mobile notification as soon as an officer acts on your submission.
+                  {t('track.pollingDesc')}
                 </p>
                 <Button variant="secondary" className="w-full h-12 rounded-xl font-bold uppercase tracking-widest text-[10px]">
-                  Manual Sync Refresh
+                  {t('track.manualSync')}
                 </Button>
               </CardContent>
               <div className="absolute inset-0 paper-grain opacity-10 pointer-events-none" />
@@ -170,24 +172,24 @@ export default function TrackPage() {
 
             <Card className="border-border bg-surface shadow-sm">
               <CardHeader>
-                <CardTitle className="text-sm uppercase tracking-widest text-muted font-black">Archive Summary</CardTitle>
+                <CardTitle className="text-sm uppercase tracking-widest text-muted font-black">{t('track.archiveSummary')}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4 pt-0">
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-muted">In Progress</span>
+                  <span className="text-muted">{t('track.inProgress')}</span>
                   <span className="font-bold text-foreground">2</span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-muted">Action Required</span>
+                  <span className="text-muted">{t('track.actionRequired')}</span>
                   <span className="font-bold text-danger">1</span>
                 </div>
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-muted">History (2025)</span>
+                  <span className="text-muted">{t('track.history')}</span>
                   <span className="font-bold text-foreground">14</span>
                 </div>
                 <div className="w-full h-[1px] bg-surface-muted my-2" />
                 <Button variant="link" className="w-full text-primary font-bold p-0 justify-start">
-                  Download Audit Ledger <ExternalLink className="w-3 h-3 ml-2" />
+                  {t('track.downloadLedger')} <ExternalLink className="w-3 h-3 ml-2" />
                 </Button>
               </CardContent>
             </Card>

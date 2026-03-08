@@ -1,21 +1,58 @@
 {
   "common": {
-    "welcome": "Welcome back",
+    "welcome": "Welcome, {{name}}",
     "services": "Services",
     "trackStatus": "Track Status",
     "support": "Support",
     "dashboard": "Dashboard",
     "myQueue": "My Queue",
+    "myVault": "My Vault",
     "system": "System",
     "mainMenu": "Main Menu",
     "logout": "Logout",
     "search": "Search",
-    "notifications": "Notifications"
+    "notifications": "Notifications",
+    "back": "Back",
+    "continue": "Continue",
+    "saveExit": "Save & Exit",
+    "ethiopia": "Ethiopia",
+    "federalService": "Federal Service",
+    "localDb": "Local DB",
+    "syncActive": "Sync Active",
+    "citizenId": "Citizen ID",
+    "loading": "Loading...",
+    "error": "Error",
+    "brandName": "GovAssist",
+    "citizenName": "Abebe Bikila",
+    "firstName": "Abebe",
+    "citizenIdNumber": "94822",
+    "supportDesk": "Support Desk",
+    "mesob": "MESOB"
+  },
+  "login": {
+    "title": "National Gateway Authentication Portal",
+    "nationalId": "National ID",
+    "mobileId": "Mobile e-ID",
+    "digitalIdLabel": "Digital ID Number",
+    "digitalIdPlaceholder": "ET-ID-XXXX-XXXX",
+    "passcodeLabel": "Access Passcode",
+    "mobileLabel": "Registered Mobile Number",
+    "mobilePlaceholder": "+251 ...",
+    "smsNotice": "A 6-digit secure token will be sent via SMS.",
+    "enterGateway": "Enter Gateway",
+    "forgotCredentials": "Forgot Credentials?",
+    "newRegistration": "New Registration",
+    "isoCertified": "ISO 27001 Certified",
+    "hsmEncrypted": "HSM Encrypted"
   },
   "dashboard": {
     "welcomeSub": "Start a service, finish your checklist, and track submissions in one place.",
+    "citizenServicesDesk": "Citizen Services Desk",
     "securityLevel": "Security Level",
+    "biometricLevel": "Level 2 - Biometric",
+    "newDigitalId": "New Digital ID Available",
     "nationalIdBanner": "Secure your digital identity with the new National ID",
+    "nationalIdBannerSub": "Secure, verify, and submit your application with a streamlined civic workflow. Track each step and receive compliance feedback instantly.",
     "applyNow": "Apply Now",
     "learnMore": "Learn More",
     "commonServices": "Common Services",
@@ -24,10 +61,120 @@
     "supportSub": "Our support team is available 24/7 to help you navigate through government services.",
     "contactSupport": "Contact Support"
   },
+  "wizard": {
+    "application": "Application",
+    "step": "Step",
+    "of": "of",
+    "completionProgress": "Completion Progress",
+    "declaration": "Declaration",
+    "declarationText": "I hereby declare that all information provided is accurate and all documents are authentic. I understand that providing false information is a punishable offense under Ethiopian law.",
+    "agreeTerms": "I agree to the terms and conditions",
+    "submitGateway": "Submit to National Gateway",
+    "initializing": "Initializing Submission...",
+    "success": "Transmission Successful",
+    "successSub": "Your application has been securely transmitted to the National Gateway.",
+    "confirmationId": "Confirmation ID",
+    "internalId": "Internal ID",
+    "downloadReceipt": "Download Receipt",
+    "trackSubmission": "Track Submission",
+    "returnDashboard": "Return to Dashboard",
+    "registrySynced": "Registry Synced",
+    "registrySyncedSub": "The record has been successfully recorded in the National Civil Registry.",
+    "downloadCertificate": "Download Certificate",
+    "initializeRegistrySync": "Initialize Registry Sync",
+    "sovereignVerification": "Sovereign Verification",
+    "sovereignVerificationSub": "Our agents are now cross-referencing these details with the National Health & Civil Registry clusters.",
+    "registryHandshake": "Registry Handshake",
+    "transmittingBlock": "Transmitting encrypted block to Addis Ababa civil node...",
+    "viewProof": "View Proof",
+    "fixIssue": "Fix Issue",
+    "readyForTransmission": "Ready for Transmission",
+    "nationalIdHandshake": "National ID Handshake",
+    "readinessCheck": "Readiness Check",
+    "certifiedReady": "Certified Ready",
+    "incomplete": "Incomplete",
+    "status": "Status",
+    "upload": "Upload",
+    "useCamera": "Use Camera",
+    "clickToUpload": "Click to upload or drag and drop",
+    "maxSize": "Max 5MB",
+    "verifying": "Verifying...",
+    "verifiedDocument": "Verified Document",
+    "beginProcess": "Begin Process",
+    "missingDocs": "{{count}} docs missing",
+    "totalDocs": "{{count}} DOCUMENTS",
+    "captureLive": "Capture Live Biometric",
+    "retakePhoto": "Retake Photo",
+    "alignFace": "Align face within the circle",
+    "livenessCheck": "Liveness Check",
+    "biometricNotice": "This image will be compared against your National Digital ID record via the sovereign biometric API.",
+    "offlineCapable": "Offline Capable",
+    "docIdNumber": "Document ID Number"
+  },
+  "consent": {
+    "title": "Sovereign Consent",
+    "subtitle": "Sovereign Data processing",
+    "agreementInfo": "Archive data is cryptographically anchored to Ethiopian sovereign infrastructure. Zero-Knowledge protocols ensure your PII never exits authorized bureau boundaries.",
+    "authorizedOps": "Authorized Operations:",
+    "op1": "Automated policy compliance verification",
+    "op2": "PII extraction for official bureau submission",
+    "op3": "Asynchronous transmission via MESOB Gateway",
+    "op4": "Cryptographic audit trail anchoring",
+    "ratify": "I ratify the data processing agreement and authorize sovereign archival transmission.",
+    "retract": "Retract",
+    "agreeSubmit": "Agree & Initialize Submission"
+  },
+  "provenance": {
+    "title": "Digital Provenance",
+    "subtitle": "Cryptographically Signed",
+    "issuer": "Issuer",
+    "timestamp": "Timestamp",
+    "copyJson": "Copy JSON",
+    "copied": "Copied",
+    "verificationMsg": "This document contains a valid digital signature anchored to the Ethiopian National Trust Chain."
+  },
   "services": {
+    "badges": {
+      "online": "Online",
+      "inPerson": "In-Person",
+      "instant": "Instant"
+    },
+    "estimates": {
+      "days": "Est. {{count}} Days",
+      "weeks": "Est. {{count}} Weeks",
+      "months": "Est. {{count}} Months",
+      "instant": "Instant"
+    },
+    "start": "Start",
     "tradeLicense": {
       "title": "Trade License Renewal",
-      "description": "Annual renewal of business operation permits for commercial entities. This process synchronizes your data with the National Trade Registry."
+      "description": "Annual renewal of business operation permits for commercial entities. This process synchronizes your data with the National Trade Registry.",
+      "steps": {
+        "s1": "Information",
+        "s1Desc": "Review requirements and eligibility",
+        "s2": "Jurisdiction",
+        "s2Desc": "Select your business location",
+        "s3": "Business Details",
+        "s3Desc": "Enter business name and category",
+        "s4": "Documents",
+        "s4Desc": "Upload mandatory identifications",
+        "s5": "Review",
+        "s5Desc": "Final compliance audit"
+      },
+      "readiness": {
+        "license": "Original Trade License",
+        "tin": "TIN Certificate",
+        "lease": "Lease Agreement (valid)"
+      },
+      "details": {
+        "businessName": "Business Name",
+        "businessCategory": "Business Category",
+        "tinNumber": "TIN Number",
+        "region": "Region / Chartered City",
+        "subCity": "Administrative Sub-City",
+        "selectSubCity": "Select Sub-City",
+        "tinNotice": "Ensure you have your Original ID and TIN Certificate scans ready before proceeding."
+      }
     },
     "tinRegistration": {
       "title": "TIN Registration",
@@ -37,25 +184,97 @@
       "title": "Passport Services",
       "description": "New issuance and renewal of Ethiopian passports."
     },
+    "kebeleId": {
+      "title": "Kebele ID Renewal",
+      "description": "Renew your neighborhood identification card.",
+      "steps": {
+        "s1": "Identity",
+        "s1Desc": "Basic personal information",
+        "s2": "Biometrics",
+        "s2Desc": "Facial recognition capture",
+        "s3": "Residency",
+        "s3Desc": "Address and Woreda mapping",
+        "s4": "Review",
+        "s4Desc": "National Registry validation"
+      },
+      "readiness": {
+        "bio": "Biometric Liveness",
+        "map": "Woreda Address Match",
+        "doc": "Evidence Quality"
+      },
+      "details": {
+        "fullName": "Full Name (as on physical ID)",
+        "oldId": "Old Kebele ID Number",
+        "dob": "Date of Birth",
+        "gender": "Gender",
+        "houseNumber": "House Number",
+        "subCity": "Sub-city",
+        "woreda": "Woreda",
+        "residencyAddress": "Residential Address",
+        "residencyEvidence": "Residency Evidence",
+        "residencyDesc": "Upload Lease Agreement or Utility Bill (Water/Electric)"
+      }
+    },
     "vitalEvents": {
       "title": "Vital Events",
-      "description": "Register births, marriages, and other vital life events."
+      "description": "Register births, marriages, and other vital life events.",
+      "types": {
+        "birth": "Birth Registration",
+        "birthDesc": "Register a newborn citizen",
+        "marriage": "Marriage Certificate",
+        "marriageDesc": "Legalize civil partnership",
+        "death": "Death Registration",
+        "deathDesc": "Official record of passing"
+      },
+      "steps": {
+        "s1": "Event Type",
+        "s1Desc": "Select the nature of registry",
+        "s2": "Data Entry",
+        "s2Desc": "Details of the vital event",
+        "s3": "Relationship",
+        "s3Desc": "Family and witness linkage",
+        "s4": "Transmission",
+        "s4Desc": "Final registry sync"
+      },
+      "details": {
+        "primaryName": "Primary Person Full Name",
+        "eventDate": "Event Date",
+        "eventLocation": "Event Location",
+        "tinNationalId": "TIN / National ID (Optional)",
+        "nationalIdLinkage": "National ID Linkage",
+        "fatherId": "Father's National ID",
+        "motherId": "Mother's National ID",
+        "witnesses": "Official Witnesses",
+        "witnessName": "Witness #{{count}} Full Name",
+        "witnessId": "Witness ID",
+        "namePlaceholder": "e.g. Abebe Bikila",
+        "locationPlaceholder": "e.g. Black Lion Hospital",
+        "witnessNamePlaceholder": "Name",
+        "idPlaceholder": "ID Number",
+        "registryMatch": "National Registry Match",
+        "witnessVerification": "Witness Verification",
+        "integrityHash": "Data Integrity Hash"
+      }
     },
-    "badges": {
-      "online": "Online",
-      "inPerson": "In-Person",
-      "instant": "Instant"
+    "investmentPermit": {
+      "title": "Investment Permit",
+      "description": "New investment permit for international and domestic investors."
     },
-    "estimates": {
-      "days": "Est. {{count}} Days",
-      "weeks": "Est. {{count}} Weeks",
-      "instant": "Instant"
+    "constructionPermit": {
+      "title": "Construction Permit",
+      "description": "Apply for building and construction permits."
     },
-    "start": "Start"
+    "driversLicense": {
+      "title": "Drivers License"
+    },
+    "taxClearance": {
+      "title": "Tax Clearance"
+    }
   },
   "readiness": {
     "title": "Readiness Overview",
     "subtitle": "Track your active applications",
+    "readinessLedger": "Readiness Ledger",
     "status": {
       "approved": "Approved",
       "pending": "Pending",
@@ -67,6 +286,7 @@
     "title": "Find Government Services",
     "subtitle": "Transparent, efficient, and digital-first public services.",
     "searchPlaceholder": "Search for licenses, passports, permits...",
+    "citizenServices": "Citizen Services Catalog",
     "categories": {
       "title": "Categories",
       "subtitle": "Browse by sector",
@@ -74,11 +294,13 @@
       "business": "Business",
       "personal": "Personal",
       "legal": "Legal",
-      "immigration": "Immigration"
+      "immigration": "Immigration",
+      "label": "Catalog"
     },
     "popular": {
       "title": "Popular Services",
-      "subtitle": "Most requested this week"
+      "subtitle": "Most requested this week",
+      "label": "Highlights"
     },
     "readiness": "Digital Readiness",
     "fee": "Fee",
@@ -98,5 +320,99 @@
     "dataPrivacy": "Data Privacy",
     "dataPrivacySub": "This process uses end-to-end HSM encryption. Your documents are never stored in unmasked cleartext on cloud servers.",
     "officialFlow": "Official Flow"
+  },
+  "queue": {
+    "title": "My Queue",
+    "subtitle": "Manage pending submissions and sync status.",
+    "history": "History",
+    "forceSync": "Force Sync All",
+    "offlineTitle": "You are currently offline",
+    "offlineDesc": "Your data is saved locally in the secure browser vault and will sync automatically once you reconnect.",
+    "retryConnection": "Retry Connection",
+    "pendingItems": "Pending Items",
+    "unsyncedData": "Unsynced Data",
+    "lastSync": "Last Successful Sync",
+    "pendingSubmissions": "Pending Submissions",
+    "sortBy": "Sorted by:",
+    "newestFirst": "Newest First",
+    "savedLocally": "Saved locally",
+    "uploading": "Uploading photos...",
+    "waiting": "Waiting",
+    "failed": "Failed",
+    "waitingConnection": "Waiting for connection",
+    "syncing": "Syncing",
+    "syncFailed": "Sync Failed",
+    "viewDetails": "View details",
+    "pause": "Pause",
+    "sync": "Sync",
+    "retry": "Retry",
+    "offlineCapable": "Offline Capable",
+    "pouchDbActive": "PouchDB Storage: Active"
+  },
+  "vault": {
+    "title": "Document",
+    "titleAccent": "Vault",
+    "subtitle": "Access your verified credentials and government-issued archives.",
+    "encryptedStorage": "Encrypted Storage",
+    "documentsCount": "Documents",
+    "verified": "Verified",
+    "addNew": "Add New Document",
+    "searchPlaceholder": "Search by name or document type...",
+    "view": "View",
+    "verify": "Verify",
+    "issuedBy": "Issued By",
+    "expires": "Expires",
+    "shareSecurely": "Share Securely",
+    "encryptionNoticeTitle": "Sovereign Encryption Notice",
+    "encryptionNoticeDesc": "All documents in your vault are encrypted with your personal HSM key. Only you and authorized government officers (with your explicit consent) can access these archives.",
+    "securityAudit": "Security Audit"
+  },
+  "track": {
+    "title": "Application",
+    "titleAccent": "Tracking",
+    "subtitle": "Monitor the live status of your government submissions across all jurisdictions.",
+    "registryLabel": "National Transmission Registry",
+    "transmissionProgress": "Transmission Progress",
+    "currentAction": "Current Action",
+    "updated": "Updated",
+    "fixNow": "Fix Now",
+    "details": "Details",
+    "realTimePolling": "Real-time Polling",
+    "pollingDesc": "Our gateway agents are constantly polling the national registry for updates. You will receive a mobile notification as soon as an officer acts on your submission.",
+    "manualSync": "Manual Sync Refresh",
+    "archiveSummary": "Archive Summary",
+    "inProgress": "In Progress",
+    "actionRequired": "Action Required",
+    "history": "History (2025)",
+    "downloadLedger": "Download Audit Ledger"
+  },
+  "apply": {
+    "title": "Application Start",
+    "subtitle": "Initialize your government service application",
+    "welcome": "Welcome to the Service Portal",
+    "instruction": "Please select a service from the dashboard to begin your application flow."
+  },
+  "guidance": {
+    "title": "Guidance & Law",
+    "stepPrefix": "Step",
+    "plainLanguage": {
+      "title": "Plain Language Guide",
+      "explanationLabel": "Explanation",
+      "q1": "Why is this information required?",
+      "a1": "Identity verification is required to prevent fraud and ensure service delivery to the correct individual. We cross-reference this with the National ID database."
+    },
+    "legalContext": {
+      "title": "Legal Context",
+      "subtitle": "Relevant Proclamations",
+      "readFull": "Read Full Text"
+    },
+    "documentExamples": {
+      "title": "Document Examples"
+    },
+    "quickTip": {
+      "title": "Quick Tip",
+      "body": "Ensure all uploaded documents are scanned in color and edges are clearly visible."
+    },
+    "copyright": "GovAssist Ethiopia © 2026"
   }
 }

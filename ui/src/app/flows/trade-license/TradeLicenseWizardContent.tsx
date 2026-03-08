@@ -18,20 +18,25 @@ import { WizardShell } from '@/components/domain/WizardShell';
 import { DocumentUploadWidget } from '@/components/domain/DocumentUploadWidget';
 import { ReadinessPanel, ReadinessItem } from '@/components/domain/ReadinessPanel';
 import { ProcedureChecklistCard } from '@/components/domain/ProcedureChecklistCard';
+import { ConsentModal } from '@/components/submission/ConsentModal';
+import { ProvenanceViewer } from '@/components/domain/ProvenanceViewer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/common/Input';
 import { saveWizardProgress, getWizardProgress } from '@/lib/offline/db';
 import { apiClient } from '@/lib/api/client';
-
-const STEPS = [
-  { title: 'Information', description: 'Review requirements and eligibility' },
-  { title: 'Jurisdiction', description: 'Select your business location' },
-  { title: 'Business Details', description: 'Enter business name and category' },
-  { title: 'Documents', description: 'Upload mandatory identifications' },
-  { title: 'Review', description: 'Final compliance audit' }
-];
+import { useTranslation } from 'react-i18next';
 
 export default function TradeLicenseWizard() {
+  const { t } = useTranslation();
+
+  const STEPS = [
+    { title: t('services.tradeLicense.steps.s1'), description: t('services.tradeLicense.steps.s1Desc') },
+    { title: t('services.tradeLicense.steps.s2'), description: t('services.tradeLicense.steps.s2Desc') },
+    { title: t('services.tradeLicense.steps.s3'), description: t('services.tradeLicense.steps.s3Desc') },
+    { title: t('services.tradeLicense.steps.s4'), description: t('services.tradeLicense.steps.s4Desc') },
+    { title: t('services.tradeLicense.steps.s5'), description: t('services.tradeLicense.steps.s5Desc') }
+  ];
+
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -48,10 +53,16 @@ export default function TradeLicenseWizard() {
     tinNumber: ''
   });
 
+  const [submissionId, setSubmissionId] = useState<string | null>(null);
+  const [portalSubmissionId, setPortalSubmissionId] = useState<string | null>(null);
+  const [isConsentOpen, setIsConsentOpen] = useState(false);
+  const [isProvenanceOpen, setIsProvenanceOpen] = useState(false);
+  const [provenanceData, setProvenanceData] = useState<any>(null);
+
   const [readinessItems, setReadinessItems] = useState<ReadinessItem[]>([
-    { id: 'trade-license', label: 'Original Trade License', status: 'missing', fixActionLabel: 'Upload' },
-    { id: 'tin-cert', label: 'TIN Certificate', status: 'missing', fixActionLabel: 'Upload' },
-    { id: 'lease-doc', label: 'Lease Agreement (valid)', status: 'missing', fixActionLabel: 'Upload' },
+    { id: 'trade-license', label: t('services.tradeLicense.readiness.license'), status: 'missing', fixActionLabel: t('wizard.upload') },
+    { id: 'tin-cert', label: t('services.tradeLicense.readiness.tin'), status: 'missing', fixActionLabel: t('wizard.upload') },
+    { id: 'lease-doc', label: t('services.tradeLicense.readiness.lease'), status: 'missing', fixActionLabel: t('wizard.upload') },
   ]);
 
   useEffect(() => {
@@ -69,7 +80,7 @@ export default function TradeLicenseWizard() {
 
   const handleNext = async () => {
     if (currentStep === STEPS.length) {
-      handleSubmit();
+      setIsConsentOpen(true);
       return;
     }
     const next = currentStep + 1;
@@ -85,10 +96,44 @@ export default function TradeLicenseWizard() {
   };
 
   const handleSubmit = async () => {
+    setIsConsentOpen(false);
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    setIsLoading(false);
-    setIsSubmitted(true);
+    setAnalysisError(null);
+    try {
+      const resp = await apiClient.post("/submissions", {
+        package: {
+          service_type: "TRADE_LICENSE_RENEWAL",
+          jurisdiction: `${formData.region} - ${formData.subCity}`,
+          form_data: formData,
+          document_ids: Object.values(uploadedDocs).map(d => d.documentId),
+          analysis_id: analysisId,
+        },
+      });
+      setSubmissionId(resp.data?.submission_id || null);
+      setPortalSubmissionId(resp.data?.portal_submission_id || "ET-MESOB-2026-X99");
+      setIsSubmitted(true);
+    } catch (e: any) {
+      setAnalysisError(e?.message || "Submission failed");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleViewProvenance = (itemId: string) => {
+    // In production, fetch actual provenance from analysis result
+    const item = readinessItems.find(i => i.id === itemId);
+    setProvenanceData({
+      issuer: "National Digital ID Bureau",
+      issuedAt: new Date().toISOString(),
+      signature: "0x7f8d9a2b3c4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a",
+      payload: {
+        document_type: item?.label,
+        verification_status: "VERIFIED",
+        confidence: 0.98,
+        timestamp: new Date().toISOString()
+      }
+    });
+    setIsProvenanceOpen(true);
   };
 
   // When entering review step, trigger backend analysis and poll results
@@ -191,23 +236,26 @@ export default function TradeLicenseWizard() {
                 >
                    <ShieldCheck className="w-10 h-10 text-white" />
                 </motion.div>
-                <h1 className="text-4xl font-display font-bold mb-4 tracking-tight">Transmission Successful</h1>
+                <h1 className="text-4xl font-display font-bold mb-4 tracking-tight">{t('wizard.success')}</h1>
                 <p className="text-slate-400 text-lg mb-10 max-w-md mx-auto">
-                  Your application for Trade License Renewal has been securely transmitted to the National Gateway.
+                  {t('wizard.successSub')}
                 </p>
                 
                 <div className="bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10 inline-block mb-10">
-                   <p className="text-[10px] uppercase tracking-widest font-black text-primary mb-1">Confirmation ID</p>
-                   <p className="text-xl font-mono font-bold text-blue-400">ET-MESOB-2026-X99</p>
+                   <p className="text-[10px] uppercase tracking-widest font-black text-primary mb-1">{t('wizard.confirmationId')}</p>
+                   <p className="text-xl font-mono font-bold text-blue-400">{portalSubmissionId}</p>
+                   {submissionId && (
+                     <p className="text-[10px] text-slate-500 font-mono mt-2">{t('wizard.internalId')}: {submissionId}</p>
+                   )}
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                    <Button variant="outline" className="gap-2 bg-white/10 border-white/20 text-white hover:bg-white/20 h-12 px-6">
-                      <Download className="w-4 h-4" /> Download Receipt
+                      <Download className="w-4 h-4" /> {t('wizard.downloadReceipt')}
                    </Button>
-                   <Link href="/">
+                   <Link href={submissionId ? `/track/${submissionId}` : "/"}>
                       <Button className="bg-primary hover:bg-primary-dark text-white h-12 px-8 font-bold shadow-lg shadow-primary/20">
-                         Return to Dashboard
+                         {submissionId ? t('wizard.trackSubmission') : t('wizard.returnDashboard')}
                       </Button>
                    </Link>
                 </div>
@@ -227,13 +275,14 @@ export default function TradeLicenseWizard() {
       onBack={currentStep > 1 ? handleBack : undefined}
       onNext={handleNext}
       isLoading={isLoading}
+      nextLabel={currentStep === 5 ? t('wizard.submitGateway') : t('common.continue')}
     >
       {/* Step 1: Intro */}
       {currentStep === 1 && (
         <div className="space-y-6">
            <ProcedureChecklistCard 
-              title="Trade License Renewal"
-              description="Official process for renewing business operations within Ethiopia."
+              title={t('services.tradeLicense.title')}
+              description={t('services.tradeLicense.description')}
               estimatedTime="2-3 Days"
               cost="500 ETB"
               isOfflineAvailable={true}
@@ -243,10 +292,10 @@ export default function TradeLicenseWizard() {
            <div className="p-4 bg-amber-50 border border-amber-100 rounded-xl flex gap-3">
               <AlertCircle className="w-5 h-5 text-amber-600 shrink-0" />
               <p className="text-sm text-amber-800">
-                Ensure you have your <strong>Original ID</strong> and <strong>TIN Certificate</strong> scans ready before proceeding.
+                {t('services.tradeLicense.details.tinNotice')}
               </p>
            </div>
-           <Input label="Document ID Number" placeholder="e.g. 123456789" />
+           <Input label={t('wizard.docIdNumber')} placeholder="e.g. 123456789" />
         </div>
       )}
 
@@ -255,7 +304,7 @@ export default function TradeLicenseWizard() {
         <div className="space-y-8">
            <div className="grid gap-6">
               <div className="space-y-3">
-                 <label className="text-sm font-bold text-slate-900 dark:text-white">Region / Chartered City</label>
+                 <label className="text-sm font-bold text-slate-900 dark:text-white">{t('services.tradeLicense.details.region')}</label>
                  <div className="grid grid-cols-2 gap-3">
                     {['Addis Ababa', 'Oromia', 'Amhara', 'Dire Dawa'].map(r => (
                        <button 
@@ -277,13 +326,13 @@ export default function TradeLicenseWizard() {
                       animate={{ opacity: 1, height: 'auto' }}
                       className="space-y-3"
                     >
-                       <label className="text-sm font-bold text-slate-900 dark:text-white">Administrative Sub-City</label>
+                       <label className="text-sm font-bold text-slate-900 dark:text-white">{t('services.tradeLicense.details.subCity')}</label>
                        <select 
                          className="w-full h-12 px-4 rounded-xl border border-border dark:border-slate-800 bg-surface dark:bg-slate-900 text-slate-900 dark:text-white"
                          value={formData.subCity}
                          onChange={(e) => setFormData({...formData, subCity: e.target.value})}
                        >
-                          <option value="">Select Sub-City</option>
+                          <option value="">{t('services.tradeLicense.details.selectSubCity')}</option>
                           {['Bole', 'Arada', 'Kirkos', 'Lideta'].map(s => <option key={s} value={s}>{s}</option>)}
                        </select>
                     </motion.div>
@@ -297,21 +346,21 @@ export default function TradeLicenseWizard() {
       {currentStep === 3 && (
         <div className="space-y-6">
            <Input 
-             label="Business Name" 
+             label={t('services.tradeLicense.details.businessName')} 
              placeholder="Enter registered name"
              value={formData.businessName}
              onChange={(e) => setFormData({...formData, businessName: e.target.value})}
              leftIcon={<Building2 className="w-4 h-4" />}
            />
            <Input 
-             label="Business Category" 
+             label={t('services.tradeLicense.details.businessCategory')} 
              placeholder="e.g. Retail, Tech, Manufacturing"
              value={formData.businessCategory}
              onChange={(e) => setFormData({...formData, businessCategory: e.target.value})}
              leftIcon={<Briefcase className="w-4 h-4" />}
            />
            <Input 
-             label="TIN Number" 
+             label={t('services.tradeLicense.details.tinNumber')} 
              placeholder="10-digit tax identification"
              value={formData.tinNumber}
              onChange={(e) => setFormData({...formData, tinNumber: e.target.value})}
@@ -325,7 +374,7 @@ export default function TradeLicenseWizard() {
       {currentStep === 4 && (
         <div className="space-y-8">
            <DocumentUploadWidget 
-              label="Original Trade License"
+              label={t('services.tradeLicense.readiness.license')}
               description="Upload a clear scan or photo of your current trade license."
               onUploaded={async ({ documentId }) => {
                  setUploadedDocs((prev) => ({ ...prev, "Original Trade License": { label: "Original Trade License", documentId } }));
@@ -333,7 +382,7 @@ export default function TradeLicenseWizard() {
               }}
            />
            <DocumentUploadWidget 
-              label="TIN Certificate"
+              label={t('services.tradeLicense.readiness.tin')}
               description="Upload the latest digital or scanned copy."
               onUploaded={async ({ documentId }) => {
                  setUploadedDocs((prev) => ({ ...prev, "TIN Certificate": { label: "TIN Certificate", documentId } }));
@@ -341,7 +390,7 @@ export default function TradeLicenseWizard() {
               }}
            />
            <DocumentUploadWidget 
-              label="Lease Agreement (valid)"
+              label={t('services.tradeLicense.readiness.lease')}
               description="Upload your current, valid lease agreement."
               onUploaded={async ({ documentId }) => {
                  setUploadedDocs((prev) => ({ ...prev, "Lease Agreement (valid)": { label: "Lease Agreement (valid)", documentId } }));
@@ -367,28 +416,40 @@ export default function TradeLicenseWizard() {
               onFixItem={(id) => {
                  if (id === 'trade-license' || id === 'tin-cert' || id === 'lease-doc') setCurrentStep(4);
               }}
+              onViewProvenance={handleViewProvenance}
            />
            
            <div className="p-6 bg-slate-900 rounded-3xl text-white relative overflow-hidden">
               <div className="relative z-10">
                  <div className="flex items-center gap-3 mb-4">
                     <FileCheck className="w-5 h-5 text-primary/80" />
-                    <h3 className="font-display font-bold text-lg">Declaration</h3>
+                    <h3 className="font-display font-bold text-lg">{t('wizard.declaration')}</h3>
                  </div>
                  <p className="text-slate-400 text-sm leading-relaxed mb-6">
-                    I hereby declare that all information provided is accurate and all documents are authentic. 
-                    I understand that providing false information is a punishable offense under Ethiopian law.
+                    {t('wizard.declarationText')}
                  </p>
                  <label className="flex items-center gap-3 cursor-pointer group">
                     <div className="w-6 h-6 rounded-md border-2 border-slate-700 bg-slate-800 flex items-center justify-center group-hover:border-primary transition-colors">
                        <div className="w-3 h-3 bg-primary rounded-sm"></div>
                     </div>
-                    <span className="text-sm font-medium">I agree to the terms and conditions</span>
+                    <span className="text-sm font-medium">{t('wizard.agreeTerms')}</span>
                  </label>
               </div>
            </div>
         </div>
       )}
+
+      <ConsentModal 
+        isOpen={isConsentOpen} 
+        onClose={() => setIsConsentOpen(false)} 
+        onConfirm={handleSubmit} 
+      />
+
+      <ProvenanceViewer 
+        isOpen={isProvenanceOpen} 
+        onClose={() => setIsProvenanceOpen(false)} 
+        data={provenanceData} 
+      />
     </WizardShell>
   );
 }

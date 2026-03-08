@@ -11,23 +11,29 @@ import { ServiceCard } from "@/components/dashboard/ServiceCard";
 import { ReadinessOverview } from "@/components/dashboard/ReadinessOverview";
 import { useTranslation } from "react-i18next";
 import { BadgeCheck, Store, Plane, Baby, ChevronRight, Fingerprint, Sparkles } from "lucide-react";
+import { useSidebar } from "@/lib/context/SidebarContext";
+import { cn } from "@/lib/utils";
 
 export default function DashboardPage() {
   const { t } = useTranslation();
+  const { isCollapsed } = useSidebar();
 
   return (
-    <div className="flex min-h-screen bg-background text-foreground font-sans selection:bg-primary/20">
+    <div className="flex h-screen overflow-hidden bg-background text-foreground font-sans selection:bg-primary/20">
       <AppSidebar />
 
-      <main className="flex-1 lg:pl-72 flex flex-col min-w-0">
+      <main className={cn(
+        "flex-1 flex flex-col min-w-0 transition-all duration-300 h-screen overflow-y-auto",
+        isCollapsed ? "lg:pl-20" : "lg:pl-72"
+      )}>
         <Header />
 
         <div className="flex-1 p-4 md:p-8 lg:p-10 max-w-7xl mx-auto w-full space-y-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 reveal">
             <div className="space-y-2">
-              <p className="text-[11px] uppercase tracking-[0.35em] text-muted">Citizen Services Desk</p>
+              <p className="text-[11px] uppercase tracking-[0.35em] text-muted">{t("dashboard.citizenServicesDesk")}</p>
               <h1 className="text-3xl md:text-4xl font-black tracking-tight text-foreground font-display">
-                {t("common.welcome")}, Abebe
+                {t("common.welcome", { name: t("common.firstName") })}
               </h1>
               <p className="text-muted font-medium">{t("dashboard.welcomeSub")}</p>
             </div>
@@ -36,7 +42,7 @@ export default function DashboardPage() {
               <Fingerprint className="w-5 h-5 text-primary" />
               <div className="flex flex-col leading-none">
                 <span className="text-[10px] uppercase text-muted font-bold tracking-[0.28em]">{t("dashboard.securityLevel")}</span>
-                <span className="text-xs font-bold text-foreground">Level 2 - Biometric</span>
+                <span className="text-xs font-bold text-foreground">{t("dashboard.biometricLevel")}</span>
               </div>
             </div>
           </div>
@@ -49,13 +55,13 @@ export default function DashboardPage() {
             <div className="relative z-10 max-w-2xl space-y-6">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-surface/70 text-xs font-bold uppercase tracking-[0.32em] text-foreground stamp-press">
                 <Sparkles className="w-3.5 h-3.5 text-accent" />
-                New Digital ID Available
+                {t("dashboard.newDigitalId")}
               </div>
               <h2 className="text-3xl md:text-5xl font-bold text-foreground font-display leading-tight">
                 {t("dashboard.nationalIdBanner")}
               </h2>
               <p className="text-sm md:text-base text-muted max-w-xl">
-                Secure, verify, and submit your application with a streamlined civic workflow. Track each step and receive compliance feedback instantly.
+                {t("dashboard.nationalIdBannerSub")}
               </p>
               <div className="flex flex-wrap gap-4">
                 <button className="px-6 py-3 bg-foreground text-surface font-bold rounded-xl hover:opacity-90 transition-all shadow-lg shadow-foreground/20">
@@ -100,6 +106,7 @@ export default function DashboardPage() {
                     estimate={t("services.estimates.instant")}
                     badge="instant"
                     color="ink"
+                    href="/flows/tin-registration"
                   />
                 </div>
                 <div className="reveal reveal-delay-3">
@@ -110,6 +117,7 @@ export default function DashboardPage() {
                     estimate={t("services.estimates.weeks", { count: 2 })}
                     badge="inPerson"
                     color="gold"
+                    href="/flows/passport"
                   />
                 </div>
                 <div className="reveal reveal-delay-4">
@@ -120,6 +128,7 @@ export default function DashboardPage() {
                     estimate={t("services.estimates.days", { count: 1 })}
                     badge="online"
                     color="emerald"
+                    href="/flows/vital-events"
                   />
                 </div>
               </div>
@@ -134,7 +143,7 @@ export default function DashboardPage() {
                 <div className="absolute top-0 right-0 p-8 opacity-10 transform translate-x-4 -translate-y-4">
                   <span className="text-6xl font-display">GA</span>
                 </div>
-                <p className="text-[10px] uppercase tracking-[0.35em] text-surface/60">Support Desk</p>
+                <p className="text-[10px] uppercase tracking-[0.35em] text-surface/60">{t("common.supportDesk")}</p>
                 <h3 className="font-display font-bold text-xl mb-2 relative z-10">{t("dashboard.needAssistance")}</h3>
                 <p className="text-surface/70 text-sm mb-6 leading-relaxed relative z-10 max-w-[85%]">
                   {t("dashboard.supportSub")}
